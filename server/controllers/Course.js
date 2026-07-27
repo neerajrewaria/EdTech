@@ -4,7 +4,7 @@ const Category = require("../models/Category");
 const User = require("../models/User");
 const Tag = require("../models/Tag"); // Import Tag model
 const Section = require("../models/Section");
-const SubSection = require("../models/SubSection");
+const SubSection = require("../models/Subsection");
 const cloudinary = require("cloudinary").v2;
 
 
