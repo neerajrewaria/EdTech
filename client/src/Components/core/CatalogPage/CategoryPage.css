@@ -1,0 +1,316 @@
+/* Base Layout Resets & Variables */
+:root {
+  --bg-primary: #0b0f19;
+  --bg-surface: #131b2e;
+  --bg-surface-elevated: #1e2942;
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --accent-color: #3b82f6;
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-category-layout {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Loading State Overhaul */
+.modern-loading-screen {
+  background-color: var(--bg-primary);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-muted);
+  gap: 20px;
+}
+
+.modern-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border-subtle);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Premium SaaS Inspired Hero Section */
+.modern-hero-header {
+  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 45%),
+              linear-gradient(to bottom, #111827 0%, var(--bg-primary) 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 30px 24px;
+}
+
+.modern-hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.modern-breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+}
+
+.modern-breadcrumb .separator {
+  margin: 0 8px;
+  opacity: 0.5;
+}
+
+.modern-breadcrumb .current {
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
+.modern-main-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.modern-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 760px;
+  margin-bottom: 32px;
+}
+
+/* Badge/Metric Indicators */
+.modern-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stat-pill {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 0.87rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.stat-icon {
+  color: #fbbf24;
+}
+
+/* Two Column Sidebar Content Grid Configuration */
+.modern-catalog-body {
+  padding: 48px 24px;
+}
+
+.modern-catalog-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+}
+
+/* Elegant Dynamic Sidebar Styling */
+.modern-filter-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sidebar-widget {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.widget-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-links li {
+  font-size: 0.93rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  padding: 4px 0;
+}
+
+.sidebar-links li:hover, .sidebar-links .active-link {
+  color: var(--accent-color);
+  transform: translateX(4px);
+}
+
+.advertisement-card {
+  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+  border-left: 4px solid var(--accent-color);
+}
+
+.advertisement-card h4 {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.advertisement-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.sidebar-promo-btn {
+  width: 100%;
+  background: var(--accent-gradient);
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* Right Column Content & Grids */
+.modern-courses-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.content-header-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 16px;
+}
+
+.results-counter {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.results-counter span {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.dummy-sort-dropdown {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dummy-sort-dropdown select {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Standard Course Grid Structure */
+.modern-course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 24px;
+}
+
+.modern-grid-card-wrapper {
+  transition: var(--transition-smooth);
+}
+
+/* Seamless lifting interactions on existing standalone components */
+.modern-grid-card-wrapper:hover {
+  transform: translateY(-6px);
+}
+
+/* Beautiful Empty Fallback State */
+.modern-empty-state {
+  background-color: var(--bg-surface);
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 60px 40px;
+  text-align: center;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.empty-state-graphic {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.modern-empty-state h3 {
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.modern-empty-state p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Responsive Adaptive Viewports */
+@media (max-width: 1024px) {
+  .modern-catalog-container {
+    grid-template-columns: 1fr;
+  }
+  .modern-filter-sidebar {
+    display: none; /* Hide supplementary sidebar filters automatically on tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .modern-main-title {
+    font-size: 2.25rem;
+  }
+  .modern-hero-header {
+    padding: 40px 16px;
+  }
+  .modern-catalog-body {
+    padding: 24px 16px;
+  }
+}

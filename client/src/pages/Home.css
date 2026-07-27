@@ -1,0 +1,491 @@
+/* ============================= */
+/* Home.css — theme-matched      */
+/* ============================= */
+
+.hero-section-bg {
+  width: 100%;
+  position: relative;
+  background-color: #050816;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px), radial-gradient(ellipse 60% 50% at 50% 15%, transparent 10%, #050816 90%), radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.14) 0%, transparent 45%), radial-gradient(circle at 50% 10%, rgba(99, 102, 241, 0.18) 0%, rgba(99, 102, 241, 0.04) 45%, transparent 70%);
+  background-size: 80px 80px, 80px 80px, 100% 100%, 100% 100%, 100% 100%;
+  background-position: center top;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px;
+  padding-bottom: 5rem;
+}
+
+/* Prevent vertical scrollbar appearing/disappearing while the
+   code-typing animation grows the page height — that width change
+   was causing the heading text to reflow mid-animation. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* ===== Become an instructor pill ===== */
+.instructor-div {
+  margin-top: 72px;
+  cursor: pointer;
+}
+
+.second-class {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 6px 8px 6px 20px;
+  transition: all 0.2s ease;
+}
+
+.second-class:hover {
+  background-color: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.instructor-sparkle-icon {
+  color: #a5b4fc;
+  font-size: 16px;
+}
+
+.second-class p {
+  color: #e2e8f0;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.instructor-arrow-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  box-shadow: 0 4px 12px -3px rgba(99, 102, 241, 0.6);
+}
+
+/* ===== Heading ===== */
+.Empower-head {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  margin-top: 28px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* HighlightText.jsx renders <span className="highlight-text">{text}</span>
+   Gradient now uses the brand indigo -> purple, matching the buttons/badges
+   used across the rest of the site, instead of the old purple-pink-cyan mix. */
+.Empower-head .highlight-text {
+  background: linear-gradient(to right, #818cf8 0%, #a5b4fc 35%, #c4b5fd 65%, #8b5cf6 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== Paragraph ===== */
+.Empower-para {
+  width: 100%;
+  max-width: 750px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin-top: 24px;
+}
+
+/* ===== CTA Buttons ===== */
+.CTA-BUTTON-DIV {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.cta-btn-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+/* CTAButton renders <Link><div className="button" style={{...inline bg/color...}}>children</div></Link>
+   We only style layout/shape here; bg + text color are set inline by the component itself. */
+.CTA-BUTTON-DIV .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.CTA-BUTTON-DIV .button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 14px 32px -10px rgba(99, 102, 241, 0.55);
+}
+
+/* Override Button.jsx's inline active colors just for the hero,
+   to match the gradient brand look, without touching the shared
+   Button component itself. */
+.CTA-BUTTON-DIV a:first-child .button {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px -8px rgba(99, 102, 241, 0.55);
+}
+
+.CTA-BUTTON-DIV a:last-child .button {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ===== Stats row ===== */
+.hero-stats-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.hero-stats-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-stats-icon {
+  color: #818cf8;
+  font-size: 18px;
+}
+
+.hero-stats-item p {
+  margin: 0;
+  font-size: 15px;
+  color: #94a3b8;
+}
+
+/* ===== Code Board (replaces video) ===== */
+.code-board-div {
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 16px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  perspective: 1800px;
+}
+
+.code-board-window {
+  width: 90%;
+  max-width: 950px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #111827;
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  box-shadow:
+    0 22px 50px -12px rgba(99, 102, 241, 0.3), 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+  transform: rotateX(8deg) rotateY(-14deg) rotateZ(2deg);
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+}
+
+.code-board-window:hover {
+  transform: rotateX(4deg) rotateY(-8deg) rotateZ(1deg);
+}
+
+.code-board-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #0b1020;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.code-board-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-red { background-color: #f87171; }
+.dot-yellow { background-color: #fbbf24; }
+.dot-green { background-color: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); }
+.dot-blue { background-color: #6366f1; box-shadow: 0 0 8px rgba(99, 102, 241, 0.6); }
+
+.code-board-screen {
+  position: relative;
+  padding: 28px 36px 40px 36px;
+  background:
+    radial-gradient(circle at 70% 0%, rgba(99, 102, 241, 0.1), transparent 60%),
+    linear-gradient(180deg, #111827 0%, #0b1020 100%);
+  min-height: 420px;
+}
+
+.code-board-inner-bar {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+.code-board-inner-bar .code-board-dot {
+  width: 9px;
+  height: 9px;
+}
+
+.code-board-lines {
+  margin: 0;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 15px;
+  line-height: 1.85;
+  color: #a5b4fc;
+  text-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 768px) {
+  .code-board-window {
+    transform: rotateX(4deg) rotateY(-6deg) rotateZ(1deg);
+  }
+
+  .code-board-lines {
+    font-size: 12px;
+  }
+
+  .code-board-screen {
+    padding: 20px 18px 28px 18px;
+    min-height: 320px;
+  }
+}
+
+/* ============================= */
+/* CodeBlocks (classes used by CodeBlocks.jsx) */
+/* ============================= */
+
+.code-block-main-div {
+  width: 100%;
+  max-width: 1160px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 60px;
+  margin-top: 130px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ---- section1: heading / subheading / buttons ---- */
+.code-block-section1 {
+  flex: 0 0 480px;
+  width: 480px;
+  max-width: 480px;
+  min-width: 0;
+}
+
+.code-block-section1-head {
+  font-size: 33px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+.code-block-section1-head .highlight-text {
+  background: linear-gradient(to right, #6366f1 0%, #818cf8 35%, #a78bfa 65%, #8b5cf6 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.code-block-section1-subheading {
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #94a3b8;
+  max-width: 460px;
+}
+
+.code-block-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.code-block-yellow-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---- section2: code window ---- */
+.code-block-section2-main-div {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 560px;
+  width: 560px;
+  max-width: 560px;
+  min-width: 0;
+  /* fixed total height: titlebar (~44px) + body padding (48px) +
+     11 lines of code reserved (316.8px) + buffer.
+     overflow hidden means nothing — wrapped or not — can push the box taller. */
+  height: 361px;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.6);
+}
+
+.codeblock-section2-titlebar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #0b1020;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-sizing: border-box;
+}
+
+.codeblock-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.codeblock-dot.dot-red { background-color: #f87171; }
+.codeblock-dot.dot-yellow { background-color: #6b7280; }
+.codeblock-dot.dot-white { background-color: #e5e7eb; }
+
+.codeblock-filename {
+  margin: 0 0 0 6px;
+  font-size: 14px;
+  color: #94a3b8;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+}
+
+.codeblock-section2-body {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex: 1 1 auto;
+  padding: 10px 20px;
+  gap: 18px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.index-module_type__E-SaG {
+  white-space: pre-line;
+  line-height: 1.8;
+  color: #a5b4fc;
+}
+.codeblock-section2-index-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 16px;
+  line-height: 1.58;
+  color: #64748b;
+  user-select: none;
+}
+
+.codeblock-section2-codearea {
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .code-block-main-div {
+    flex-direction: column !important;
+    margin-top: 80px;
+    gap: 36px;
+  }
+
+  .code-block-section1,
+  .code-block-section2-main-div {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .code-block-section1-head {
+    font-size: 30px;
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .Empower-head {
+    font-size: 38px;
+  }
+
+  .Empower-para {
+    font-size: 16px;
+  }
+
+  .hero-stats-row {
+    gap: 20px;
+  }
+
+  .CTA-BUTTON-DIV {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .CTA-BUTTON-DIV a,
+  .CTA-BUTTON-DIV button {
+    width: 100%;
+  }
+}

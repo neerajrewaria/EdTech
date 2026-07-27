@@ -1,0 +1,21 @@
+:root {
+  --bg: #050816;
+  --surface: #0b1020;
+  --card: #111827;
+  --card-2: #0f1525;
+
+  --primary: #6366f1;
+  --accent: #8b5cf6;
+  --success: #10b981;
+  --grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+
+  --text: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,258 @@
+.homepage-timeline-view-root {
+  --tl-bg: #0b0f19;
+  --tl-surface: #111827;
+  --tl-border: rgba(255, 255, 255, 0.06);
+  --tl-accent: #2978f8;
+  --tl-accent-glow: rgba(59, 130, 246, 0.25);
+  --tl-text-main: #f9fafb;
+  --tl-text-muted: #9ca3af;
+  --tl-radius-outer: 20px;
+  --tl-radius-inner: 12px;
+
+  background-color: var(--tl-bg);
+  padding: 80px 24px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+}
+
+.homepage-timeline-view-grid-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* LEFT COLUMN STYLES & ANIMATED TIMELINE TRACK CONTAINER */
+.homepage-timeline-view-left-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-left: 24px;
+}
+
+/* Static Background Line Wrapper */
+.homepage-timeline-view-track-container {
+  position: absolute;
+  left: 48px;
+  top: 24px;
+  bottom: 32px;
+  width: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Traveling Neon Energy Node Animation */
+.homepage-timeline-view-track-pulse-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--tl-accent), transparent);
+  animation: timelineEnergyTravel 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes timelineEnergyTravel {
+  0% {
+    top: -60px;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.homepage-timeline-view-step-node {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Animated Icon Bubble Setup */
+.homepage-timeline-view-icon-bubble {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--tl-surface);
+  border: 2px solid var(--tl-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.homepage-timeline-view-icon-inner {
+  color: var(--tl-text-muted);
+  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+/* Node step interactions */
+.homepage-timeline-view-step-node:hover .homepage-timeline-view-icon-bubble {
+  border-color: var(--tl-accent);
+  background-color: #1f2937;
+  transform: scale(1.08);
+  box-shadow: 0 0 15px var(--tl-accent-glow);
+}
+
+.homepage-timeline-view-step-node:hover .homepage-timeline-view-icon-inner {
+  color: var(--tl-accent);
+}
+
+/* Text Containers */
+.homepage-timeline-view-text-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.homepage-timeline-view-node-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.homepage-timeline-view-node-desc {
+  font-size: 0.92rem;
+  color: var(--tl-text-muted);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 440px;
+}
+
+/* RIGHT COLUMN STYLES & SUMMARY OVERLAY PANEL */
+.homepage-timeline-view-right-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homepage-timeline-view-media-canvas {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  border-radius: var(--tl-radius-outer);
+  overflow: visible;
+}
+
+.homepage-timeline-view-display-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--tl-radius-outer);
+  border: 1px solid var(--tl-border);
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.7);
+}
+
+/* Overlaid Integrated SaaS Statistics Dashboard Panel */
+.homepage-timeline-view-metrics-overlay-card {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  border-radius: var(--tl-radius-inner);
+  padding: 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 20px 40px -10px rgba(4, 120, 87, 0.3);
+  box-sizing: border-box;
+}
+
+.homepage-timeline-view-stat-segment {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.homepage-timeline-view-stat-number {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.homepage-timeline-view-stat-caption {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.3;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.homepage-timeline-view-stat-divider {
+  width: 1px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* RESPONSIVE LAYOUT HINTS */
+@media (max-width: 1024px) {
+  .homepage-timeline-view-grid-container {
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+  .homepage-timeline-view-left-column {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .homepage-timeline-view-right-column {
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .homepage-timeline-view-root {
+    padding: 48px 16px;
+  }
+  .homepage-timeline-view-left-column {
+    padding-left: 0;
+    gap: 36px;
+  }
+  .homepage-timeline-view-track-container {
+    left: 24px;
+  }
+  .homepage-timeline-view-step-node {
+    gap: 16px;
+  }
+  .homepage-timeline-view-icon-bubble {
+    width: 44px;
+    height: 44px;
+  }
+  .homepage-timeline-view-track-container {
+    left: 22px;
+  }
+  .homepage-timeline-view-metrics-overlay-card {
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+    bottom: -40px;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  .homepage-timeline-view-stat-divider {
+    width: 100%;
+    height: 1px;
+  }
+}

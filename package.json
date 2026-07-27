@@ -1,0 +1,16 @@
+{
+    "name": "edtech",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "client": "cd client && cross-env PORT=3001 npm start",
+        "server": "cd server && npm run dev",
+        "dev": "concurrently -k -n \"client,server\" -c \"bgBlue.bold,bgYellow.bold\" \"npm run client\" \"npm run server\"",
+        "build": "cd client && npm run build",
+        "start": "npm run dev"
+    },
+    "devDependencies": {
+        "concurrently": "^10.0.0",
+        "cross-env": "^7.0.3"
+    }
+}

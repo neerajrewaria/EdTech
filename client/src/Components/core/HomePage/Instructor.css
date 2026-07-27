@@ -1,0 +1,244 @@
+/* Highly isolated variables and resets limited strictly to this layout block component wrapper */
+.instructor-join-panel-root-canvas {
+  --ijp-bg-color: #0b0f19;
+  --ijp-surface-elevated: #111827;
+  --ijp-border-line: rgba(255, 255, 255, 0.06);
+  --ijp-text-bright: #ffffff;
+  --ijp-text-dim: #999daa;
+  --ijp-accent-blue: #3b82f6;
+  --ijp-radius-frame: 24px;
+  --ijp-radius-inner: 16px;
+  --ijp-transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  background-color: var(--ijp-bg-color);
+  padding: 100px 24px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+}
+
+.instructor-join-panel-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* LEFT SIDE: Geometric Framed Canvas Media Elements styling */
+.instructor-join-panel-media-side {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instructor-join-panel-asymmetric-bounding-box {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  border-radius: var(--ijp-radius-frame);
+  padding: 12px;
+  background-color: var(--ijp-surface-elevated);
+  border: 1px solid var(--ijp-border-line);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+}
+
+/* Soft ambient mesh backing behind the main canvas portrait */
+.instructor-join-panel-decorative-bg-mesh {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--ijp-radius-frame);
+  border: 2px dashed rgba(59, 130, 246, 0.15);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.instructor-join-panel-hero-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1; /* Locked into a crisp modern uniform baseline profile ratio */
+  object-fit: cover;
+  border-radius: var(--ijp-radius-inner);
+  position: relative;
+  z-index: 2;
+  transition: var(--ijp-transition-smooth);
+}
+
+/* Micro-interaction layout parallax scale rules */
+.instructor-join-panel-asymmetric-bounding-box:hover .instructor-join-panel-hero-img {
+  transform: scale(1.02);
+}
+
+/* Floating Glassmorphic Context Card Badge styling */
+.instructor-join-panel-floating-metric-card {
+  position: absolute;
+  bottom: 32px;
+  left: -30px;
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 20px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 3;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+
+.metric-icon-badge {
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.instructor-join-panel-floating-metric-card h5 {
+  color: var(--ijp-text-bright);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 2px 0;
+}
+
+.instructor-join-panel-floating-metric-card p {
+  color: var(--ijp-text-dim);
+  font-size: 0.78rem;
+  margin: 0;
+}
+
+/* RIGHT SIDE: Rich Text Typographic Panels styling handles */
+.instructor-join-panel-content-side {
+  display: flex;
+  align-items: center;
+}
+
+.instructor-join-panel-text-block {
+  width: 100%;
+}
+
+.instructor-join-panel-context-pre-title {
+  color: var(--ijp-accent-blue);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.instructor-join-panel-main-heading {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--ijp-text-bright);
+  margin: 0 0 20px 0;
+  letter-spacing: -0.025em;
+}
+
+.instructor-join-panel-highlight-fix {
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.instructor-join-panel-description {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ijp-text-dim);
+  margin: 0 0 36px 0;
+  max-width: 520px;
+}
+
+/* Density Elevation Value Grid Row styling elements */
+.instructor-join-panel-value-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  border-top: 1px solid var(--ijp-border-line);
+  padding-top: 28px;
+  margin-bottom: 40px;
+}
+
+.metric-node-block h4 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--ijp-text-bright);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.01em;
+}
+
+.metric-node-block p {
+  font-size: 0.85rem;
+  color: var(--ijp-text-dim);
+  margin: 0;
+}
+
+/* Premium Navigation CTA alignment elements */
+.instructor-join-panel-cta-wrapper {
+  display: inline-block;
+}
+
+.cta-button-text-flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.cta-button-arrow-icon {
+  font-size: 0.88rem;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.instructor-join-panel-cta-wrapper:hover .cta-button-arrow-icon {
+  transform: translateX(4px);
+}
+
+/* ADAPTIVE INTERFACE VIEWPORTS RESPONSIVENESS CONFIGURATIONS */
+@media (max-width: 1024px) {
+  .instructor-join-panel-wrapper {
+    gap: 48px;
+  }
+  .instructor-join-panel-main-heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 912px) {
+  .instructor-join-panel-root-canvas {
+    padding: 64px 20px;
+  }
+  .instructor-join-panel-wrapper {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .instructor-join-panel-media-side {
+    order: 2; /* Drops media safely below copy blocks to structure viewport scanner readability */
+  }
+  .instructor-join-panel-floating-metric-card {
+    left: 20px; /* Safe bounds adjustment alignment when collapsing elements */
+  }
+  .instructor-join-panel-description {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .instructor-join-panel-main-heading {
+    font-size: 2.15rem;
+  }
+  .instructor-join-panel-value-metrics-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

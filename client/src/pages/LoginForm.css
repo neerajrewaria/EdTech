@@ -1,0 +1,141 @@
+/* ============================================================
+   Login form — fields blend into the Template form panel.
+   Theme tokens (--field, --border, --accent, etc.) are
+   inherited from .template-container.
+   ============================================================ */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* ---------- Field ---------- */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text, #e6ebf5);
+}
+
+.required {
+  color: #f87171;
+  font-size: 12px;
+}
+
+.form-field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-field__icon {
+  position: absolute;
+  left: 14px;
+  color: var(--muted, #94a3b8);
+  pointer-events: none;
+  transition: color 0.18s ease;
+}
+
+.form-field__input {
+  width: 100%;
+  height: 50px;
+  padding: 0 16px 0 44px;
+  font-size: 15px;
+  color: var(--text, #e6ebf5);
+  background: var(--field, #0d1426);
+  border: 1px solid var(--border, rgba(148, 163, 184, 0.16));
+  border-radius: 12px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.form-field__input.has-trailing {
+  padding-right: 48px;
+}
+
+.form-field__input::placeholder {
+  color: rgba(148, 163, 184, 0.7);
+}
+
+.form-field__input:focus {
+  border-color: var(--accent, #6366f1);
+  box-shadow: 0 0 0 4px var(--ring, rgba(99, 102, 241, 0.35));
+  background: #0f1830;
+}
+
+.form-field__control:focus-within .form-field__icon {
+  color: var(--accent-2, #818cf8);
+}
+
+/* ---------- Password toggle ---------- */
+.form-field__toggle {
+  position: absolute;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: var(--muted, #94a3b8);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.form-field__toggle:hover {
+  color: var(--accent-2, #818cf8);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+/* ---------- Forgot password ---------- */
+.forgot-password {
+  align-self: flex-end;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-2, #818cf8);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.forgot-password:hover {
+  color: var(--accent, #6366f1);
+  text-decoration: underline;
+}
+
+/* ---------- Submit ---------- */
+.submit-btn {
+  margin-top: 6px;
+  width: 100%;
+  height: 52px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(180deg, var(--accent-2, #818cf8), var(--accent, #6366f1));
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -8px rgba(99, 102, 241, 0.6);
+  transition: transform 0.12s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 14px 30px -8px rgba(99, 102, 241, 0.7);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  background: var(--accent-press, #4f46e5);
+}

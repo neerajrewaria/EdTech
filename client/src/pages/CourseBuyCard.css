@@ -1,0 +1,200 @@
+/* Scoped Layout System Variables */
+.premium-checkout-panel {
+  --checkout-bg: #111827;
+  --checkout-border: rgba(255, 255, 255, 0.08);
+  --btn-accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+  --accent-color: #3b82f6;
+
+  width: 100%;
+  max-width: 360px;
+  background-color: var(--checkout-bg);
+  border: 1px solid var(--checkout-border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  position: sticky;
+  top: 24px; /* Keeps card beautifully floating on scroll down details page */
+  box-sizing: border-box;
+}
+
+/* Media Banner Layout Container */
+.premium-checkout-media {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 widescreen orientation layout ratio */
+  background-color: #030712;
+}
+
+.premium-checkout-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Structured Body Section */
+.premium-checkout-body {
+  padding: 24px;
+}
+
+/* Pricing Display Typography Block */
+.premium-price-container {
+  margin-bottom: 20px;
+}
+
+.premium-price-lbl {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.premium-price-val-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.premium-price-currency {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.premium-price-main {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+/* Redesigned Button Actions Tier */
+.premium-action-buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.premium-btn-primary {
+  width: 100%;
+  background: var(--btn-accent-gradient);
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.premium-btn-primary:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.premium-btn-secondary {
+  width: 100%;
+ background-color: #0ac09ed4;
+  color: var(--text-main);
+  border: 1px solid var(--checkout-border);
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.premium-btn-secondary:hover {
+  background-color: rgba(198, 255, 249, 0.511);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Guarantee Text Typography styling */
+.premium-text-guarantee {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
+.premium-checkout-divider {
+  border: 0;
+  height: 1px;
+  background-color: var(--checkout-border);
+  margin: 20px 0;
+}
+
+/* Features/Inclusions Section Block styling */
+.premium-inclusions-wrapper {
+  margin-bottom: 24px;
+}
+
+.premium-inclusions-heading {
+  font-size: 0.88rem;
+  color: #ffffff;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.premium-inclusion-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+.premium-inclusion-icon {
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+/* Share & Utility Footer Block styling */
+.premium-checkout-footer-meta {
+  display: flex;
+  justify-content: center;
+}
+
+.premium-share-action-link {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.premium-share-action-link:hover {
+  color: var(--accent-color);
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* Responsive Structural Collapsing handling */
+@media (max-width: 1024px) {
+  .premium-checkout-panel {
+    position: relative;
+    top: 0;
+    max-width: 100%;
+    margin-top: 32px;
+  }
+}

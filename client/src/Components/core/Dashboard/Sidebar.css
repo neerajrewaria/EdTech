@@ -1,0 +1,230 @@
+/* Premium Sidebar Variable Bounds */
+.saas-sidebar-container {
+  --sb-bg: #111827;
+  --sb-border: rgba(255, 255, 255, 0.06);
+  --sb-text-main: #f3f4f6;
+  --sb-text-muted: #9ca3af;
+  --sb-accent-blue: #3b82f6;
+  --sb-active-bg: rgba(59, 130, 246, 0.08);
+  --sb-logout-hover: rgba(239, 68, 68, 0.08);
+  --sb-logout-text: #f87171;
+  
+  width: 280px;
+  height: 100vh;
+  background-color: var(--sb-bg);
+  border-right: 1px solid var(--sb-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Premium Profile Block Overhaul */
+.saas-sidebar-profile-header {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--sb-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, transparent 100%);
+}
+
+.saas-avatar-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px; /* Smooth modern rounded corner block box */
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+}
+
+.saas-active-pulse {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background-color: #10b981;
+  border: 2px solid var(--sb-bg);
+  border-radius: 50%;
+}
+
+.saas-profile-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.saas-profile-name {
+  color: var(--sb-text-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.saas-profile-role-tag {
+  font-size: 0.75rem;
+  color: var(--sb-text-muted);
+  font-weight: 500;
+}
+
+/* Main Core Scroll Area */
+.saas-sidebar-scroll-wrapper {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Custom Scrollbar styling */
+.saas-sidebar-scroll-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+.saas-sidebar-scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+/* Section Separator Captions */
+.saas-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.saas-section-caption {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--sb-text-muted);
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  padding-left: 12px;
+  opacity: 0.6;
+}
+
+.instructor-caption {
+  color: #a78bfa; /* Soft Purple/Indigo hint for administrative items */
+}
+
+/* Menu List Blocks Layout */
+.saas-menu-group {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.saas-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--sb-text-muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.saas-menu-item:hover {
+  color: var(--sb-text-main);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.saas-menu-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.saas-menu-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Active State Styles */
+.saas-menu-item.item-active {
+  color: #ffffff;
+  background-color: var(--sb-active-bg);
+  font-weight: 600;
+}
+
+.saas-menu-item.item-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  height: 50%;
+  width: 3px;
+  background-color: var(--sb-accent-blue);
+  border-radius: 0 4px 4px 0;
+}
+
+.saas-menu-item.item-active .saas-menu-icon {
+  color: var(--sb-accent-blue);
+}
+
+/* Instructor Dashboard Item Override */
+.saas-menu-item.item-active .instructor-icon {
+  color: #a78bfa;
+}
+
+/* Sign out / Logout Panel Custom Configurations */
+.system-footer-section {
+  margin-top: auto; /* Force structural alignment parameters right to the bottom boundary */
+  border-top: 1px solid var(--sb-border);
+  padding-top: 20px;
+}
+
+.saas-logout-trigger:hover {
+  color: var(--sb-logout-text);
+  background-color: var(--sb-logout-hover);
+}
+
+/* Adaptive Responsive Viewport Configurations */
+@media (max-width: 768px) {
+  .saas-sidebar-container {
+    width: 72px;
+  }
+  .saas-sidebar-profile-header {
+    padding: 16px;
+    justify-content: center;
+  }
+  .saas-profile-details,
+  .saas-section-caption,
+  .saas-menu-text {
+    display: none; /* Collapses seamlessly on mobile tablet frameworks */
+  }
+  .saas-sidebar-scroll-wrapper {
+    padding: 16px 8px;
+  }
+  .saas-menu-item {
+    justify-content: center;
+    padding: 12px;
+  }
+  .saas-menu-item.item-active::before {
+    top: 0;
+    height: 100%;
+    width: 2px;
+  }
+}
