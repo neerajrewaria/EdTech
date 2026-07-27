@@ -4,8 +4,6 @@ import { setUser, clearUser } from "../../slices/profileSlice";
 import { auth } from "../apis";
 import { toast } from "react-hot-toast";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "";
-
 export const login = (email, password, navigate) => async (dispatch) => {
   try {
     const response = await apiConnector(

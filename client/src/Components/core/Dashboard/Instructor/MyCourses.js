@@ -21,7 +21,7 @@ function MyCourses() {
       }
     };
     getCourses();
-  }, [showCreateForm, showPublishSettings]); // Refetch when we close a form or finish a course
+  }, [showCreateForm, showPublishSettings, token]); // Refetch when we close a form or finish a course
 
   const handleDeleteCourse = async (courseId) => {
     const result = await deleteCourse({ courseId }, token);
@@ -113,7 +113,7 @@ function MyCourses() {
   return (
     <div className="inst-dashboard-wrapper">
       <div className="inst-dashboard-top-section">
-        <h2 style={{color:"white",fontSize:"2rem"}}>My Courses</h2>
+        <h2 style={{ color: "white", fontSize: "2rem" }}>My Courses</h2>
         <button className="inst-add-course-btn" onClick={() => {
           setNewCourse(null);
           setShowCreateForm(true);

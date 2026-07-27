@@ -13,30 +13,32 @@ const CategoryPage = () => {
   const [categoryData, setCategoryData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchCategoryCourses = async () => {
-    setLoading(true);
-    try {
-      const response = await apiConnector(
-        "GET",
-        `${categories.GET_CATEGORY_PAGE_DETAILS_API}/${categoryId}`
-      );
-
-      if (!response?.data?.success) {
-        throw new Error("Could not fetch category details");
-      }
-
-      setCategoryData(response.data.data);
-    }
-    catch (error) {
-      toast.error(error.message || "Something went wrong");
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    fetchCategoryCourses();
+    const fetchCategoryCourses = async () => {
+      setLoading(true);
+      try {
+        const response = await apiConnector(
+          "GET",
+          `${categories.GET_CATEGORY_PAGE_DETAILS_API}/${categoryId}`
+        );
+
+        if (!response?.data?.success) {
+          throw new Error("Could not fetch category details");
+        }
+
+        setCategoryData(response.data.data);
+      }
+      catch (error) {
+        toast.error(error.message || "Something went wrong");
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (categoryId) {
+      fetchCategoryCourses();
+    }
   }, [categoryId]);
 
   if (loading) {
@@ -53,17 +55,17 @@ const CategoryPage = () => {
   return (
     <>
       <div className="modern-category-layout">
-        
+
         {/* Modern SaaS / Coursera-inspired Hero Header */}
         <header className="modern-hero-header">
           <div className="modern-hero-inner">
             <nav className="modern-breadcrumb">
               Home <span className="separator">/</span> Catalog <span className="separator">/</span> <span className="current">{categoryData?.name}</span>
             </nav>
-            
+
             <h1 className="modern-main-title">{categoryData?.name}</h1>
             <p className="modern-subtitle">{categoryData?.description || "Master highly-sought-after practical methodologies, learn with industry experts, and advance your technical career path step-by-step."}</p>
-            
+
             {/* Contextual Platform Badges & Metrics */}
             <div className="modern-hero-stats">
               <div className="stat-pill">
@@ -83,7 +85,7 @@ const CategoryPage = () => {
         {/* Content Section utilizing a dual-column layout */}
         <main className="modern-catalog-body">
           <div className="modern-catalog-container">
-            
+
             {/* Functional Left Sidebar Panel */}
             <aside className="modern-filter-sidebar">
               <div className="sidebar-widget">

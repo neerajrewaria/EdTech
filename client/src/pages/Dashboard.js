@@ -1,7 +1,6 @@
 import React from 'react';
 import Sidebar from '../Components/core/Dashboard/Sidebar';
 import Profile from '../Components/core/Dashboard/Profile';
-import Wishlist from '../Components/core/Dashboard/Wishlist';
 import CartPage from '../pages/CartPage'; // Import CartPage
 import Settings from '../Components/core/Dashboard/Settings';
 import EnrolledCourses from '../Components/core/Dashboard/EnrolledCourses';
@@ -22,28 +21,28 @@ function Dashboard() {
 
     <div>
 
-   
-    <div className="dashboard-container">
 
-      <Sidebar
-        activePage={activePage}
-        setActivePage={setActivePage}
-      />
+      <div className="dashboard-container">
 
-      <div className="dashboard-content">
+        <Sidebar
+          activePage={activePage}
+          setActivePage={setActivePage}
+        />
 
-        {activePage === "profile" && <Profile />}
-        {activePage === "wishlist" && <CartPage />}
-        {activePage === "settings" && <Settings />}
-        {activePage === "enrolledCourses" && <EnrolledCourses />}
-        {activePage === "purchaseHistory" && <PurchaseHistory />}
-        {activePage === "myCourses" && <MyCourses />}
+        <div className="dashboard-content">
+
+          {activePage === "profile" && <Profile />}
+          {activePage === "wishlist" && <CartPage />}
+          {activePage === "settings" && <Settings />}
+          {activePage === "enrolledCourses" && <EnrolledCourses />}
+          {activePage === "purchaseHistory" && <PurchaseHistory />}
+          {activePage === "myCourses" && <MyCourses />}
+
+        </div>
 
       </div>
-
+      <Footer />
     </div>
-    <Footer/>
-     </div>
   );
 }
 

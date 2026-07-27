@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { updateProfile } from "../../../services/operations/profileAPI";
 import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 function EditProfile({ setIsEditing, initialProfile }) {
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const [ProfileData, setProfileData] = useState({
     about: initialProfile?.about || "",
@@ -26,25 +25,25 @@ function EditProfile({ setIsEditing, initialProfile }) {
 
   const fetchProfileData = async (e) => {
     e.preventDefault();
-    
-  console.log("SAVE CLICKED");
- 
+
+    console.log("SAVE CLICKED");
+
     console.log("BEFORE DISPATCH");
 
-await dispatch(
-  updateProfile({
-    dob,
-    gender,
-    contactNo,
-    about,
-    setIsEditing,
-    navigate
-  })
-);
+    await dispatch(
+      updateProfile({
+        dob,
+        gender,
+        contactNo,
+        about,
+        setIsEditing,
+        navigate
+      })
+    );
 
-console.log("AFTER DISPATCH");
+    console.log("AFTER DISPATCH");
   };
-  
+
   return (
     <div className="profile-container">
 

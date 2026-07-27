@@ -32,25 +32,25 @@ const CoursePage = () => {
         }
     };
 
-    const fetchCourseDetails = async () => {
-        setLoading(true);
-        try {
-            const response = await apiConnector("GET", `${courseEndpoints.GET_COURSE_DETAILS_API}/${courseId.trim()}`);
-
-            if (!response?.data?.success) {
-                throw new Error(response?.data?.message || "Course details could not be retrieved");
-            }
-
-            setCourseData(response.data.data);
-        } catch (error) {
-            console.error("COURSE DETAILS FETCH ERROR....", error);
-            toast.error(error.response?.data?.message || error.message || "Failed to load course details");
-        } finally {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
+        const fetchCourseDetails = async () => {
+            setLoading(true);
+            try {
+                const response = await apiConnector("GET", `${courseEndpoints.GET_COURSE_DETAILS_API}/${courseId.trim()}`);
+
+                if (!response?.data?.success) {
+                    throw new Error(response?.data?.message || "Course details could not be retrieved");
+                }
+
+                setCourseData(response.data.data);
+            } catch (error) {
+                console.error("COURSE DETAILS FETCH ERROR....", error);
+                toast.error(error.response?.data?.message || error.message || "Failed to load course details");
+            } finally {
+                setLoading(false);
+            }
+        };
+
         if (courseId) {
             fetchCourseDetails();
         }
@@ -77,10 +77,10 @@ const CoursePage = () => {
                     <nav className="premium-hero-breadcrumb">
                         Home <span className="slash">/</span> Catalog <span className="slash">/</span> <span className="active-path">{courseData?.category?.name}</span>
                     </nav>
-                    
+
                     <h1 className="premium-hero-title">{courseData?.courseName}</h1>
                     <p className="premium-hero-description">{courseData?.courseDescription || "Master these premium skillsets with guided exercises, industry milestones, and verifiable certification portfolios."}</p>
-                    
+
                     <div className="premium-hero-meta-row">
                         <div className="meta-badge-pill">
                             <span className="meta-icon">👤</span>
@@ -97,10 +97,10 @@ const CoursePage = () => {
             {/* Split Screen Master Layout Grid */}
             <main className="premium-layout-body">
                 <div className="premium-layout-container">
-                    
+
                     {/* LEFT PANEL: Core Educational Curriculum Sections */}
                     <section className="premium-course-main-column">
-                        
+
                         {/* What You'll Learn Segment */}
                         <div className="premium-learning-card">
                             <h2 className="premium-column-heading">
@@ -142,7 +142,7 @@ const CoursePage = () => {
                                                 <div className="node-header-left">
                                                     <div className="node-toggle-chevron">
                                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                                            <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                                                         </svg>
                                                     </div>
                                                     <span className="node-section-title">{section.sectionName}</span>
@@ -153,7 +153,7 @@ const CoursePage = () => {
                                                     </span>
                                                 </div>
                                             </div>
-                                            
+
                                             {/* Nested Subsection Lists */}
                                             <div className="premium-node-drawer">
                                                 <div className="drawer-inner-padding">
