@@ -4,6 +4,7 @@ const connectDB = require('./config/database');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const { cloudinaryConnect } = require("./config/cloudinary");
+const cors =require('cors');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -24,17 +25,12 @@ app.use(fileUpload({
 }));
 
 // Enable CORS for all origins (development only)
-app.use((req, res, next) => {
-  // Removed conflicting Access-Control-Allow-Origin: '*'
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Use your actual frontend URL
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-    return res.sendStatus(200);
-  }
-  next();
-});
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
