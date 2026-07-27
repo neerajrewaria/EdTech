@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const CourseProgress = require("../models/CourseProgress");
-const SubSection = require("../models/SubSection");
+const SubSection = require("../models/Subsection");
 
 // ----------------------------------------------------------------------
 // Mark / unmark a lecture (subsection) as completed for the logged-in user

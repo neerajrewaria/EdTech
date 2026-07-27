@@ -1,6 +1,6 @@
 const Course = require("../models/Course");
 const Section = require("../models/Section");
-const SubSection = require("../models/SubSection");
+const SubSection = require("../models/Subsection");
 const { uploadImageToCloudinary } = require("../utility/uploadImage");
 //why Course and Section both bcz we need to create subsection and also update section with this new subsection
 const cloudinary = require("cloudinary").v2;
