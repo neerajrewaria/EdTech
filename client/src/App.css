@@ -7,10 +7,10 @@ body {
 }
 
 .App {
-
-
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
+  padding-top: 72px;
+  box-sizing: border-box;
   background-color: #081221;
   /* approximate richblack-900 */
   display: flex;
@@ -389,7 +389,7 @@ signup-form {
   gap: 1rem;
 } */
 
- 
+
 .signup-row {
   display: flex;
   gap: 3rem;
@@ -521,7 +521,7 @@ signup-form {
 
 
 
-                                 /* Verify-Page */
+/* Verify-Page */
 
 .verify-email-container {
   min-height: calc(100vh - 56px);
@@ -746,7 +746,7 @@ signup-form {
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-} 
+}
 
 /* small avatar for navbar / dropdown */
 .profile-image-small {
@@ -2209,7 +2209,7 @@ signup-form {
 }
 
 
-.vc-section-content{
+.vc-section-content {
   background-color: black;
   padding: 1rem 1rem;
 }
@@ -2221,12 +2221,12 @@ signup-form {
   --scp-text-bright: #ffffff;
   --scp-text-muted: #94a3b8;
   --scp-border: rgba(255, 255, 255, 0.05);
-  
+
   background-color: var(--scp-bg);
   padding: 96px 24px;
   width: 100%;
   box-sizing: border-box;
- font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   position: relative;
   overflow: hidden;
 }
@@ -2261,7 +2261,7 @@ signup-form {
 
 .skills-callout-panel-heading {
   font-size: 2.6rem;
- 
+
   line-height: 1.25;
   color: var(--scp-text-bright);
   margin: 0;
@@ -2301,7 +2301,7 @@ signup-form {
   .skills-callout-panel-root {
     padding: 64px 20px;
   }
-  
+
   .skills-callout-panel-container {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -2316,7 +2316,7 @@ signup-form {
   .skills-callout-panel-heading {
     font-size: 1.85rem;
   }
-  
+
   .skills-callout-panel-description {
     font-size: 0.98rem;
   }

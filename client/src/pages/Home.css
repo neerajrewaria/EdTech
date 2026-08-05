@@ -5,12 +5,43 @@
 .hero-section-bg {
   width: 100%;
   position: relative;
-  background-color: #050816;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px), radial-gradient(ellipse 60% 50% at 50% 15%, transparent 10%, #050816 90%), radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.14) 0%, transparent 45%), radial-gradient(circle at 50% 10%, rgba(99, 102, 241, 0.18) 0%, rgba(99, 102, 241, 0.04) 45%, transparent 70%);
+  background-color: #1b1b1df5;
   background-size: 80px 80px, 80px 80px, 100% 100%, 100% 100%, 100% 100%;
   background-position: center top;
   display: flex;
   justify-content: center;
+  overflow: hidden;
+}
+
+/* Single continuous ambient glow — centered behind the AI-mentor panel
+   and fading smoothly outward across the whole hero, instead of
+   separate blob shapes. This is what gives the reference design its
+   soft, seamless wash rather than visible "chunks". */
+.hero-section-bg::before {
+  content: "";
+  position: absolute;
+  top: -12%;
+  left: 8%;
+  width: 1700px;
+  height: 1300px;
+  max-width: 150vw;
+  max-height: 150vh;
+  background: radial-gradient(
+    closest-side,
+    rgba(192, 38, 211, 0.34) 0%,
+    rgba(147, 51, 234, 0.24) 28%,
+    rgba(99, 102, 241, 0.13) 50%,
+    rgba(99, 102, 241, 0.05) 68%,
+    transparent 82%
+  );
+  filter: blur(130px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -93,9 +124,6 @@ html {
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
-/* HighlightText.jsx renders <span className="highlight-text">{text}</span>
-   Gradient now uses the brand indigo -> purple, matching the buttons/badges
-   used across the rest of the site, instead of the old purple-pink-cyan mix. */
 .Empower-head .highlight-text {
   background: linear-gradient(to right, #818cf8 0%, #a5b4fc 35%, #c4b5fd 65%, #8b5cf6 90%);
   -webkit-background-clip: text;
@@ -130,8 +158,6 @@ html {
   gap: 8px;
 }
 
-/* CTAButton renders <Link><div className="button" style={{...inline bg/color...}}>children</div></Link>
-   We only style layout/shape here; bg + text color are set inline by the component itself. */
 .CTA-BUTTON-DIV .button {
   display: flex;
   align-items: center;
@@ -152,9 +178,6 @@ html {
   box-shadow: 0 14px 32px -10px rgba(99, 102, 241, 0.55);
 }
 
-/* Override Button.jsx's inline active colors just for the hero,
-   to match the gradient brand look, without touching the shared
-   Button component itself. */
 .CTA-BUTTON-DIV a:first-child .button {
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
   color: #ffffff !important;
@@ -362,9 +385,6 @@ html {
   width: 560px;
   max-width: 560px;
   min-width: 0;
-  /* fixed total height: titlebar (~44px) + body padding (48px) +
-     11 lines of code reserved (316.8px) + buffer.
-     overflow hidden means nothing — wrapped or not — can push the box taller. */
   height: 361px;
   border-radius: 14px;
   overflow: hidden;
@@ -486,6 +506,364 @@ html {
 
   .CTA-BUTTON-DIV a,
   .CTA-BUTTON-DIV button {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   HERO SECTION — matches reference design
+   (badge / heading / copy / CTAs / AI mentor code panel)
+   ============================================================ */
+
+.hero-container {
+  padding-top: 64px;
+  padding-bottom: 96px;
+  align-items: flex-start;
+}
+
+/* ---------- Eyebrow badge ---------- */
+.hero-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 14px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  color: #22d3ee;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+.hero-badge-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/* ---------- Body row: copy | visual ---------- */
+.hero-body-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-copy-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 620px;
+}
+
+/* ---------- Heading ---------- */
+.hero-heading {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #f4f4f6;
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.hero-heading-gradient {
+  display: inline-block;
+  background: linear-gradient(90deg, #c026d3 0%, #a855f7 45%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Subcopy ---------- */
+.hero-subcopy {
+  margin-top: 28px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #9ca3af;
+  max-width: 540px;
+}
+
+/* ---------- CTA row ---------- */
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-btn-primary,
+.hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease, background 0.18s ease;
+}
+
+.hero-btn-primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #c026d3 0%, #a21caf 100%);
+  box-shadow: 0 14px 34px -10px rgba(192, 38, 211, 0.55);
+  border: 1px solid transparent;
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 18px 40px -10px rgba(192, 38, 211, 0.65);
+}
+
+.hero-btn-secondary {
+  color: #f4f4f6;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+/* ---------- Right visual column ---------- */
+.hero-visual-col {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1600px;
+}
+
+/* Panel sits on top of the single page-level ambient glow (see
+   .hero-section-bg::before) — no separate glow shape here anymore,
+   so the light reads as one continuous field instead of stacked blobs. */
+.hero-mock-glow {
+  display: none;
+}
+
+.hero-mock-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 540px;
+  background: #0c0a10;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 22px 22px 20px;
+  box-shadow: 0 40px 90px -25px rgba(0, 0, 0, 0.7);
+  transform: rotateY(-8deg) rotateX(3deg) rotateZ(1.2deg);
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-mock-panel:hover {
+  transform: rotateY(-4deg) rotateX(1.5deg) rotateZ(0.6deg);
+}
+
+.hero-mock-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-mock-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  background: linear-gradient(135deg, #c026d3 0%, #6366f1 100%);
+  flex-shrink: 0;
+}
+
+.hero-mock-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero-mock-title {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #f4f4f6;
+}
+
+.hero-mock-status {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: #a3e635;
+  font-weight: 600;
+}
+
+.hero-mock-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a3e635;
+  box-shadow: 0 0 8px rgba(163, 230, 53, 0.8);
+  flex-shrink: 0;
+}
+
+.hero-mock-bubble {
+  font-size: 13.5px;
+  line-height: 1.6;
+  border-radius: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.hero-mock-bubble-user {
+  background: rgba(255, 255, 255, 0.035);
+  color: #e5e7eb;
+}
+
+.hero-mock-bubble-ai {
+  background: rgba(168, 85, 247, 0.06);
+  border-color: rgba(168, 85, 247, 0.18);
+  color: #cbd5e1;
+}
+
+.hero-mock-bubble-ai .tok-fn {
+  color: #38bdf8;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 12.5px;
+  background: none;
+}
+
+.hero-mock-bubble-ai .tok-kw {
+  color: #f472b6;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 12.5px;
+  background: none;
+}
+
+.hero-mock-bubble-ai .tok-type {
+  color: #facc15;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 12.5px;
+  background: none;
+}
+
+.hero-mock-code-window {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #050408;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.hero-mock-code-tab {
+  padding: 9px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.hero-mock-code-tab-name {
+  font-size: 11.5px;
+  color: #9ca3af;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+}
+
+.hero-mock-code-body {
+  margin: 0;
+  padding: 16px;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: #e5e7eb;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hero-mock-code-body .tok-kw {
+  color: #f472b6;
+}
+
+.hero-mock-code-body .tok-type {
+  color: #facc15;
+}
+
+.hero-mock-code-body .tok-fn {
+  color: #38bdf8;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .hero-body-row {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .hero-copy-col {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .hero-subcopy {
+    max-width: 100%;
+  }
+
+  .hero-cta-row {
+    justify-content: center;
+  }
+
+  .hero-visual-col {
+    order: -1;
+  }
+
+  .hero-mock-panel {
+    transform: none;
+  }
+
+  .hero-mock-panel:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-heading {
+    font-size: 2.5rem;
+  }
+
+  .hero-container {
+    padding-top: 40px;
+    padding-bottom: 56px;
+  }
+
+  .hero-badge-pill {
+    font-size: 11px;
+  }
+
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-cta-row {
+    flex-direction: column;
     width: 100%;
   }
 }
