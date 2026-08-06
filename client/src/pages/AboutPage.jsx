@@ -2,7 +2,6 @@ import React from 'react';
 import { RiAwardLine, RiShieldUserLine, RiTeamLine, RiCompassDiscoverLine } from "react-icons/ri";
 import Footer from '../Components/Common/Footer';
 import './AboutPage.css';
-import StudentReviews from './StudentReviews';
 
 const AboutPage = () => {
   return (
@@ -99,7 +98,6 @@ const AboutPage = () => {
             </div>
           </div>
         </main>
-        <StudentReviews/>
       </div>
       <Footer />
     </>

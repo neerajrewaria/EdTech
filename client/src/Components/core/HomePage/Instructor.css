@@ -6,6 +6,8 @@
   --ijp-text-bright: #ffffff;
   --ijp-text-dim: #999daa;
   --ijp-accent-blue: #3b82f6;
+  --ijp-accent-magenta: #d946ef;
+  --ijp-accent-violet: #a855f7;
   --ijp-radius-frame: 24px;
   --ijp-radius-inner: 16px;
   --ijp-transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -54,7 +56,7 @@
   width: 100%;
   height: 100%;
   border-radius: var(--ijp-radius-frame);
-  border: 2px dashed rgba(59, 130, 246, 0.15);
+  border: 2px dashed rgba(217, 70, 239, 0.18);
   z-index: 1;
   pointer-events: none;
 }
@@ -62,7 +64,8 @@
 .instructor-join-panel-hero-img {
   width: 100%;
   height: auto;
-  aspect-ratio: 1 / 1; /* Locked into a crisp modern uniform baseline profile ratio */
+  aspect-ratio: 1 / 1;
+  /* Locked into a crisp modern uniform baseline profile ratio */
   object-fit: cover;
   border-radius: var(--ijp-radius-inner);
   position: relative;
@@ -75,46 +78,53 @@
   transform: scale(1.02);
 }
 
-/* Floating Glassmorphic Context Card Badge styling */
+/* Floating Glassmorphic Context Card Badge — repositioned to the
+   top-right corner of the frame, mirroring the reference layout,
+   still showing only the original "Join 5,000+ mentors" stat. */
 .instructor-join-panel-floating-metric-card {
   position: absolute;
-  bottom: 32px;
-  left: -30px;
+  top: 24px;
+  right: -18px;
+  left: auto;
+  bottom: auto;
   background: rgba(17, 24, 39, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 14px 20px;
-  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 12px 18px 12px 12px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   z-index: 3;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
 }
 
 .metric-icon-badge {
-  font-size: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  width: 40px;
-  height: 40px;
+  font-size: 1.15rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .instructor-join-panel-floating-metric-card h5 {
   color: var(--ijp-text-bright);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  margin: 0 0 2px 0;
+  margin: 0 0 1px 0;
+  white-space: nowrap;
 }
 
 .instructor-join-panel-floating-metric-card p {
   color: var(--ijp-text-dim);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   margin: 0;
+  white-space: nowrap;
 }
 
 /* RIGHT SIDE: Rich Text Typographic Panels styling handles */
@@ -127,14 +137,26 @@
   width: 100%;
 }
 
+/* Eyebrow pill — icon + label, matching the reference badge treatment */
 .instructor-join-panel-context-pre-title {
-  color: var(--ijp-accent-blue);
-  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px 7px 12px;
+  border-radius: 999px;
+  background: rgba(217, 70, 239, 0.1);
+  border: 1px solid rgba(217, 70, 239, 0.3);
+  color: var(--ijp-accent-magenta);
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  display: block;
-  margin-bottom: 12px;
+  letter-spacing: 1.2px;
+  margin-bottom: 22px;
+}
+
+.instructor-eyebrow-icon {
+  font-size: 0.85rem;
+  flex-shrink: 0;
 }
 
 .instructor-join-panel-main-heading {
@@ -151,6 +173,15 @@
   margin-top: 4px;
 }
 
+/* Ensure the HighlightText gradient reads clearly in this section
+   regardless of which page-level gradient rule is in scope elsewhere. */
+.instructor-join-panel-highlight-fix .highlight-text {
+  background: linear-gradient(90deg, var(--ijp-accent-magenta) 0%, var(--ijp-accent-violet) 55%, var(--ijp-accent-blue) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .instructor-join-panel-description {
   font-size: 1.05rem;
   line-height: 1.65;
@@ -159,7 +190,7 @@
   max-width: 520px;
 }
 
-/* Density Elevation Value Grid Row styling elements */
+/* Density Elevation Value Grid Row styling elements — icon + stat pairing */
 .instructor-join-panel-value-metrics-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -169,18 +200,40 @@
   margin-bottom: 40px;
 }
 
+.metric-node-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.metric-node-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  color: var(--ijp-accent-blue);
+}
+
 .metric-node-block h4 {
-  font-size: 1.65rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--ijp-text-bright);
-  margin: 0 0 4px 0;
+  margin: 0 0 2px 0;
   letter-spacing: -0.01em;
+  line-height: 1.1;
 }
 
 .metric-node-block p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--ijp-text-dim);
   margin: 0;
+  line-height: 1.3;
 }
 
 /* Premium Navigation CTA alignment elements */
@@ -209,6 +262,7 @@
   .instructor-join-panel-wrapper {
     gap: 48px;
   }
+
   .instructor-join-panel-main-heading {
     font-size: 2.5rem;
   }
@@ -218,16 +272,22 @@
   .instructor-join-panel-root-canvas {
     padding: 64px 20px;
   }
+
   .instructor-join-panel-wrapper {
     grid-template-columns: 1fr;
     gap: 60px;
   }
+
   .instructor-join-panel-media-side {
-    order: 2; /* Drops media safely below copy blocks to structure viewport scanner readability */
+    order: 2;
+    /* Drops media safely below copy blocks to structure viewport scanner readability */
   }
+
   .instructor-join-panel-floating-metric-card {
-    left: 20px; /* Safe bounds adjustment alignment when collapsing elements */
+    right: 16px;
+    /* Safe bounds adjustment alignment when collapsing elements */
   }
+
   .instructor-join-panel-description {
     max-width: 100%;
   }
@@ -237,8 +297,48 @@
   .instructor-join-panel-main-heading {
     font-size: 2.15rem;
   }
+
   .instructor-join-panel-value-metrics-row {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 18px;
   }
+
+  .instructor-join-panel-floating-metric-card {
+    top: 14px;
+    right: 14px;
+    padding: 9px 14px 9px 9px;
+  }
+
+  .metric-icon-badge {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* Light theme overrides scoped to homepage root */
+.home-page.light .instructor-join-panel-root-canvas {
+  --ijp-bg-color: #f8fafc;
+  --ijp-surface-elevated: #ffffff;
+  --ijp-border-line: rgba(15, 23, 42, 0.06);
+  --ijp-text-bright: #0f172a;
+  --ijp-text-dim: #475569;
+  --ijp-accent-blue: #2563eb;
+  --ijp-accent-magenta: #be185d;
+  background-color: var(--ijp-bg-color);
+}
+
+.home-page.light .instructor-join-panel-asymmetric-bounding-box {
+  background-color: var(--ijp-surface-elevated);
+  border: 1px solid var(--ijp-border-line);
+  box-shadow: none;
+}
+
+.home-page.light .instructor-join-panel-main-heading {
+  color: var(--ijp-text-bright);
+}
+
+.home-page.light .instructor-join-panel-description,
+.home-page.light .instructor-join-panel-floating-metric-card p {
+  color: var(--ijp-text-dim);
 }

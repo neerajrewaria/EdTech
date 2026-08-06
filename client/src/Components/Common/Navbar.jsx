@@ -21,6 +21,24 @@ const Navbar = () => {
   // sun/moon icon toggle shown in the reference design.
   const [isLightIcon, setIsLightIcon] = useState(false);
 
+  // initialize theme from localStorage (or default to dark)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('theme_home');
+      const isLight = saved === 'light';
+      const homeRoot = document.querySelector('.home-page');
+      if (homeRoot) {
+        if (isLight) homeRoot.classList.add('light');
+        else homeRoot.classList.remove('light');
+      }
+      if (isLight) document.documentElement.classList.add('light');
+      else document.documentElement.classList.remove('light');
+      setIsLightIcon(isLight);
+    } catch (e) {
+      // ignore
+    }
+  }, []);
+
   const fetchSubLinks = async () => {
     try {
       const result = await apiConnector(
@@ -93,7 +111,27 @@ const Navbar = () => {
           className="navbar-icon-btn"
           aria-label="Toggle theme"
           title="Toggle theme"
-          onClick={() => setIsLightIcon((prev) => !prev)}
+          onClick={() => {
+            const next = !isLightIcon;
+            setIsLightIcon(next);
+            try {
+              const homeRoot = document.querySelector('.home-page');
+              if (homeRoot) {
+                if (next) {
+                  homeRoot.classList.add('light');
+                } else {
+                  homeRoot.classList.remove('light');
+                }
+              }
+              if (next) {
+                document.documentElement.classList.add('light');
+                localStorage.setItem('theme_home', 'light');
+              } else {
+                document.documentElement.classList.remove('light');
+                localStorage.setItem('theme_home', 'dark');
+              }
+            } catch (e) { }
+          }}
         >
           {isLightIcon ? <FiSun /> : <FiMoon />}
         </button>

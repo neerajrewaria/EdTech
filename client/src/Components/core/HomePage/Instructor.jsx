@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaArrowRight } from 'react-icons/fa6';
+import { FaArrowRight, FaUsers, FaEarthAmericas, FaGift } from 'react-icons/fa6';
 import HighlightText from './HighlightText';
 import CTAButton from '../HomePage/Button';
 import instructorImg from '../../../assests/Images/office.jpg';
-import StudentReviews from '../../../pages/StudentReviews'; // 1. Import your modern standalone reviews component
+
 import './Instructor.css';
 
 const Instructor = () => {
@@ -36,7 +36,10 @@ const Instructor = () => {
           {/* RIGHT ASPECT LAYER: SaaS Typography Hierarchy & Trust Blocks */}
           <div className="instructor-join-panel-content-side">
             <div className="instructor-join-panel-text-block">
-              <span className="instructor-join-panel-context-pre-title">Global Faculty Network</span>
+              <span className="instructor-join-panel-context-pre-title">
+                <FaEarthAmericas className="instructor-eyebrow-icon" />
+                Global Faculty Network
+              </span>
 
               <h1 className="instructor-join-panel-main-heading">
                 Become an <br />
@@ -53,16 +56,31 @@ const Instructor = () => {
 
               <div className="instructor-join-panel-value-metrics-row">
                 <div className="metric-node-block">
-                  <h4>70M+</h4>
-                  <p>Enrolled Students</p>
+                  <span className="metric-node-icon">
+                    <FaUsers />
+                  </span>
+                  <div>
+                    <h4>70M+</h4>
+                    <p>Enrolled Students</p>
+                  </div>
                 </div>
                 <div className="metric-node-block">
-                  <h4>100+</h4>
-                  <p>Countries Reached</p>
+                  <span className="metric-node-icon">
+                    <FaEarthAmericas />
+                  </span>
+                  <div>
+                    <h4>100+</h4>
+                    <p>Countries Reached</p>
+                  </div>
                 </div>
                 <div className="metric-node-block">
-                  <h4>$0</h4>
-                  <p>Platform Hosting Fees</p>
+                  <span className="metric-node-icon">
+                    <FaGift />
+                  </span>
+                  <div>
+                    <h4>$0</h4>
+                    <p>Platform Hosting Fees</p>
+                  </div>
                 </div>
               </div>
 
@@ -79,9 +97,6 @@ const Instructor = () => {
 
         </div>
       </section>
-
-      {/* 2. Render the isolated StudentReviews component right below the banner */}
-      <StudentReviews />
 
     </div>
   );

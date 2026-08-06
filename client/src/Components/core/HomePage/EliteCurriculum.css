@@ -3,7 +3,7 @@
    ============================================================ */
 
 .ec-section {
-  --ec-bg: #050510;
+  --ec-bg: #1b1b1df5;
   --ec-card-bg: #0b0a12;
   --ec-card-border: rgba(255, 255, 255, 0.08);
   --ec-card-border-hover: rgba(255, 255, 255, 0.18);
@@ -19,7 +19,8 @@
   padding: 88px 24px 120px;
   box-sizing: border-box;
   position: relative;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
 }
 
 .ec-container {
@@ -82,11 +83,63 @@
   transform: translateY(-1px);
 }
 
-/* ---------- Grid ---------- */
+/* ---------- Marquee viewport ----------
+   Clips the scrolling track so only one "page" worth of cards is
+   ever visible at a time, and is the element we hang the
+   pause-on-hover behaviour off of. */
+.ec-marquee-viewport {
+  width: 100%;
+  overflow: hidden;
+  /* soft fade at the edges so cards don't hard-clip mid-card */
+  -webkit-mask-image: linear-gradient(90deg,
+      transparent 0,
+      #000 48px,
+      #000 calc(100% - 48px),
+      transparent 100%);
+  mask-image: linear-gradient(90deg,
+      transparent 0,
+      #000 48px,
+      #000 calc(100% - 48px),
+      transparent 100%);
+}
+
+/* ---------- Grid / track ----------
+   Same class name and gap as before; layout mechanism switches from
+   a wrapping grid to a single non-wrapping row since the cards now
+   scroll continuously instead of sitting in fixed columns. */
 .ec-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: nowrap;
   gap: 24px;
+  width: max-content;
+}
+
+.ec-marquee-track {
+  animation: ec-marquee-scroll 32s linear infinite;
+}
+
+/* Pause the whole track — and therefore every card in it — the
+   moment the pointer enters the visible strip. */
+.ec-marquee-viewport:hover .ec-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes ec-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    /* The track holds the card list twice, so -50% is exactly one
+       full set width — the loop point is invisible. */
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ec-marquee-track {
+    animation: none;
+  }
 }
 
 /* ---------- Card ---------- */
@@ -98,6 +151,11 @@
   display: flex;
   flex-direction: column;
   transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+
+  /* Fixed card width replaces the old grid column sizing — needed
+     so the track has a stable, measurable width to scroll/loop. */
+  flex: 0 0 312px;
+  width: 312px;
 }
 
 .ec-card:hover {
@@ -111,25 +169,37 @@
   border-color: var(--ec-cyan);
   box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.35), 0 24px 60px -20px rgba(34, 211, 238, 0.25);
 }
-.ec-card--cyan:hover .ec-card-title { color: var(--ec-cyan); }
+
+.ec-card--cyan:hover .ec-card-title {
+  color: var(--ec-cyan);
+}
 
 .ec-card--lime:hover {
   border-color: var(--ec-lime);
   box-shadow: 0 0 0 1px rgba(163, 230, 53, 0.35), 0 24px 60px -20px rgba(163, 230, 53, 0.25);
 }
-.ec-card--lime:hover .ec-card-title { color: var(--ec-lime); }
+
+.ec-card--lime:hover .ec-card-title {
+  color: var(--ec-lime);
+}
 
 .ec-card--sky:hover {
   border-color: var(--ec-sky);
   box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35), 0 24px 60px -20px rgba(56, 189, 248, 0.25);
 }
-.ec-card--sky:hover .ec-card-title { color: var(--ec-sky); }
+
+.ec-card--sky:hover .ec-card-title {
+  color: var(--ec-sky);
+}
 
 .ec-card--magenta:hover {
   border-color: var(--ec-magenta);
   box-shadow: 0 0 0 1px rgba(217, 70, 239, 0.35), 0 24px 60px -20px rgba(217, 70, 239, 0.25);
 }
-.ec-card--magenta:hover .ec-card-title { color: var(--ec-magenta); }
+
+.ec-card--magenta:hover .ec-card-title {
+  color: var(--ec-magenta);
+}
 
 .ec-card-top {
   display: flex;
@@ -151,10 +221,29 @@
   flex-shrink: 0;
 }
 
-.ec-icon-cyan { color: var(--ec-cyan); background: rgba(34, 211, 238, 0.1); border-color: rgba(34, 211, 238, 0.2); }
-.ec-icon-lime { color: var(--ec-lime); background: rgba(163, 230, 53, 0.1); border-color: rgba(163, 230, 53, 0.2); }
-.ec-icon-sky { color: var(--ec-sky); background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.2); }
-.ec-icon-magenta { color: var(--ec-magenta); background: rgba(217, 70, 239, 0.12); border-color: rgba(217, 70, 239, 0.22); }
+.ec-icon-cyan {
+  color: var(--ec-cyan);
+  background: rgba(34, 211, 238, 0.1);
+  border-color: rgba(34, 211, 238, 0.2);
+}
+
+.ec-icon-lime {
+  color: var(--ec-lime);
+  background: rgba(163, 230, 53, 0.1);
+  border-color: rgba(163, 230, 53, 0.2);
+}
+
+.ec-icon-sky {
+  color: var(--ec-sky);
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+.ec-icon-magenta {
+  color: var(--ec-magenta);
+  background: rgba(217, 70, 239, 0.12);
+  border-color: rgba(217, 70, 239, 0.22);
+}
 
 .ec-badge {
   padding: 5px 13px;
@@ -177,12 +266,14 @@
 }
 
 .ec-card-desc {
-  font-size: 14.5px;
+  font-size: 13.1px;
   line-height: 1.65;
   color: var(--ec-text-muted);
   margin: 0 0 24px;
   flex-grow: 1;
+  color: #b39fb5;
 }
+
 
 .ec-tag-row {
   display: flex;
@@ -271,10 +362,14 @@
   transform: translateY(-2px);
 }
 
-/* ---------- Responsive ---------- */
+/* ---------- Responsive ----------
+   Layout is now a single scrolling row at every breakpoint, so the
+   old grid-template-columns rules are replaced with card-width
+   adjustments instead. */
 @media (max-width: 1180px) {
-  .ec-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .ec-card {
+    flex-basis: 280px;
+    width: 280px;
   }
 }
 
@@ -291,12 +386,109 @@
     align-items: flex-start;
   }
 
-  .ec-grid {
-    grid-template-columns: 1fr;
+  .ec-card {
+    flex-basis: 250px;
+    width: 250px;
   }
 
   .ec-floating-pill-wrap {
     justify-content: center;
     margin-top: 40px;
   }
+}
+
+/* Light theme overrides scoped to homepage root */
+.home-page.light .ec-section {
+  --ec-bg: #f8fafc;
+  --ec-card-bg: #ffffff;
+  --ec-card-border: rgba(15, 23, 42, 0.08);
+  --ec-card-border-hover: rgba(15, 23, 42, 0.16);
+  --ec-text-main: #0f172a;
+  --ec-text-muted: #475569;
+  --ec-cyan: #0ea5a4;
+  --ec-lime: #16a34a;
+  --ec-sky: #0369a1;
+  --ec-magenta: #a21caf;
+}
+
+.home-page.light .ec-card {
+  background: var(--ec-card-bg);
+  border: 1px solid var(--ec-card-border);
+  box-shadow: 0 28px 80px -26px rgba(15, 23, 42, 0.18);
+}
+
+.home-page.light .ec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px -20px rgba(15, 23, 42, 0.22);
+}
+
+.home-page.light .ec-card--cyan:hover {
+  border-color: var(--ec-cyan);
+  box-shadow: 0 0 0 1px rgba(14, 165, 164, 0.18), 0 24px 50px -20px rgba(15, 23, 42, 0.22);
+}
+
+.home-page.light .ec-card--cyan:hover .ec-card-title {
+  color: var(--ec-cyan);
+}
+
+.home-page.light .ec-card--lime:hover {
+  border-color: var(--ec-lime);
+  box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.18), 0 24px 50px -20px rgba(15, 23, 42, 0.22);
+}
+
+.home-page.light .ec-card--lime:hover .ec-card-title {
+  color: var(--ec-lime);
+}
+
+.home-page.light .ec-card--sky:hover {
+  border-color: var(--ec-sky);
+  box-shadow: 0 0 0 1px rgba(3, 105, 161, 0.18), 0 24px 50px -20px rgba(15, 23, 42, 0.22);
+}
+
+.home-page.light .ec-card--sky:hover .ec-card-title {
+  color: var(--ec-sky);
+}
+
+.home-page.light .ec-card--magenta:hover {
+  border-color: var(--ec-magenta);
+  box-shadow: 0 0 0 1px rgba(162, 28, 175, 0.18), 0 24px 50px -20px rgba(15, 23, 42, 0.22);
+}
+
+.home-page.light .ec-card--magenta:hover .ec-card-title {
+  color: var(--ec-magenta);
+}
+
+.home-page.light .ec-card-title,
+.home-page.light .ec-heading {
+  color: var(--ec-text-main);
+}
+
+.home-page.light .ec-subheading,
+.home-page.light .ec-card-desc,
+.home-page.light .ec-badge {
+  color: var(--ec-text-muted);
+}
+
+.home-page.light .ec-icon-box {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+.home-page.light .ec-card-footer {
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+.home-page.light .ec-duration {
+  color: #475569;
+}
+
+.home-page.light .ec-floating-pill {
+  background: rgba(145, 90, 255, 0.1);
+  border-color: rgba(145, 90, 255, 0.24);
+  color: var(--ec-text-main);
+  box-shadow: 0 24px 60px -28px rgba(145, 90, 255, 0.18);
+}
+
+.home-page.light .ec-floating-pill:hover {
+  background: rgba(145, 90, 255, 0.14);
 }

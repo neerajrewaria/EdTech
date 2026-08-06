@@ -64,6 +64,44 @@ const curriculumData = [
   },
 ];
 
+/* Small helper so the exact same card markup is reused for both the
+   original set and the duplicated set below — keeps everything in
+   sync with zero risk of the two copies drifting apart. */
+const renderCard = (course, keySuffix = "") => (
+  <article
+    className={`ec-card ec-card--${course.accent}`}
+    key={`${course.id}${keySuffix}`}
+  >
+    <div className="ec-card-top">
+      <span className={`ec-icon-box ec-icon-${course.accent}`}>
+        {course.icon}
+      </span>
+      <span className="ec-badge">{course.badge}</span>
+    </div>
+
+    <h3 className="ec-card-title">{course.title}</h3>
+    <p className="ec-card-desc">{course.description}</p>
+
+    <div className="ec-tag-row">
+      {course.tags.map((tag) => (
+        <span className="ec-tag" key={tag}>
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    <div className="ec-card-footer">
+      <span className="ec-duration">
+        <FiClock />
+        {course.duration}
+      </span>
+      <span className="ec-card-arrow" aria-hidden="true">
+        <FiArrowRight />
+      </span>
+    </div>
+  </article>
+);
+
 const EliteCurriculum = () => {
   return (
     <section className="ec-section">
@@ -86,39 +124,15 @@ const EliteCurriculum = () => {
           </button>
         </div>
 
-        {/* ---------- Card grid ---------- */}
-        <div className="ec-grid">
-          {curriculumData.map((course) => (
-            <article className={`ec-card ec-card--${course.accent}`} key={course.id}>
-              <div className="ec-card-top">
-                <span className={`ec-icon-box ec-icon-${course.accent}`}>
-                  {course.icon}
-                </span>
-                <span className="ec-badge">{course.badge}</span>
-              </div>
-
-              <h3 className="ec-card-title">{course.title}</h3>
-              <p className="ec-card-desc">{course.description}</p>
-
-              <div className="ec-tag-row">
-                {course.tags.map((tag) => (
-                  <span className="ec-tag" key={tag}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="ec-card-footer">
-                <span className="ec-duration">
-                  <FiClock />
-                  {course.duration}
-                </span>
-                <span className="ec-card-arrow" aria-hidden="true">
-                  <FiArrowRight />
-                </span>
-              </div>
-            </article>
-          ))}
+        {/* ---------- Card marquee ----------
+            Same cards, same data, same props. The list is rendered
+            twice back-to-back inside a clipped viewport so the
+            leftward scroll can loop seamlessly at the halfway point. */}
+        <div className="ec-marquee-viewport">
+          <div className="ec-grid ec-marquee-track">
+            {curriculumData.map((course) => renderCard(course))}
+            {curriculumData.map((course) => renderCard(course, "-dup"))}
+          </div>
         </div>
 
         {/* ---------- Floating explore pill ---------- */}
