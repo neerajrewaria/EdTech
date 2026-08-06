@@ -19,14 +19,34 @@
   padding: 88px 24px 120px;
   box-sizing: border-box;
   position: relative;
+  isolation: isolate;
   font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
+}
+
+/* Kept outside the clipped marquee viewport so the light can fade
+   naturally below the cards instead of ending in a hard horizontal edge. */
+.ec-section::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 48%;
+  left: 50%;
+  width: min(72%, 860px);
+  height: 240px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(217, 70, 239, 0.42);
+  filter: blur(88px);
+  opacity: 0.68;
+  pointer-events: none;
 }
 
 .ec-container {
   max-width: 1320px;
   margin: 0 auto;
   position: relative;
+  z-index: 1;
 }
 
 /* ---------- Header row ---------- */
@@ -49,7 +69,7 @@
 }
 
 .ec-heading-accent {
-  color: var(--ec-cyan);
+  color: #22d3ee;
 }
 
 .ec-subheading {
@@ -88,8 +108,13 @@
    ever visible at a time, and is the element we hang the
    pause-on-hover behaviour off of. */
 .ec-marquee-viewport {
+  position: relative;
   width: 100%;
   overflow: hidden;
+  /* Reserve invisible vertical room for the cards' shadows while
+     preserving the section's original layout height. */
+  padding-bottom: 96px;
+  margin-bottom: -96px;
   /* soft fade at the edges so cards don't hard-clip mid-card */
   -webkit-mask-image: linear-gradient(90deg,
       transparent 0,
@@ -115,6 +140,8 @@
 }
 
 .ec-marquee-track {
+  position: relative;
+  z-index: 1;
   animation: ec-marquee-scroll 32s linear infinite;
 }
 
@@ -491,4 +518,8 @@
 
 .home-page.light .ec-floating-pill:hover {
   background: rgba(145, 90, 255, 0.14);
+}
+
+.home-page.light .ec-section::before {
+  opacity: 0.42;
 }
