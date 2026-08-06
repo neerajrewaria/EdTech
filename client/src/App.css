@@ -71,12 +71,36 @@ a {
   gap: 2rem;
 }
 
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.footer-logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #c026d3 0%, #a21caf 100%);
+  color: #ffffff;
+  font-size: 17px;
+  box-shadow: 0 6px 18px -4px rgba(192, 38, 211, 0.45);
+  flex-shrink: 0;
+}
+
 .footer-logo {
-  color: white;
-
-  font-size: 1.7rem;
-
-  font-weight: bold;
+  font-size: 31px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #ea61ff 0%, #eb46ff 55%, #00e7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
 }
 
 .footer-section {
