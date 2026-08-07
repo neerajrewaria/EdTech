@@ -9,7 +9,6 @@ body {
 .App {
   width: 100%;
   min-height: 100vh;
-  padding-top: 72px;
   box-sizing: border-box;
   /* Use hero-section dark background across the homepage */
   background-color: #1b1b1df5;

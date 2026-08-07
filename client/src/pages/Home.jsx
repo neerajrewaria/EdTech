@@ -15,8 +15,8 @@ import './Home.css';
 const demoSteps = [
   { label: 'Choose what to learn', title: 'Pick a job-ready course', eyebrow: 'Start learning', course: 'System Design Foundations', detail: '12 guided lessons | Learn at your own pace', accent: 'course' },
   { label: 'Watch and practise', title: 'Learn one lesson at a time', eyebrow: 'Follow the course', course: 'Designing reliable APIs', detail: '18 min left | Your progress is saved', accent: 'lecture' },
-  { label: 'Stuck on a topic?', title: 'Ask your question anytime', eyebrow: 'Get help when you need it', course: 'Why do we use a load balancer here?', detail: 'AI Mentor uses the lesson you are watching', accent: 'question' },
-  { label: 'Clear help, right away', title: 'Understand the answer', eyebrow: 'Learn with AI Mentor', course: 'It shares traffic so your app stays fast and reliable.', detail: 'A simple explanation based on this lesson', accent: 'answer' },
+  { label: 'Stuck on a topic?', title: 'Ask an instructor anytime', eyebrow: 'Get help when you need it', course: 'Why do we use a load balancer here?', detail: 'Practical guidance tailored to your course', accent: 'question' },
+  { label: 'Clear help, right away', title: 'Understand the answer', eyebrow: 'Instructor-led review', course: 'It shares traffic so your app stays fast and reliable.', detail: 'A concise explanation with real examples', accent: 'answer' },
 ];
 
 const LearningDemo = () => {
@@ -56,7 +56,7 @@ const LearningDemo = () => {
         <div className="learning-demo-screen-copy"><p className="learning-demo-eyebrow">{step.eyebrow}</p><h2>{step.title}</h2></div>
         {step.accent === 'course' && <div className="demo-course-card"><span className="demo-course-icon"><HiOutlineBookOpen /></span><div><strong>{step.course}</strong><small>{step.detail}</small></div><FiChevronRight /></div>}
         {step.accent === 'lecture' && <div className="demo-lecture-card"><div className="demo-video-preview"><HiOutlinePlayCircle /><span>12:48</span></div><strong>{step.course}</strong><div className="demo-progress-line"><span /></div><small>{step.detail}</small></div>}
-        {step.accent === 'question' && <div className="demo-question-card"><p>{step.course}</p><div><span>Ask AI Mentor</span><FiSend /></div><small>{step.detail}</small></div>}
+        {step.accent === 'question' && <div className="demo-question-card"><p>{step.course}</p><div><span>Ask an instructor</span><FiSend /></div><small>{step.detail}</small></div>}
         {step.accent === 'answer' && <div className="demo-answer-card"><span className="demo-answer-icon"><HiOutlineSparkles /></span><p>{step.course}</p><small><FiCheck /> {step.detail}</small></div>}
       </div>
       <div className="learning-demo-steps">
@@ -97,11 +97,9 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                Architecting the
+                Learn with confidence.
                 <br />
-                Future of
-                <br />
-                <span className="hero-heading-gradient">Intelligence.</span>
+                <span className="hero-heading-gradient">Grow as student or instructor.</span>
               </motion.h1>
 
               <motion.p
@@ -110,9 +108,9 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.25 }}
               >
-                Learn in-demand technology skills with guided courses, hands-on
-                projects, and an AI study mentor that helps you understand every
-                lesson whenever you need it.
+                Build career-ready tech skills with instructor-led courses,
+                practical projects, and study support designed for learners and
+                educators.
               </motion.p>
 
               <motion.div
@@ -145,12 +143,12 @@ const Home = () => {
 
               <div className="hero-mock-panel hero-mock-panel-legacy" aria-hidden="true">
                 <div className="hero-mock-chat-header">
-                  <span className="hero-mock-avatar">🤖</span>
+                  <span className="hero-mock-avatar">👩‍🏫</span>
                   <div className="hero-mock-header-text">
-                    <p className="hero-mock-title">AI Mentor</p>
+                    <p className="hero-mock-title">Instructor Review</p>
                     <p className="hero-mock-status">
                       <span className="hero-mock-status-dot" />
-                      Online &ndash; Context Aware
+                      Real-time course feedback
                     </p>
                   </div>
                 </div>
@@ -160,17 +158,12 @@ const Home = () => {
                   code is doing.
                 </div>
 
-                <div className="hero-mock-bubble hero-mock-bubble-ai">
-                  Analyzing architecture&hellip; The provided Rust
-                  implementation defines a{" "}
-                  <code className="tok-fn">forward</code> pass for a Neural
-                  Network. It leverages a functional{" "}
-                  <code className="tok-fn">.fold()</code> pattern to
-                  sequentially apply each{" "}
-                  <code className="tok-kw">layer</code> to the input{" "}
-                  <code className="tok-type">Tensor</code> x. This ensures a
-                  clean, immutable transformation of data through the network
-                  layers.
+                <div className="hero-mock-bubble hero-mock-bubble-response">
+                  The Rust implementation defines a <code className="tok-fn">forward</code>
+                  pass for a neural network. It uses <code className="tok-fn">.fold()</code>
+                  to apply each <code className="tok-kw">layer</code> to the input
+                  <code className="tok-type">Tensor</code>, creating a clean,
+                  production-ready data flow through the model.
                 </div>
 
                 <div className="hero-mock-code-window">

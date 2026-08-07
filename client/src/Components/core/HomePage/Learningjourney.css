@@ -580,8 +580,8 @@
   }
 }
 
-/* Light theme overrides scoped to homepage root */
-.home-page.light .lj-section {
+/* Light theme overrides scoped to the global light-theme class */
+.light .lj-section {
   --lj-bg: #f8fafc;
   --lj-card-bg: #ffffff;
   --lj-card-border: rgba(15, 23, 42, 0.06);
@@ -595,20 +595,20 @@
   background: var(--lj-bg);
 }
 
-.home-page.light .lj-card,
-.home-page.light .lj-progress-panel {
+.light .lj-card,
+.light .lj-progress-panel {
   background: var(--lj-card-bg);
   border: 1px solid var(--lj-card-border);
 }
 
-.home-page.light .lj-heading,
-.home-page.light .lj-card-title,
-.home-page.light .lj-progress-value {
+.light .lj-heading,
+.light .lj-card-title,
+.light .lj-progress-value {
   color: var(--lj-text-main);
 }
 
-.home-page.light .lj-subheading,
-.home-page.light .lj-card-desc,
-.home-page.light .lj-enroll-name {
+.light .lj-subheading,
+.light .lj-card-desc,
+.light .lj-enroll-name {
   color: var(--lj-text-muted);
 }

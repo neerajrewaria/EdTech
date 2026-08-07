@@ -117,7 +117,7 @@ const LearningJourney = () => {
             </ul>
           </motion.div>
 
-          {/* Step 2 — AI Doubt Solver */}
+          {/* Step 2 — Instructor Support */}
           <motion.div
             className="lj-card lj-card--mentor"
             initial="hidden"
@@ -129,13 +129,13 @@ const LearningJourney = () => {
             <div className="lj-card-heading-row">
               <span className="lj-step-index">02</span>
               <div>
-                <h3 className="lj-card-title">AI Doubt Solver</h3>
+                <h3 className="lj-card-title">Instructor Support</h3>
                 <p className="lj-card-desc">
-                  Instant, context-aware answers to unblock your workflow.
+                  Fast, expert feedback to keep students and instructors moving.
                 </p>
               </div>
               <span className="lj-mentor-avatar" aria-hidden="true">
-                🤖
+                👩‍🏫
               </span>
             </div>
 
@@ -148,13 +148,13 @@ const LearningJourney = () => {
               <div className="lj-chat-bubble lj-chat-bubble--ai">
                 <span className="lj-mentor-tag">
                   <HiOutlineSparkles />
-                  AI MENTOR
+                  INSTRUCTOR
                 </span>
                 <p>
                   The dependency array tells React when to re-run the
                   effect. If it&rsquo;s empty <code>[]</code>, it runs once on
-                  mount. If you include variables, it re-runs whenever they
-                  change, preventing infinite loops.
+                  mount. If you include variables, it re-runs whenever those
+                  values change, preventing unnecessary updates.
                 </p>
               </div>
             </div>
