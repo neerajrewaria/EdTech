@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaArrowRight, FaUsers, FaEarthAmericas, FaGift } from 'react-icons/fa6';
 import HighlightText from './HighlightText';
-import CTAButton from '../HomePage/Button';
 import instructorImg from '../../../assests/Images/office.jpg';
 
 import './Instructor.css';
@@ -85,12 +85,12 @@ const Instructor = () => {
               </div>
 
               <div className="CTA-BUTTON-DIV">
-                <CTAButton active={true} linkto={"/signup"}>
+                <Link to="/signup" className="hero-btn-primary instructor-hero-btn">
                   <span className="cta-button-text-flex">
                     Start Teaching Today
                     <FaArrowRight className="cta-button-arrow-icon" />
                   </span>
-                </CTAButton>
+                </Link>
               </div>
             </div>
           </div>

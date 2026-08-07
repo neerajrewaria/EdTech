@@ -1,344 +1,394 @@
-/* Highly isolated variables and resets limited strictly to this layout block component wrapper */
-.instructor-join-panel-root-canvas {
-  --ijp-bg-color: #0b0f19;
-  --ijp-surface-elevated: #111827;
-  --ijp-border-line: rgba(255, 255, 255, 0.06);
-  --ijp-text-bright: #ffffff;
-  --ijp-text-dim: #999daa;
-  --ijp-accent-blue: #3b82f6;
-  --ijp-accent-magenta: #d946ef;
-  --ijp-accent-violet: #a855f7;
-  --ijp-radius-frame: 24px;
-  --ijp-radius-inner: 16px;
-  --ijp-transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* ==========================================================================
+   Instructor.css
+   Redesigned to match NCodeX hero: near-black bg, magenta→blue→cyan gradient,
+   glass panels, pill buttons, glow accents.
+   ========================================================================== */
 
-  background-color: var(--ijp-bg-color);
-  padding: 100px 24px;
+:root {
+  --instr-bg: #0a0a10;
+  --instr-panel-bg: #121018;
+  --instr-panel-bg-soft: #17141f;
+  --instr-border: rgba(192, 38, 211, 0.18);
+  --instr-border-soft: rgba(255, 255, 255, 0.06);
+  --instr-text-body: #a3a1ad;
+  --instr-text-heading: #f5f4f8;
+  --instr-gradient-primary: linear-gradient(90deg, #c026d3 0%, #8b3ce0 55%, #6366f1 100%);
+  --instr-gradient-text: linear-gradient(90deg, #d946ef 0%, #8b5cf6 50%, #22d3ee 100%);
+  --instr-glow: 0 0 60px rgba(192, 38, 211, 0.25);
+}
+
+.instructor-join-panel-master-holder {
   width: 100%;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--instr-bg);
+}
+
+.instructor-join-panel-root-canvas {
+  position: relative;
+  width: 100%;
+  padding: 120px 6vw;
   overflow: hidden;
+  isolation: isolate;
+}
+
+.instructor-join-panel-root-canvas::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(circle, rgba(139, 60, 224, 0.16) 0%, rgba(139, 60, 224, 0) 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.instructor-join-panel-root-canvas::after {
+  content: "";
+  position: absolute;
+  bottom: -25%;
+  right: -10%;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.10) 0%, rgba(34, 211, 238, 0) 70%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .instructor-join-panel-wrapper {
-  max-width: 1200px;
+  position: relative;
+  max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: 0.95fr 1.05fr;
   align-items: center;
+  gap: 64px;
 }
 
-/* LEFT SIDE: Geometric Framed Canvas Media Elements styling */
 .instructor-join-panel-media-side {
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .instructor-join-panel-asymmetric-bounding-box {
   position: relative;
   width: 100%;
   max-width: 480px;
-  border-radius: var(--ijp-radius-frame);
-  padding: 12px;
-  background-color: var(--ijp-surface-elevated);
-  border: 1px solid var(--ijp-border-line);
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+  aspect-ratio: 4 / 4.6;
+  border-radius: 28px 28px 28px 90px;
+  padding: 3px;
+  background: linear-gradient(155deg, rgba(192, 38, 211, 0.55), rgba(99, 102, 241, 0.15) 40%, rgba(255, 255, 255, 0.04) 100%);
+  box-shadow: var(--instr-glow);
 }
 
-/* Soft ambient mesh backing behind the main canvas portrait */
 .instructor-join-panel-decorative-bg-mesh {
   position: absolute;
-  top: -20px;
-  left: -20px;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--ijp-radius-frame);
-  border: 2px dashed rgba(217, 70, 239, 0.18);
-  z-index: 1;
-  pointer-events: none;
+  inset: -40px;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(192, 38, 211, 0.35) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(34, 211, 238, 0.22) 0%, transparent 45%);
+  filter: blur(10px);
 }
 
 .instructor-join-panel-hero-img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  /* Locked into a crisp modern uniform baseline profile ratio */
+  height: 100%;
   object-fit: cover;
-  border-radius: var(--ijp-radius-inner);
-  position: relative;
-  z-index: 2;
-  transition: var(--ijp-transition-smooth);
+  border-radius: 25px 25px 25px 87px;
+  display: block;
+  filter: saturate(1.05) contrast(1.03);
 }
 
-/* Micro-interaction layout parallax scale rules */
-.instructor-join-panel-asymmetric-bounding-box:hover .instructor-join-panel-hero-img {
-  transform: scale(1.02);
-}
-
-/* Floating Glassmorphic Context Card Badge — repositioned to the
-   top-right corner of the frame, mirroring the reference layout,
-   still showing only the original "Join 5,000+ mentors" stat. */
 .instructor-join-panel-floating-metric-card {
   position: absolute;
-  top: 24px;
-  right: -18px;
-  left: auto;
-  bottom: auto;
-  background: rgba(17, 24, 39, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 12px 18px 12px 12px;
-  border-radius: 999px;
+  bottom: 28px;
+  left: -28px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  z-index: 3;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
+  gap: 14px;
+  padding: 16px 22px;
+  background: rgba(18, 16, 24, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--instr-border-soft);
+  border-radius: 16px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  max-width: 260px;
 }
 
-.metric-icon-badge {
-  font-size: 1.15rem;
-  background-color: rgba(255, 255, 255, 0.06);
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+.instructor-join-panel-floating-metric-card .metric-icon-badge {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  font-size: 18px;
+  background: var(--instr-gradient-primary);
   flex-shrink: 0;
 }
 
 .instructor-join-panel-floating-metric-card h5 {
-  color: var(--ijp-text-bright);
-  font-size: 0.92rem;
+  margin: 0;
+  font-size: 15px;
   font-weight: 700;
-  margin: 0 0 1px 0;
-  white-space: nowrap;
+  color: var(--instr-text-heading);
 }
 
 .instructor-join-panel-floating-metric-card p {
-  color: var(--ijp-text-dim);
-  font-size: 0.74rem;
-  margin: 0;
-  white-space: nowrap;
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--instr-text-body);
 }
 
-/* RIGHT SIDE: Rich Text Typographic Panels styling handles */
 .instructor-join-panel-content-side {
   display: flex;
   align-items: center;
 }
 
 .instructor-join-panel-text-block {
-  width: 100%;
+  max-width: 620px;
 }
 
-/* Eyebrow pill — icon + label, matching the reference badge treatment */
 .instructor-join-panel-context-pre-title {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 16px 7px 12px;
+  padding: 7px 16px;
   border-radius: 999px;
-  background: rgba(217, 70, 239, 0.1);
-  border: 1px solid rgba(217, 70, 239, 0.3);
-  color: var(--ijp-accent-magenta);
-  font-size: 0.78rem;
+  background: rgba(192, 38, 211, 0.10);
+  border: 1px solid rgba(192, 38, 211, 0.35);
+  color: #e879f9;
+  font-size: 12.5px;
   font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
   margin-bottom: 22px;
 }
 
-.instructor-eyebrow-icon {
-  font-size: 0.85rem;
-  flex-shrink: 0;
+.instructor-join-panel-context-pre-title .instructor-eyebrow-icon {
+  font-size: 13px;
+  color: #e879f9;
 }
 
 .instructor-join-panel-main-heading {
-  font-size: 3rem;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
   font-weight: 800;
-  line-height: 1.15;
-  color: var(--ijp-text-bright);
-  margin: 0 0 20px 0;
-  letter-spacing: -0.025em;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--instr-text-heading);
+  margin: 0 0 24px;
 }
 
 .instructor-join-panel-highlight-fix {
   display: inline-block;
-  margin-top: 4px;
-}
-
-/* Ensure the HighlightText gradient reads clearly in this section
-   regardless of which page-level gradient rule is in scope elsewhere. */
-.instructor-join-panel-highlight-fix .highlight-text {
-  background: linear-gradient(90deg, var(--ijp-accent-magenta) 0%, var(--ijp-accent-violet) 55%, var(--ijp-accent-blue) 100%);
-  -webkit-background-clip: text;
+  background: var(--instr-gradient-text);
   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 
 .instructor-join-panel-description {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: var(--ijp-text-dim);
-  margin: 0 0 36px 0;
-  max-width: 520px;
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--instr-text-body);
+  margin: 0 0 40px;
+  max-width: 560px;
 }
 
-/* Density Elevation Value Grid Row styling elements — icon + stat pairing */
 .instructor-join-panel-value-metrics-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  border-top: 1px solid var(--ijp-border-line);
-  padding-top: 28px;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 28px 0;
   margin-bottom: 40px;
+  border-top: 1px solid var(--instr-border-soft);
+  border-bottom: 1px solid var(--instr-border-soft);
 }
 
 .metric-node-block {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  padding: 0 20px;
+}
+
+.metric-node-block:not(:last-child) {
+  border-right: 1px solid var(--instr-border-soft);
+}
+
+.metric-node-block:first-child {
+  padding-left: 0;
 }
 
 .metric-node-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   flex-shrink: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.22);
-  color: var(--ijp-accent-blue);
+  background: var(--instr-panel-bg-soft);
+  border: 1px solid var(--instr-border);
+  color: #d946ef;
+  font-size: 17px;
 }
 
 .metric-node-block h4 {
-  font-size: 1.5rem;
+  margin: 0;
+  font-size: 22px;
   font-weight: 800;
-  color: var(--ijp-text-bright);
-  margin: 0 0 2px 0;
+  color: var(--instr-text-heading);
   letter-spacing: -0.01em;
-  line-height: 1.1;
 }
 
 .metric-node-block p {
-  font-size: 0.8rem;
-  color: var(--ijp-text-dim);
-  margin: 0;
-  line-height: 1.3;
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--instr-text-body);
+  white-space: nowrap;
 }
 
-/* Premium Navigation CTA alignment elements */
-.instructor-join-panel-cta-wrapper {
+.CTA-BUTTON-DIV {
   display: inline-block;
 }
 
 .cta-button-text-flex {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 15.5px;
+}
+
+.instructor-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(135deg, #c026d3 0%, #a21caf 100%);
+  box-shadow: 0 14px 34px -10px rgba(192, 38, 211, 0.55);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.instructor-hero-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 18px 40px -10px rgba(192, 38, 211, 0.65);
 }
 
 .cta-button-arrow-icon {
-  font-size: 0.88rem;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  transition: transform 0.25s ease;
 }
 
-.instructor-join-panel-cta-wrapper:hover .cta-button-arrow-icon {
+.CTA-BUTTON-DIV:hover .cta-button-arrow-icon {
   transform: translateX(4px);
 }
 
-/* ADAPTIVE INTERFACE VIEWPORTS RESPONSIVENESS CONFIGURATIONS */
 @media (max-width: 1024px) {
   .instructor-join-panel-wrapper {
-    gap: 48px;
-  }
-
-  .instructor-join-panel-main-heading {
-    font-size: 2.5rem;
-  }
-}
-
-@media (max-width: 912px) {
-  .instructor-join-panel-root-canvas {
-    padding: 64px 20px;
-  }
-
-  .instructor-join-panel-wrapper {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 56px;
   }
 
   .instructor-join-panel-media-side {
-    order: 2;
-    /* Drops media safely below copy blocks to structure viewport scanner readability */
+    order: -1;
   }
 
-  .instructor-join-panel-floating-metric-card {
-    right: 16px;
-    /* Safe bounds adjustment alignment when collapsing elements */
+  .instructor-join-panel-asymmetric-bounding-box {
+    max-width: 420px;
   }
 
-  .instructor-join-panel-description {
+  .instructor-join-panel-text-block {
     max-width: 100%;
   }
 }
 
-@media (max-width: 480px) {
-  .instructor-join-panel-main-heading {
-    font-size: 2.15rem;
+@media (max-width: 640px) {
+  .instructor-join-panel-root-canvas {
+    padding: 80px 6vw;
   }
 
   .instructor-join-panel-value-metrics-row {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .metric-node-block:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid var(--instr-border-soft);
+    padding-bottom: 20px;
+  }
+
+  .metric-node-block:first-child {
+    padding-left: 20px;
   }
 
   .instructor-join-panel-floating-metric-card {
-    top: 14px;
-    right: 14px;
-    padding: 9px 14px 9px 9px;
-  }
-
-  .metric-icon-badge {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+    left: 12px;
   }
 }
 
-/* Light theme overrides scoped to homepage root */
-.home-page.light .instructor-join-panel-root-canvas {
-  --ijp-bg-color: #f8fafc;
-  --ijp-surface-elevated: #ffffff;
-  --ijp-border-line: rgba(15, 23, 42, 0.06);
-  --ijp-text-bright: #0f172a;
-  --ijp-text-dim: #475569;
-  --ijp-accent-blue: #2563eb;
-  --ijp-accent-magenta: #be185d;
-  background-color: var(--ijp-bg-color);
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES
+   Matches the navbar's theme toggle, which adds/removes a `.light`
+   class on <html> (and .home-page).
+   ========================================================================== */
+
+.light .instructor-join-panel-master-holder {
+  --instr-bg: #f8f7fb;
+  --instr-panel-bg: #ffffff;
+  --instr-panel-bg-soft: #f3eefc;
+  --instr-border: rgba(139, 60, 224, 0.18);
+  --instr-border-soft: rgba(15, 15, 25, 0.08);
+  --instr-text-body: #5b5866;
+  --instr-text-heading: #17151f;
+  --instr-glow: 0 0 50px rgba(139, 60, 224, 0.10);
 }
 
-.home-page.light .instructor-join-panel-asymmetric-bounding-box {
-  background-color: var(--ijp-surface-elevated);
-  border: 1px solid var(--ijp-border-line);
-  box-shadow: none;
+.light .instructor-join-panel-root-canvas::before {
+  background: radial-gradient(circle, rgba(139, 60, 224, 0.08) 0%, rgba(139, 60, 224, 0) 70%);
 }
 
-.home-page.light .instructor-join-panel-main-heading {
-  color: var(--ijp-text-bright);
+.light .instructor-join-panel-root-canvas::after {
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.06) 0%, rgba(34, 211, 238, 0) 70%);
 }
 
-.home-page.light .instructor-join-panel-description,
-.home-page.light .instructor-join-panel-floating-metric-card p {
-  color: var(--ijp-text-dim);
+.light .instructor-join-panel-asymmetric-bounding-box {
+  background: linear-gradient(155deg, rgba(192, 38, 211, 0.45), rgba(99, 102, 241, 0.18) 40%, rgba(15, 15, 25, 0.06) 100%);
+}
+
+.light .instructor-join-panel-decorative-bg-mesh {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(192, 38, 211, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(34, 211, 238, 0.14) 0%, transparent 45%);
+}
+
+.light .instructor-join-panel-floating-metric-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 15, 25, 0.08);
+  box-shadow: 0 14px 34px rgba(80, 40, 130, 0.14);
+}
+
+.light .instructor-join-panel-context-pre-title {
+  background: rgba(192, 38, 211, 0.07);
+  border: 1px solid rgba(192, 38, 211, 0.3);
+  color: #a21caf;
+}
+
+.light .instructor-join-panel-context-pre-title .instructor-eyebrow-icon {
+  color: #a21caf;
+}
+
+.light .metric-node-icon {
+  color: #a21caf;
 }
