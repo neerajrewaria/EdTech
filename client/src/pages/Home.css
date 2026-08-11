@@ -271,9 +271,26 @@ html {
   background-color: #fbbf24;
 }
 
-.dot-green {
-  background-color: #10b981;
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+.typed .Typewriter__wrapper {
+  background: linear-gradient(90deg, #e300ff 0%, #7459f6 45%, #00f3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Cursor should be a solid, readable color (no gradient) and adapt to theme */
+.typed .Typewriter__cursor {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: #f4f4f6;
+  /* default (dark theme) */
+  opacity: 1;
+}
+
+.light .typed .Typewriter__cursor {
+  color: #0f172a;
+  /* light theme cursor color */
 }
 
 .dot-blue {
@@ -598,6 +615,54 @@ html {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Typing effect styles */
+.typed {
+  display: inline-flex;
+  align-items: center;
+  min-width: 12ch;
+  /* reserve space to avoid layout shift */
+  position: relative;
+}
+
+/* Style the wrapper produced by `typewriter-effect` so gradient applies */
+.typed .Typewriter__wrapper {
+  display: inline-block;
+  background: linear-gradient(90deg, #e300ff 0%, #7459f6 45%, #00f3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.custom-typed-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1.05em;
+  margin-left: 0.08rem;
+  background-color: #f4f4f6;
+  vertical-align: text-bottom;
+  border-radius: 1px;
+  animation: blink 1s steps(2, start) infinite;
+  opacity: 0.92;
+}
+
+.light .custom-typed-cursor {
+  background-color: #0f172a;
+  width: 8px;
+  color:black;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
 }
 
 /* ---------- Subcopy ---------- */

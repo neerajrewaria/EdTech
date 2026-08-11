@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Typewriter from 'typewriter-effect';
 import { FaArrowRight } from "react-icons/fa6";
 import { HiOutlineBookOpen, HiOutlinePlayCircle, HiOutlineSparkles } from "react-icons/hi2";
 import { FiCheck, FiChevronRight, FiCode, FiSend } from "react-icons/fi";
@@ -69,6 +70,7 @@ const LearningDemo = () => {
 
 
 const Home = () => {
+  // Replaced custom typing logic with `typewriter-effect` component below
 
   return (
 
@@ -99,7 +101,23 @@ const Home = () => {
               >
                 Learn with confidence.
                 <br />
-                <span className="hero-heading-gradient">Grow as student or instructor.</span>
+                <span className="hero-heading-gradient">Grow&nbsp;
+                  <span className="typed">
+                    <Typewriter
+                      options={{
+                        strings: ['as student', 'as instructor'],
+                        autoStart: true,
+                        loop: true,
+                        speed: 80,
+                        delay: 120,
+                        deleteSpeed: 100,
+                        pauseFor: 1200,
+                        cursor: '',
+                      }}
+                    />
+                    <span className="custom-typed-cursor" aria-hidden="true"></span>
+                  </span>
+                </span>
               </motion.h1>
 
               <motion.p
