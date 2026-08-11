@@ -56,9 +56,13 @@ const CoursePage = () => {
         }
     }, [courseId]);
 
+    // NOTE: "premium-course-workspace" is added here too (not just on the
+    // main return) because every CSS variable — colors, fonts, spacing — is
+    // scoped to that class. Without it, these two states would silently
+    // fall back to unstyled browser defaults regardless of theme.
     if (loading) {
         return (
-            <div className="premium-page-loading">
+            <div className="premium-page-loading premium-course-workspace">
                 <div className="premium-page-spinner"></div>
                 <p>Assembling curriculum workspace...</p>
             </div>
@@ -66,7 +70,7 @@ const CoursePage = () => {
     }
 
     if (!courseData) {
-        return <div className="premium-page-loading">Course details not found.</div>
+        return <div className="premium-page-loading premium-course-workspace">Course details not found.</div>
     }
 
     return (

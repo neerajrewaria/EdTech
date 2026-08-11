@@ -7,13 +7,15 @@ import {
   FiTrendingUp,
   FiCheckCircle,
   FiArrowRight,
+  FiClock,
+  FiUsers,
 } from "react-icons/fi";
 import { HiOutlineSparkles } from "react-icons/hi2";
 import { BsRocketTakeoff } from "react-icons/bs";
 import "./Learningjourney.css";
 
 /* ------------------------------------------------------------------
-   Step 1 data — course highlights shown as enroll chips.
+   Step 1 — course highlights shown as enroll chips.
    Swap for a real "trending courses" API call later; the chip
    markup below reads only from this array.
 ------------------------------------------------------------------ */
@@ -23,6 +25,7 @@ const enrollHighlights = [
     icon: <FiCode />,
     accent: "magenta",
     name: "Advanced React Hooks",
+    students: "2.4k enrolled",
     badge: "Popular",
   },
   {
@@ -30,14 +33,27 @@ const enrollHighlights = [
     icon: <FiCpu />,
     accent: "cyan",
     name: "Applied Machine Learning",
+    students: "1.1k enrolled",
   },
   {
     id: "modern-data-science",
     icon: <FiTrendingUp />,
     accent: "lime",
     name: "Modern Data Science",
+    students: "980 enrolled",
   },
 ];
+
+/* Step 2 — a real instructor reply thread, no automation implied */
+const supportThread = {
+  studentQuestion:
+    "How does the useEffect dependency array work in this hook?",
+  instructorName: "Prof. Meera Nair",
+  instructorRole: "React & Frontend Mentor",
+  responseTime: "Replied in 12 min",
+  reply:
+    "The dependency array tells React when to re-run the effect. An empty array runs it once on mount; adding variables re-runs it whenever those values change.",
+};
 
 /* Step 3 — skills already picked up on the (illustrative) sample path */
 const masteredSkills = [
@@ -64,7 +80,7 @@ const LearningJourney = () => {
   return (
     <section className="lj-section">
       <div className="lj-container">
-        {/* ---------- Header ---------- */}
+        {/* ---------- Header (unchanged) ---------- */}
         <div className="lj-header">
           <span className="lj-eyebrow">
             <HiOutlineSparkles />
@@ -108,7 +124,12 @@ const LearningJourney = () => {
                   key={course.id}
                 >
                   <span className="lj-enroll-icon">{course.icon}</span>
-                  <span className="lj-enroll-name">{course.name}</span>
+                  <span className="lj-enroll-meta">
+                    <span className="lj-enroll-name">{course.name}</span>
+                    <span className="lj-enroll-students">
+                      <FiUsers /> {course.students}
+                    </span>
+                  </span>
                   {course.badge && (
                     <span className="lj-enroll-badge">{course.badge}</span>
                   )}
@@ -131,31 +152,35 @@ const LearningJourney = () => {
               <div>
                 <h3 className="lj-card-title">Instructor Support</h3>
                 <p className="lj-card-desc">
-                  Fast, expert feedback to keep students and instructors moving.
+                  Real instructors, fast replies — never stuck for long.
                 </p>
               </div>
-              <span className="lj-mentor-avatar" aria-hidden="true">
-                👩‍🏫
-              </span>
             </div>
 
-            <div className="lj-chat-stack">
-              <div className="lj-chat-bubble lj-chat-bubble--user">
-                "How does the useEffect dependency array work in this React
-                hook?"
+            <div className="lj-thread">
+              <div className="lj-thread-question">
+                <span className="lj-thread-question-label">You asked</span>
+                <p>{supportThread.studentQuestion}</p>
               </div>
 
-              <div className="lj-chat-bubble lj-chat-bubble--ai">
-                <span className="lj-mentor-tag">
-                  <HiOutlineSparkles />
-                  INSTRUCTOR
+              <div className="lj-thread-reply">
+                <span className="lj-thread-avatar" aria-hidden="true">
+                  👩‍🏫
                 </span>
-                <p>
-                  The dependency array tells React when to re-run the
-                  effect. If it&rsquo;s empty <code>[]</code>, it runs once on
-                  mount. If you include variables, it re-runs whenever those
-                  values change, preventing unnecessary updates.
-                </p>
+                <div className="lj-thread-reply-body">
+                  <div className="lj-thread-reply-meta">
+                    <span className="lj-thread-name">
+                      {supportThread.instructorName}
+                    </span>
+                    <span className="lj-thread-role">
+                      {supportThread.instructorRole}
+                    </span>
+                  </div>
+                  <p>{supportThread.reply}</p>
+                  <span className="lj-thread-time">
+                    <FiClock /> {supportThread.responseTime}
+                  </span>
+                </div>
               </div>
             </div>
           </motion.div>

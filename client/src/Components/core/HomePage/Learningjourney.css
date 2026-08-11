@@ -6,7 +6,7 @@
    ============================================================ */
 
 .lj-section {
-  --lj-bg: #07060f;
+  --lj-bg: #1b1b1df5;
   --lj-card-bg: #0c0a15;
   --lj-card-border: rgba(255, 255, 255, 0.08);
   --lj-text-main: #f4f4f6;
@@ -24,8 +24,9 @@
   box-sizing: border-box;
   overflow: hidden;
   font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  font-weight: 800;
+  font-weight: 400;
   /* ExtraBold — matches the heavy weight in the screenshot */
+  color: var(--lj-text-main);
 }
 
 /* soft ambient wash tying it back to the hero glow, kept faint so
@@ -84,7 +85,7 @@
 
 .lj-heading {
   font-size: 2.75rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: var(--lj-text-main);
@@ -254,6 +255,42 @@
   text-overflow: ellipsis;
 }
 
+.lj-enroll-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--lj-text-main);
+}
+
+.lj-enroll-students {
+  color: var(--lj-text-muted);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Ensure main containers explicitly use the section color so
+   nested text isn't accidentally black due to a global rule */
+.lj-container,
+.lj-header,
+.lj-grid,
+.lj-card,
+.lj-track-content,
+.lj-thread,
+.lj-thread-reply-body {
+  color: var(--lj-text-main);
+}
+
+/* Muted text fallback */
+.lj-card-desc,
+.lj-subheading,
+.lj-thread-role,
+.lj-thread-time,
+.lj-progress-caption {
+  color: var(--lj-text-muted);
+}
+
 .lj-enroll-badge {
   flex-shrink: 0;
   font-size: 10.5px;
@@ -294,6 +331,7 @@
   font-size: 13.5px;
   line-height: 1.65;
   border: 1px solid rgba(255, 255, 255, 0.07);
+  font-weight: 400;
 }
 
 .lj-chat-bubble--user {
@@ -317,7 +355,7 @@
   gap: 6px;
   margin-bottom: 8px;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--lj-magenta);
 }
@@ -329,6 +367,53 @@
   font-family: "Fira Code", "Source Code Pro", monospace;
   font-size: 12px;
   color: var(--lj-sky);
+}
+
+/* Thread / reply markup (used in the sample instructor thread) */
+.lj-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lj-thread-question {
+  color: var(--lj-text-main);
+}
+
+.lj-thread-question-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--lj-magenta);
+  margin-bottom: 6px;
+}
+
+.lj-thread-reply {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.lj-thread-avatar {
+  font-size: 20px;
+}
+
+.lj-thread-reply-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--lj-text-main);
+}
+
+.lj-thread-reply-meta .lj-thread-name {
+  color: var(--lj-text-main);
+  font-weight: 700;
+}
+
+.lj-thread-reply-meta .lj-thread-role,
+.lj-thread-time {
+  color: var(--lj-text-muted);
+  font-size: 13px;
 }
 
 /* ---------- Step 3: progress + CTA ---------- */
