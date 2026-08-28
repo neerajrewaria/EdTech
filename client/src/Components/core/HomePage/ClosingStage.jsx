@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa6';
 import { FiCheck } from 'react-icons/fi';
 
+const obysEase = [0.16, 1, 0.3, 1];
+
 const ClosingStage = () => {
   return (
     <section className="ncodex-closing-stage">
       <motion.div
         className="closing-cta-box"
-        initial={{ opacity: 0, scale: 0.96 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
+        initial={{ opacity: 0, scale: 0.94, y: 30 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: obysEase }}
       >
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
           Start Your Journey Today
@@ -28,14 +30,18 @@ const ClosingStage = () => {
         </p>
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
-          <Link to="/signup" className="nx-btn nx-btn-primary" style={{ padding: '16px 36px', fontSize: '1.05rem' }}>
-            <span>Start Learning Free</span>
-            <FaArrowRight />
-          </Link>
+          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
+            <Link to="/signup" className="nx-btn nx-btn-primary" style={{ padding: '16px 36px', fontSize: '1.05rem' }}>
+              <span>Start Learning Free</span>
+              <FaArrowRight />
+            </Link>
+          </motion.div>
 
-          <Link to="/signup" className="nx-btn nx-btn-secondary" style={{ padding: '16px 36px', fontSize: '1.05rem' }}>
-            <span>Become an Instructor</span>
-          </Link>
+          <motion.div whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }}>
+            <Link to="/signup" className="nx-btn nx-btn-secondary" style={{ padding: '16px 36px', fontSize: '1.05rem' }}>
+              <span>Become an Instructor</span>
+            </Link>
+          </motion.div>
         </div>
 
         <div style={{ marginTop: '28px', color: 'var(--text-muted)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>

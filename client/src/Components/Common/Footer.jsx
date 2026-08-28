@@ -8,31 +8,99 @@ const Footer = () => {
       <style>
         {`
           .footer-premium {
-            background: #050509 !important;
-            color: #6b7280 !important;
-            border-top: 1px solid #1f2937;
+            background: var(--background, #090a10);
+            color: var(--text-secondary, #94a3b8);
+            border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+          }
+          .light .footer-premium,
+          .home-page.light .footer-premium {
+            background: var(--background, #f8fafc) !important;
+            color: var(--text-secondary, #334155) !important;
+            border-top: 1px solid var(--border, rgba(15, 23, 42, 0.08)) !important;
+          }
+          .footer-premium .footer-logo {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #6366f1 60%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          }
+          .light .footer-premium .footer-logo,
+          .home-page.light .footer-premium .footer-logo {
+            background: linear-gradient(135deg, #0f172a 0%, #6366f1 60%, #0284c7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+          }
+          .footer-logo-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary, #6366f1) 0%, var(--accent, #38bdf8) 100%);
+            color: #ffffff;
           }
           .footer-premium .footer-section h3 {
-            color: #ffffff !important;
+            color: var(--text-primary, #f8fafc);
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-weight: 700;
+          }
+          .light .footer-premium .footer-section h3,
+          .home-page.light .footer-premium .footer-section h3 {
+            color: var(--text-primary, #0f172a) !important;
+          }
+          .footer-premium .footer-section p,
+          .footer-premium .footer-bottom p {
+            color: var(--text-secondary, #94a3b8);
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+          }
+          .light .footer-premium .footer-section p,
+          .light .footer-premium .footer-bottom p,
+          .home-page.light .footer-premium .footer-section p,
+          .home-page.light .footer-premium .footer-bottom p {
+            color: var(--text-secondary, #475569) !important;
           }
           .footer-premium .footer-section p:hover,
           .footer-premium .footer-bottom p:hover {
-            color: #c026d3;
-            transition: color 0.2s ease-in-out;
+            color: var(--accent, #38bdf8);
+          }
+          .light .footer-premium .footer-section p:hover,
+          .light .footer-premium .footer-bottom p:hover,
+          .home-page.light .footer-premium .footer-section p:hover,
+          .home-page.light .footer-premium .footer-bottom p:hover {
+            color: var(--primary, #6366f1) !important;
           }
           .footer-social-link {
-            color: #6b7280;
+            color: var(--text-muted, #64748b);
             font-size: 1.25rem;
-            transition: color 0.2s ease-in-out;
+            transition: color 0.2s ease-in-out, transform 0.2s ease;
           }
           .footer-social-link:hover {
-            color: #c026d3;
+            color: var(--accent, #38bdf8);
+            transform: translateY(-2px);
+          }
+          .light .footer-social-link:hover,
+          .home-page.light .footer-social-link:hover {
+            color: var(--primary, #6366f1);
           }
           .footer-tagline {
             margin-top: 1rem;
             line-height: 1.6;
             font-size: 14px;
             max-width: 250px;
+          }
+          .footer-line {
+            height: 1px;
+            background: var(--border, rgba(255, 255, 255, 0.08));
+            margin: 32px 0 24px;
+          }
+          .light .footer-line,
+          .home-page.light .footer-line {
+            background: var(--border, rgba(15, 23, 42, 0.08));
           }
         `}
       </style>

@@ -1,6 +1,8 @@
 import React from 'react';
 import UnifiedHero from '../Components/core/HomePage/UnifiedHero';
 import DynamicCourseMarquee from '../Components/core/HomePage/DynamicCourseMarquee';
+import InteractiveProductJourney from '../Components/core/HomePage/InteractiveProductJourney';
+import KineticTypographyBreak from '../Components/core/HomePage/KineticTypographyBreak';
 import InteractiveEcosystem from '../Components/core/HomePage/InteractiveEcosystem';
 import PlatformCapabilities from '../Components/core/HomePage/PlatformCapabilities';
 import ClosingStage from '../Components/core/HomePage/ClosingStage';
@@ -11,22 +13,28 @@ import './Home.css';
 const Home = () => {
   return (
     <div className="home-page">
-      {/* 1. Unified Layered Hero with Floating Physics */}
+      {/* ACT I: Monumental Unified Hero with Ambient Light & Interactive Preview */}
       <UnifiedHero />
 
-      {/* 2. Continuous Moving Course Showcase (Right to Left Marquee) */}
+      {/* ACT II: Dual-Track Counter-Scrolling Course Showcase */}
       <DynamicCourseMarquee />
 
-      {/* 3. Interactive Ecosystem Switcher (Student vs Instructor Journey) */}
+      {/* ACT III: Interactive Product Walkthrough (Discover -> Syllabus -> Cart -> Stream) */}
+      <InteractiveProductJourney />
+
+      {/* ACT IV: Editorial Kinetic Typography Break */}
+      <KineticTypographyBreak />
+
+      {/* ACT V: Persona Switcher (Student Journey vs Instructor Studio) */}
       <InteractiveEcosystem />
 
-      {/* 4. Elevated Depth Platform Capabilities */}
+      {/* ACT VI: Sticky Stacking Platform Capabilities */}
       <PlatformCapabilities />
 
-      {/* 5. Closing Brand Stage CTA */}
+      {/* ACT VII: Closing Stage Portal */}
       <ClosingStage />
 
-      {/* Global Footer */}
+      {/* Global Application Footer */}
       <Footer />
     </div>
   );

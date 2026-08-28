@@ -37,6 +37,9 @@
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6);
   --shadow-brand: 0 10px 30px rgba(99, 102, 241, 0.25);
   --shadow-accent: 0 10px 30px rgba(56, 189, 248, 0.2);
+
+  --mouse-x: 50%;
+  --mouse-y: 50%;
 }
 
 /* Light Theme Overrides */
@@ -70,18 +73,34 @@
   line-height: 1.6;
 }
 
-/* Ambient Radial Glow */
-.home-page::before {
-  content: '';
+/* Ambient Radial Glow & Mouse Follower */
+.hero-ambient-glow {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  height: 800px;
-  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), rgba(56, 189, 248, 0.05) 50%, transparent 80%);
+  left: 0;
+  right: 0;
+  height: 900px;
+  background: radial-gradient(
+    650px circle at var(--mouse-x, 50%) var(--mouse-y, 30%), 
+    rgba(99, 102, 241, 0.18), 
+    rgba(56, 189, 248, 0.06) 40%, 
+    transparent 80%
+  );
   pointer-events: none;
   z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
+@media (max-width: 960px) {
+  .hero-ambient-glow {
+    background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.15), transparent 70%);
+  }
+}
+
+/* Clip-Path Line Masking */
+.nx-line-mask {
+  display: block;
+  overflow: hidden;
 }
 
 /* Unified Buttons */
@@ -146,9 +165,11 @@
   font-family: var(--font-heading);
   font-size: clamp(2.8rem, 5.5vw, 5.2rem);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.02;
   letter-spacing: -0.03em;
   color: var(--text-primary);
+  margin: 0;
+  padding: 0;
 }
 
 .nx-gradient-brand {
@@ -166,7 +187,7 @@
 }
 
 /* ==========================================================================
-   1. HERO SECTION (Layered Composition & Unified Visual Unity)
+   1. HERO SECTION (Layered Stage + Ambient Mouse Interaction)
    ========================================================================== */
 .ncodex-hero-unified {
   padding: 130px 24px 80px;
@@ -225,7 +246,34 @@
   flex-wrap: wrap;
 }
 
-/* Layered Visual Preview Container in Hero */
+.hero-tech-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-tech-pill:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.light .hero-tech-pill,
+.home-page.light .hero-tech-pill {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #334155 !important;
+}
+
 .hero-layered-stage {
   position: relative;
   width: 100%;
@@ -263,45 +311,80 @@
 }
 
 /* ==========================================================================
-   2. DYNAMIC HORIZONTAL COURSE MARQUEE (Right to Left Motion)
+   2. DUAL-TRACK HORIZONTAL COURSE MARQUEE
    ========================================================================== */
 .ncodex-marquee-section {
-  padding: 60px 0;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
+  padding: 80px 0;
+  background: transparent;
   position: relative;
   z-index: 2;
+  overflow: hidden;
 }
 
-.marquee-track-container {
+.ncodex-marquee-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.marquee-double-stack {
   display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.marquee-track-container-right {
+  display: flex;
+  align-items: stretch;
   gap: 24px;
   width: max-content;
-  animation: marqueeScroll 30s linear infinite;
+  animation: marqueeRight 35s linear infinite;
 }
 
-.marquee-track-container:hover {
+.marquee-track-container-left {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  width: max-content;
+  animation: marqueeLeft 38s linear infinite;
+}
+
+.marquee-track-container-right:hover,
+.marquee-track-container-left:hover {
   animation-play-state: paused;
 }
 
-@keyframes marqueeScroll {
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes marqueeLeft {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+.marquee-card-motion-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .marquee-course-card {
   background: var(--surface-elevated);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 20px 24px;
-  min-width: 300px;
-  max-width: 340px;
+  padding: 22px 24px;
+  width: 320px;
+  min-height: 240px;
+  height: 100%;
+  box-sizing: border-box;
   text-decoration: none;
   color: var(--text-primary);
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -309,12 +392,204 @@
 
 .marquee-course-card:hover {
   border-color: var(--primary);
-  transform: translateY(-4px);
   box-shadow: var(--shadow-brand);
 }
 
+.marquee-course-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.35;
+  height: 2.7em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.marquee-course-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.5;
+  height: 3em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* ==========================================================================
-   3. INTERACTIVE ECOSYSTEM (Student vs Instructor Persona Switcher)
+   3. INTERACTIVE SCROLL PRODUCT WALKTHROUGH
+   ========================================================================== */
+.ncodex-journey-section {
+  padding: 100px 24px;
+  max-width: 1300px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.journey-grid-container {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .journey-grid-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.journey-step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.journey-step-card.active {
+  border-color: var(--primary);
+  background: var(--surface-elevated);
+  box-shadow: var(--shadow-brand);
+}
+
+.journey-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.journey-app-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow-lg), var(--shadow-brand);
+  position: sticky;
+  top: 120px;
+}
+
+/* ==========================================================================
+   4. KINETIC TYPOGRAPHY BREAK
+   ========================================================================== */
+.ncodex-kinetic-break {
+  padding: 70px 24px;
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.12), transparent 70%);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.kinetic-giant-text {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 6.5vw, 6.8rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   5. STICKY STACKING FEATURE CARDS
+   ========================================================================== */
+.ncodex-capabilities-section {
+  padding: 100px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.capabilities-stack-container {
+  max-width: 1000px;
+  margin: 48px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+@media (min-width: 960px) {
+  .capability-stack-card {
+    position: sticky;
+    top: 140px;
+  }
+}
+
+.capability-depth-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: var(--shadow-md), var(--shadow-brand);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.capability-depth-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg), var(--shadow-brand);
+}
+
+.capability-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+/* ==========================================================================
+   6. CLOSING STAGE CTA
+   ========================================================================== */
+.ncodex-closing-stage {
+  padding: 140px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.closing-cta-box {
+  max-width: 840px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 64px 36px;
+  box-shadow: var(--shadow-lg), var(--shadow-brand);
+}
+
+.light .closing-cta-box,
+.home-page.light .closing-cta-box {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+}
+
+.light .closing-cta-box h2,
+.home-page.light .closing-cta-box h2 {
+  color: #0f172a !important;
+}
+
+/* ==========================================================================
+   7. INTERACTIVE ECOSYSTEM (Student vs Instructor Persona Switcher)
    ========================================================================== */
 .ncodex-ecosystem-section {
   padding: 120px 24px;
@@ -327,11 +602,15 @@
 .ecosystem-toggle-tabs {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 56px;
+  flex-wrap: wrap;
 }
 
 .tab-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px 28px;
   border-radius: 999px;
   font-family: var(--font-heading);
@@ -341,14 +620,23 @@
   background: var(--surface);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.light .tab-pill,
+.home-page.light .tab-pill {
+  background: #ffffff;
+  color: #475569;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .tab-pill.active {
-  background: var(--primary);
-  color: #ffffff;
-  border-color: var(--primary);
-  box-shadow: var(--shadow-brand);
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border-color: var(--primary) !important;
+  box-shadow: var(--shadow-brand) !important;
 }
 
 .ecosystem-stage-grid {
@@ -373,71 +661,57 @@
   box-shadow: var(--shadow-md);
 }
 
-/* ==========================================================================
-   4. PLATFORM CAPABILITIES (Elevated Depth Cards)
-   ========================================================================== */
-.ncodex-capabilities-section {
-  padding: 100px 24px;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  z-index: 2;
+.light .ecosystem-card-visual,
+.home-page.light .ecosystem-card-visual {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06) !important;
 }
 
-.capabilities-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
-  max-width: 1300px;
-  margin: 48px auto 0;
+.light .ncodex-ecosystem-section h2,
+.light .ncodex-ecosystem-section h3,
+.home-page.light .ncodex-ecosystem-section h2,
+.home-page.light .ncodex-ecosystem-section h3 {
+  color: #0f172a !important;
 }
 
-.capability-depth-card {
-  background: var(--surface-elevated);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+.light .ncodex-ecosystem-section p,
+.home-page.light .ncodex-ecosystem-section p {
+  color: #475569 !important;
 }
 
-.capability-depth-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-md), var(--shadow-brand);
+.light .journey-step-card,
+.home-page.light .journey-step-card {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
 }
 
-.capability-icon-box {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  margin-bottom: 20px;
-  border: 1px solid rgba(99, 102, 241, 0.2);
+.light .journey-step-card h3,
+.home-page.light .journey-step-card h3 {
+  color: #0f172a !important;
 }
 
-/* ==========================================================================
-   5. CLOSING STAGE CTA
-   ========================================================================== */
-.ncodex-closing-stage {
-  padding: 140px 24px;
-  text-align: center;
-  position: relative;
-  z-index: 2;
+.light .journey-step-card.active,
+.home-page.light .journey-step-card.active {
+  border-color: var(--primary) !important;
+  background: #f8fafc !important;
 }
 
-.closing-cta-box {
-  max-width: 800px;
-  margin: 0 auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  padding: 60px 32px;
-  box-shadow: var(--shadow-lg), var(--shadow-brand);
+.light .journey-app-frame,
+.home-page.light .journey-app-frame {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+}
+
+.light .journey-app-frame strong,
+.home-page.light .journey-app-frame strong,
+.light .journey-app-frame h4,
+.home-page.light .journey-app-frame h4 {
+  color: #0f172a !important;
+}
+
+.light .journey-app-frame p,
+.home-page.light .journey-app-frame p {
+  color: #475569 !important;
 }

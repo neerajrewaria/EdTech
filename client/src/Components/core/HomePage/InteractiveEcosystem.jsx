@@ -5,59 +5,71 @@ import { FaArrowRight, FaLaptopCode, FaChalkboardUser, FaCheck } from 'react-ico
 import { FiBookOpen, FiShoppingCart } from 'react-icons/fi';
 import instructorImg from '../../../assests/Images/office.jpg';
 
+const obysEase = [0.16, 1, 0.3, 1];
+
 const InteractiveEcosystem = () => {
   const [activeTab, setActiveTab] = useState('student');
 
   return (
     <section className="ncodex-ecosystem-section">
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+      <motion.div 
+        style={{ textAlign: 'center', marginBottom: '32px' }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7, ease: obysEase }}
+      >
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
           Platform Architecture
         </span>
         <h2 className="nx-section-heading" style={{ marginTop: '4px' }}>
           Designed For <span className="nx-gradient-brand">Students & Educators</span>
         </h2>
-      </div>
+      </motion.div>
 
       {/* Tab Switcher */}
       <div className="ecosystem-toggle-tabs">
-        <button
+        <motion.button
           type="button"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           className={`tab-pill ${activeTab === 'student' ? 'active' : ''}`}
           onClick={() => setActiveTab('student')}
         >
           <FaLaptopCode style={{ display: 'inline', marginRight: '8px' }} />
           Student Learning Journey
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
           type="button"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           className={`tab-pill ${activeTab === 'instructor' ? 'active' : ''}`}
           onClick={() => setActiveTab('instructor')}
         >
           <FaChalkboardUser style={{ display: 'inline', marginRight: '8px' }} />
           Instructor Studio Flow
-        </button>
+        </motion.button>
       </div>
 
       <AnimatePresence mode="wait">
         {activeTab === 'student' ? (
           <motion.div
             key="student-stage"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -24, scale: 0.98 }}
+            transition={{ duration: 0.45, ease: obysEase }}
             className="ecosystem-stage-grid"
           >
             <div>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--accent)' }}>
+              <span className="tag-pill-mono" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--primary)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 For Learners
               </span>
               <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.2rem', fontWeight: '700', margin: '12px 0 16px', lineHeight: '1.2' }}>
                 Discover, Enroll, & Build Skills
               </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', marginBottom: '28px', lineHeight: '1.6' }}>
+              <p style={{ fontSize: '1.05rem', marginBottom: '28px', lineHeight: '1.6' }}>
                 Explore structured courses across web development, cloud computing, and computer science. Add courses to your cart, complete your purchase, and stream video lectures anytime from your learner dashboard.
               </p>
 
@@ -73,15 +85,21 @@ const InteractiveEcosystem = () => {
                 </div>
               </div>
 
-              <Link to="/signup" className="nx-btn nx-btn-primary">
-                <span>Start Learning Free</span>
-                <FaArrowRight />
-              </Link>
+              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
+                <Link to="/signup" className="nx-btn nx-btn-primary">
+                  <span>Start Learning Free</span>
+                  <FaArrowRight />
+                </Link>
+              </motion.div>
             </div>
 
-            <div className="ecosystem-card-visual">
+            <motion.div 
+              className="ecosystem-card-visual"
+              whileHover={{ borderColor: 'rgba(99, 102, 241, 0.35)' }}
+              transition={{ duration: 0.3 }}
+            >
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                <FiBookOpen style={{ color: 'var(--accent)', fontSize: '1.6rem' }} />
+                <FiBookOpen style={{ color: 'var(--primary)', fontSize: '1.6rem' }} />
                 <div>
                   <strong style={{ display: 'block', fontSize: '1rem' }}>Student Experience Stack</strong>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>Explore → Cart → Learn</span>
@@ -89,32 +107,32 @@ const InteractiveEcosystem = () => {
               </div>
 
               <div style={{ background: 'var(--surface-elevated)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', marginBottom: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--primary)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', marginBottom: '10px', fontWeight: '600' }}>
                   <FiShoppingCart /> Integrated Checkout & Enrollment Flow
                 </div>
-                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', margin: 0 }}>
+                <p style={{ fontSize: '0.88rem', margin: 0, lineHeight: '1.5' }}>
                   Seamlessly add courses to cart, complete payment processing, and immediately unlock video lectures in your dashboard.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         ) : (
           <motion.div
             key="instructor-stage"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -24, scale: 0.98 }}
+            transition={{ duration: 0.45, ease: obysEase }}
             className="ecosystem-stage-grid"
           >
             <div>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--accent)' }}>
+              <span className="tag-pill-mono" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--primary)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 For Instructors
               </span>
               <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '2.2rem', fontWeight: '700', margin: '12px 0 16px', lineHeight: '1.2' }}>
                 Build & Publish Your Own Courses
               </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', marginBottom: '28px', lineHeight: '1.6' }}>
+              <p style={{ fontSize: '1.05rem', marginBottom: '28px', lineHeight: '1.6' }}>
                 Share your expertise with learners worldwide. NCodeX provides an intuitive course creation studio where you can build curriculum sections, upload video lectures, and publish complete courses.
               </p>
 
@@ -130,19 +148,26 @@ const InteractiveEcosystem = () => {
                 </div>
               </div>
 
-              <Link to="/signup" className="nx-btn nx-btn-primary">
-                <span>Become an Instructor</span>
-                <FaArrowRight />
-              </Link>
+              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
+                <Link to="/signup" className="nx-btn nx-btn-primary">
+                  <span>Become an Instructor</span>
+                  <FaArrowRight />
+                </Link>
+              </motion.div>
             </div>
 
-            <div className="ecosystem-card-visual" style={{ padding: 0, overflow: 'hidden' }}>
+            <motion.div 
+              className="ecosystem-card-visual" 
+              style={{ padding: 0, overflow: 'hidden' }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.4 }}
+            >
               <img 
                 src={instructorImg} 
                 alt="Instructor Course Creator Experience" 
                 style={{ width: '100%', height: '360px', objectFit: 'cover', display: 'block' }}
               />
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
