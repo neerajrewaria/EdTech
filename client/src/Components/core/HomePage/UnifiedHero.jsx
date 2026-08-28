@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaArrowRight, FaPlay, FaReact, FaNodeJs, FaPython, FaJs, FaDocker, FaLaptopCode, FaChalkboardUser } from 'react-icons/fa6';
 import { FiBookOpen, FiZap, FiCheckCircle, FiArrowUpRight, FiClock, FiVideo, FiLayers } from 'react-icons/fi';
 import { getAllCourses } from '../../../services/operations/courseDetailsAPI';
+import Threads from './Threads';
 
 const obysEase = [0.16, 1, 0.3, 1];
 
@@ -71,6 +72,14 @@ const UnifiedHero = () => {
   return (
     <section className="ncodex-hero-unified" onMouseMove={handleMouseMove}>
       <div className="hero-ambient-glow" />
+      <div className="hero-threads-backdrop">
+        <Threads
+          amplitude={1}
+          distance={0}
+          enableMouseInteraction={true}
+          color={[0.39, 0.40, 0.95]}
+        />
+      </div>
 
       <motion.div 
         className="hero-grid-container"
