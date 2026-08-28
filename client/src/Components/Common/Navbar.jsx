@@ -183,9 +183,14 @@ const Navbar = () => {
           {isLightIcon ? <FiSun /> : <FiMoon />}
         </button>
 
-        <Link to="/login" className="navbar-button navbar-button-primary">
-          Get Started
-        </Link>
+        {token === null ? (
+          <>
+            <Link to="/login" className="navbar-button navbar-button-ghost">Sign In</Link>
+            <Link to="/signup" className="navbar-button navbar-button-primary">Get Started</Link>
+          </>
+        ) : (
+          <ProfileDropdown />
+        )}
       </div>
 
       <div className={`navbar-mobile-panel ${isMenuOpen ? 'is-open' : ''}`}>

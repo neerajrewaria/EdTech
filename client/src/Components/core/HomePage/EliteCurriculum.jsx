@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import {
   FiShield,
   FiActivity,
@@ -10,6 +11,15 @@ import {
   FiCompass,
 } from "react-icons/fi";
 import "./EliteCurriculum.css";
+
+const ecFadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
+const ecStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
 
 /* ------------------------------------------------------------------
    PLACEHOLDER DATA — matches the reference image exactly for now.
@@ -107,8 +117,14 @@ const EliteCurriculum = () => {
     <section className="ec-section">
       <div className="ec-container">
         {/* ---------- Header row ---------- */}
-        <div className="ec-header-row">
-          <div className="ec-header-text">
+        <motion.div
+          className="ec-header-row"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={ecStagger}
+        >
+          <motion.div className="ec-header-text" variants={ecFadeUp}>
             <h2 className="ec-heading">
               Elite <span className="ec-heading-accent">Curriculum</span>
             </h2>
@@ -116,13 +132,13 @@ const EliteCurriculum = () => {
               Master in-demand skills through rigorous, production-simulated
               environments.
             </p>
-          </div>
+          </motion.div>
 
-          <button type="button" className="ec-catalog-btn">
+          <motion.button type="button" className="ec-catalog-btn" variants={ecFadeUp}>
             <span>View Full Catalog</span>
             <FiArrowUpRight />
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* ---------- Card marquee ----------
             Same cards, same data, same props. The list is rendered
@@ -136,12 +152,18 @@ const EliteCurriculum = () => {
         </div>
 
         {/* ---------- Floating explore pill ---------- */}
-        <div className="ec-floating-pill-wrap">
+        <motion.div
+          className="ec-floating-pill-wrap"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+        >
           <button type="button" className="ec-floating-pill">
             <FiCompass />
             <span>Explore Catalog</span>
           </button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

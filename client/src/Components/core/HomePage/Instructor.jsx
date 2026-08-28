@@ -1,21 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { FaArrowRight, FaUsers, FaEarthAmericas, FaGift } from 'react-icons/fa6';
 import HighlightText from './HighlightText';
 import instructorImg from '../../../assests/Images/office.jpg';
-
 import './Instructor.css';
+
+const instrReveal = {
+  hidden: { opacity: 0, y: 36 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+const instrStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+};
+
 
 const Instructor = () => {
   return (
     <div className="instructor-join-panel-master-holder">
-
-      {/* Redesigned Instructor Section Callout Banner */}
       <section className="instructor-join-panel-root-canvas">
-        <div className="instructor-join-panel-wrapper">
-
-          {/* LEFT ASPECT LAYER: Creative Parallax Frame Design */}
-          <div className="instructor-join-panel-media-side">
+        <motion.div
+          className="instructor-join-panel-wrapper"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={instrStagger}
+        >
+          {/* LEFT ASPECT LAYER */}
+          <motion.div className="instructor-join-panel-media-side" variants={instrReveal}>
             <div className="instructor-join-panel-asymmetric-bounding-box">
               <div className="instructor-join-panel-decorative-bg-mesh"></div>
               <img
@@ -31,10 +44,10 @@ const Instructor = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* RIGHT ASPECT LAYER: SaaS Typography Hierarchy & Trust Blocks */}
-          <div className="instructor-join-panel-content-side">
+          {/* RIGHT ASPECT LAYER */}
+          <motion.div className="instructor-join-panel-content-side" variants={instrReveal}>
             <div className="instructor-join-panel-text-block">
               <span className="instructor-join-panel-context-pre-title">
                 <FaEarthAmericas className="instructor-eyebrow-icon" />
@@ -93,11 +106,9 @@ const Instructor = () => {
                 </Link>
               </div>
             </div>
-          </div>
-
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
-
     </div>
   );
 };
