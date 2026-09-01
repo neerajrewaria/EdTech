@@ -1,12 +1,13 @@
-import React from 'react'
-import { BsFillCaretRightFill } from "react-icons/bs"
-import { FaShareSquare } from "react-icons/fa"
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
+import React from 'react';
+import { BsFillCaretRightFill } from "react-icons/bs";
+import { FaShareSquare } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { AddToCart } from '../services/operations/Cart';
 import { buyCourse } from '../services/operations/studentFeaturesAPI';
-import './CourseBuyCard.css'; // Make sure to import this stylesheet
+import { motion } from 'framer-motion';
+import './CourseBuyCard.css';
 
 function CourseBuyCard({ courseData }) {
     const dispatch = useDispatch();
@@ -17,11 +18,12 @@ function CourseBuyCard({ courseData }) {
     const {
         thumbnail: ThumbnailImage,
         price: CurrentPrice,
-    } = courseData
+    } = courseData;
 
     const handleShare = (e) => {
         e.stopPropagation();
-        console.log("Sharing course...")
+        navigator.clipboard.writeText(window.location.href);
+        toast.success("Course URL copied to clipboard!");
     }
 
     const handleToAddCart = (e) => {
@@ -40,7 +42,13 @@ function CourseBuyCard({ courseData }) {
     };
 
     return (
-        <aside className="premium-checkout-panel">
+        <motion.aside 
+            className="premium-checkout-panel"
+            initial={{ opacity: 0, y: 50, rotateX: 10 }}
+            animate={{ opacity: 1, y: 0, rotateX: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
+            style={{ perspective: 1000 }}
+        >
             {/* Visual Header Wrapper */}
             <div className="premium-checkout-media">
                 <img
@@ -48,7 +56,12 @@ function CourseBuyCard({ courseData }) {
                     alt="Course Preview Artwork"
                     className="premium-checkout-img"
                 />
-                <div className="premium-checkout-overlay-play"></div>
+                <div className="premium-checkout-overlay-play">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                    </svg>
+                </div>
             </div>
 
             {/* Core Action & Pricing Content Area */}
@@ -65,10 +78,10 @@ function CourseBuyCard({ courseData }) {
                 <div className="premium-action-buttons-group">
                     <button 
                         onClick={handleBuyCourse} 
-                        className="premium-btn-primary"
+                        className="premium-btn-primary glow-effect"
                         type="button"
                     >
-                        Buy Now
+                        <span>Buy Now</span>
                     </button>
                     <button 
                         className="premium-btn-secondary" 
@@ -80,7 +93,7 @@ function CourseBuyCard({ courseData }) {
                 </div>
 
                 <p className="premium-text-guarantee">
-                    🛡️ Secure Checkout • 30-Day Money-Back Guarantee
+                    <span role="img" aria-label="shield">🛡️</span> Secure Checkout • 30-Day Money-Back Guarantee
                 </p>
 
                 <hr className="premium-checkout-divider" />
@@ -92,6 +105,14 @@ function CourseBuyCard({ courseData }) {
                         <BsFillCaretRightFill className="premium-inclusion-icon" />
                         <span>Full Lifetime Access</span>
                     </div>
+                    <div className="premium-inclusion-badge">
+                        <BsFillCaretRightFill className="premium-inclusion-icon" />
+                        <span>Access on Mobile and TV</span>
+                    </div>
+                    <div className="premium-inclusion-badge">
+                        <BsFillCaretRightFill className="premium-inclusion-icon" />
+                        <span>Certificate of Completion</span>
+                    </div>
                 </div>
 
                 {/* Utility Controls Tier */}
@@ -99,14 +120,13 @@ function CourseBuyCard({ courseData }) {
                     <button 
                         className="premium-share-action-link" 
                         onClick={handleShare}
-                        type="button"
                     >
-                        <FaShareSquare />
+                        <FaShareSquare /> 
                         <span>Share Course</span>
                     </button>
                 </div>
             </div>
-        </aside>
+        </motion.aside>
     )
 }
 

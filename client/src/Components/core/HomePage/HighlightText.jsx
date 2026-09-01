@@ -2,7 +2,7 @@ import React from 'react'
 
 export const HighlightText = ({ text }) => {
   return (
-    <span className="highlight-text">
+    <span className="nx-gradient-brand">
         {" "}
         {text}</span>
   )

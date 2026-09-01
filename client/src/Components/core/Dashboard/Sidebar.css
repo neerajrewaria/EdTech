@@ -1,230 +1,291 @@
-/* Premium Sidebar Variable Bounds */
-.saas-sidebar-container {
-  --sb-bg: #111827;
-  --sb-border: rgba(255, 255, 255, 0.06);
-  --sb-text-main: #f3f4f6;
-  --sb-text-muted: #9ca3af;
-  --sb-accent-blue: #3b82f6;
-  --sb-active-bg: rgba(59, 130, 246, 0.08);
-  --sb-logout-hover: rgba(239, 68, 68, 0.08);
-  --sb-logout-text: #f87171;
-  
-  width: 280px;
-  height: 100vh;
-  background-color: var(--sb-bg);
-  border-right: 1px solid var(--sb-border);
-  display: flex;
-  flex-direction: column;
+/* ==========================================================================
+   NCODEX SIDEBAR — Matches User Reference Screenshot Layout Exactly
+   ========================================================================== */
+
+.nx-sidebar {
+  width: 270px;
   flex-shrink: 0;
   position: sticky;
   top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  background: #0a0c1a;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  z-index: 100;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  position: relative;
+  transition: background 0.3s ease;
 }
 
-/* Premium Profile Block Overhaul */
-.saas-sidebar-profile-header {
-  padding: 24px;
+.nx-sidebar::-webkit-scrollbar { display: none; }
+
+/* ── Brand Logo Header Capsule ── */
+.nx-sidebar-brand {
+  padding: 24px 22px 20px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  border-bottom: 1px solid var(--sb-border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, transparent 100%);
+  gap: 12px;
+  flex-shrink: 0;
 }
 
-.saas-avatar-circle {
+.nx-brand-gem {
   width: 42px;
   height: 42px;
-  border-radius: 12px; /* Smooth modern rounded corner block box */
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%);
   color: #ffffff;
-  font-weight: 700;
-  font-size: 0.95rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+  font-size: 1.15rem;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+  flex-shrink: 0;
 }
 
-.saas-active-pulse {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 10px;
-  height: 10px;
-  background-color: #10b981;
-  border: 2px solid var(--sb-bg);
-  border-radius: 50%;
-}
-
-.saas-profile-details {
+.nx-brand-text {
   display: flex;
   flex-direction: column;
-  min-width: 0;
 }
 
-.saas-profile-name {
-  color: var(--sb-text-main);
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.nx-brand-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-.saas-profile-role-tag {
-  font-size: 0.75rem;
-  color: var(--sb-text-muted);
-  font-weight: 500;
-}
-
-/* Main Core Scroll Area */
-.saas-sidebar-scroll-wrapper {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-/* Custom Scrollbar styling */
-.saas-sidebar-scroll-wrapper::-webkit-scrollbar {
-  width: 4px;
-}
-.saas-sidebar-scroll-wrapper::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-/* Section Separator Captions */
-.saas-menu-section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.saas-section-caption {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  color: var(--sb-text-muted);
-  letter-spacing: 0.8px;
+.nx-brand-sub {
+  font-size: 0.62rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: rgba(148, 163, 184, 0.6);
   font-weight: 700;
-  padding-left: 12px;
-  opacity: 0.6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 3px;
 }
 
-.instructor-caption {
-  color: #a78bfa; /* Soft Purple/Indigo hint for administrative items */
-}
-
-/* Menu List Blocks Layout */
-.saas-menu-group {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* ── Nav Core ── */
+.nx-nav-core {
+  flex: 1;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+  position: relative;
+  z-index: 2;
 }
 
-.saas-menu-item {
+.nx-nav-section-label {
+  font-size: 0.62rem;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(148, 163, 184, 0.4);
+  font-weight: 700;
+  padding: 0 12px;
+  margin: 16px 0 6px;
+  display: block;
+}
+
+/* ── Nav Link Item ── */
+.nx-nav-item {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
-  border-radius: 8px;
-  color: var(--sb-text-muted);
-  font-size: 0.92rem;
+  border-radius: 12px;
+  color: #64748b;
+  font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
-  position: relative;
+  border: 1px solid transparent;
+  background: transparent;
+  width: 100%;
+  text-align: left;
   box-sizing: border-box;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none;
+  position: relative;
+  transition: all 0.2s ease;
 }
 
-.saas-menu-item:hover {
-  color: var(--sb-text-main);
-  background-color: rgba(255, 255, 255, 0.03);
+.nx-nav-item:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.saas-menu-icon {
-  font-size: 1.15rem;
+.nx-nav-icon {
+  font-size: 1.1rem;
   flex-shrink: 0;
-  transition: color 0.15s;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.saas-menu-text {
+.nx-nav-item:hover .nx-nav-icon {
+  transform: scale(1.1);
+  color: #818cf8;
+}
+
+.nx-nav-label {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Active State Styles */
-.saas-menu-item.item-active {
+/* Active State (Glow pill from screenshot) */
+.nx-nav-item.nx-active {
   color: #ffffff;
-  background-color: var(--sb-active-bg);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(56, 189, 248, 0.1) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.35);
   font-weight: 600;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.15);
 }
 
-.saas-menu-item.item-active::before {
-  content: '';
+.nx-nav-item.nx-active .nx-nav-icon {
+  color: #818cf8;
+}
+
+/* Logout Item */
+.nx-nav-item.nx-logout {
+  color: #64748b;
+}
+.nx-nav-item.nx-logout:hover {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.15);
+}
+.nx-nav-item.nx-logout:hover .nx-nav-icon {
+  color: #f87171;
+}
+
+/* ── Ambient Bottom Vector Graphic ── */
+.nx-sidebar-bg-vector {
   position: absolute;
-  left: 0;
-  top: 25%;
-  height: 50%;
-  width: 3px;
-  background-color: var(--sb-accent-blue);
-  border-radius: 0 4px 4px 0;
+  bottom: 80px;
+  left: -20px;
+  width: 260px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.25;
 }
 
-.saas-menu-item.item-active .saas-menu-icon {
-  color: var(--sb-accent-blue);
+/* ── Theme Switcher Card at Bottom ── */
+.nx-sidebar-dock {
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
 }
 
-/* Instructor Dashboard Item Override */
-.saas-menu-item.item-active .instructor-icon {
-  color: #a78bfa;
+.nx-theme-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Sign out / Logout Panel Custom Configurations */
-.system-footer-section {
-  margin-top: auto; /* Force structural alignment parameters right to the bottom boundary */
-  border-top: 1px solid var(--sb-border);
-  padding-top: 20px;
+.nx-theme-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.saas-logout-trigger:hover {
-  color: var(--sb-logout-text);
-  background-color: var(--sb-logout-hover);
+.nx-theme-icon {
+  font-size: 1.05rem;
+  color: #818cf8;
 }
 
-/* Adaptive Responsive Viewport Configurations */
-@media (max-width: 768px) {
-  .saas-sidebar-container {
-    width: 72px;
-  }
-  .saas-sidebar-profile-header {
-    padding: 16px;
-    justify-content: center;
-  }
-  .saas-profile-details,
-  .saas-section-caption,
-  .saas-menu-text {
-    display: none; /* Collapses seamlessly on mobile tablet frameworks */
-  }
-  .saas-sidebar-scroll-wrapper {
-    padding: 16px 8px;
-  }
-  .saas-menu-item {
-    justify-content: center;
-    padding: 12px;
-  }
-  .saas-menu-item.item-active::before {
-    top: 0;
-    height: 100%;
-    width: 2px;
-  }
+.nx-theme-text-group {
+  display: flex;
+  flex-direction: column;
 }
+
+.nx-theme-label {
+  font-size: 0.64rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: rgba(148, 163, 184, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.nx-theme-val {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+/* Toggle switch button (iOS style) */
+.nx-toggle-switch {
+  width: 38px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  position: relative;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background 0.25s ease;
+  padding: 2px;
+}
+
+.nx-toggle-switch.is-active {
+  background: #6366f1;
+}
+
+.nx-toggle-knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+.nx-toggle-switch.is-active .nx-toggle-knob {
+  transform: translateX(16px);
+}
+
+/* ── Light Theme Overrides ── */
+html.light .nx-sidebar,
+.light .nx-sidebar {
+  background: #ffffff;
+  border-right-color: rgba(15, 23, 42, 0.08);
+}
+
+html.light .nx-brand-title,
+.light .nx-brand-title { color: #0f172a; }
+
+html.light .nx-nav-item:hover,
+.light .nx-nav-item:hover {
+  color: #0f172a;
+  background: rgba(15, 23, 42, 0.04);
+}
+
+html.light .nx-nav-item.nx-active,
+.light .nx-nav-item.nx-active {
+  color: #3730a3;
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+html.light .nx-theme-card,
+.light .nx-theme-card {
+  background: #f1f5f9;
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+html.light .nx-theme-val,
+.light .nx-theme-val { color: #0f172a; }

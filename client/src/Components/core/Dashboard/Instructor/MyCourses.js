@@ -5,13 +5,22 @@ import CourseBuilder from "./CourseBuilder";
 import PublishSettings from "./PublishSettings";
 import { fetchInstructorCourses, editCourseDetails, deleteCourse } from "../../../../services/operations/courseDetailsAPI";
 
-function MyCourses() {
+function MyCourses({ initialCreate = false }) {
   const [courses, setCourses] = useState([]);
-  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(initialCreate);
   const [showCourseBuilder, setShowCourseBuilder] = useState(false);
   const [showPublishSettings, setShowPublishSettings] = useState(false);
   const [newCourse, setNewCourse] = useState(null);
   const token = localStorage.getItem("token")?.replace(/"/g, "");
+
+  useEffect(() => {
+    setShowCreateForm(initialCreate);
+    if (initialCreate) {
+      setNewCourse(null);
+      setShowCourseBuilder(false);
+      setShowPublishSettings(false);
+    }
+  }, [initialCreate]);
 
   useEffect(() => {
     const getCourses = async () => {

@@ -1,28 +1,32 @@
-/* Dashboard Scope Layout tokens */
+/* ==========================================================================
+   NCODEX — CartPage.css (Aligned with Home.css Design System)
+   ========================================================================== */
+
 .saas-checkout-workspace {
-  --workspace-bg: #0b0f19;
-  --surface-card: #111827;
-  --surface-raised: #1f2937;
-  --border-line: rgba(255, 255, 255, 0.08);
-  --color-accent: #3b82f6;
-  --text-main: #f9fafb;
-  --text-muted: #9ca3af;
+  --workspace-bg: var(--background, #090a10);
+  --surface-card: var(--surface, #11131f);
+  --surface-raised: var(--surface-elevated, #181b2c);
+  --border-line: var(--border, rgba(255, 255, 255, 0.08));
+  --color-accent: var(--primary, #6366f1);
+  --text-main: var(--text-primary, #f8fafc);
+  --text-muted: var(--text-secondary, #94a3b8);
   --alert-red: #ef4444;
-  --radius-panel: 16px;
-  --radius-inner: 10px;
+  --radius-panel: 20px;
+  --radius-inner: 12px;
 
   background-color: var(--workspace-bg);
   color: var(--text-main);
   min-height: 85vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
   box-sizing: border-box;
+  transition: background 0.3s ease;
 }
 
 /* Header Section */
 .saas-checkout-header {
   border-bottom: 1px solid var(--border-line);
-  background: linear-gradient(180deg, #111827 0%, var(--workspace-bg) 100%);
-  padding: 48px 24px;
+  background: var(--surface);
+  padding: 7rem 2rem 2rem;
 }
 
 .saas-checkout-header-inner {
@@ -31,392 +35,306 @@
 }
 
 .saas-checkout-main-title {
-  font-size: 2.25rem;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 2.2rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-main);
   margin: 0 0 8px 0;
   letter-spacing: -0.02em;
 }
 
 .saas-checkout-counter-text {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
   margin: 0;
 }
 
 .highlight-pill {
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.08);
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border: 1px solid var(--border-line);
+  background: var(--gradient-primary, linear-gradient(135deg, #6366f1, #38bdf8));
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
 }
 
 /* Content Body Context Grid */
 .saas-checkout-body {
-  padding: 40px 24px 64px 24px;
+  padding: 2.5rem 2rem;
 }
 
 .saas-checkout-grid {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 32px;
+  grid-template-columns: 1fr 340px;
+  gap: 2.5rem;
   align-items: start;
 }
 
-/* LEFT AXIS: Linear Item Row Strips configuration */
-.saas-checkout-items-stack {
+/* Course Items Column */
+.saas-cart-items-column {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.saas-item-row-strip {
-  background-color: var(--surface-card);
+.saas-item-card {
+  background-color: var(--surface-glass, rgba(255, 255, 255, 0.85));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-line);
   border-radius: var(--radius-panel);
-  padding: 20px;
-  display: flex;
-  gap: 24px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  gap: 20px;
   align-items: center;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-sm, 0 4px 16px rgba(0, 0, 0, 0.2));
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.saas-item-row-strip:hover {
-  border-color: rgba(59, 130, 246, 0.25);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+.saas-item-card:hover {
+  border-color: var(--border-hover, rgba(99, 102, 241, 0.35));
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md, 0 12px 32px rgba(0, 0, 0, 0.08));
 }
 
-/* Media Item Thumbnail layout box */
-.saas-item-media-box {
-  width: 160px;
-  height: 96px;
-  border-radius: var(--radius-inner);
-  overflow: hidden;
-  background-color: #030712;
-  flex-shrink: 0;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.saas-item-img {
-  width: 100%;
-  height: 100%;
+.saas-item-thumb {
+  width: 140px;
+  height: 90px;
   object-fit: cover;
+  border-radius: var(--radius-inner);
+  border: 1px solid var(--border-line);
 }
 
-/* Mid Description Layout panel block */
-.saas-item-description-block {
-  flex-grow: 1;
+.saas-item-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  min-width: 0; /* Protects from flexbox text truncation overflow bugs */
-}
-
-.saas-item-category-tag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  gap: 6px;
 }
 
 .saas-item-title {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
   font-size: 1.15rem;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.saas-item-author {
-  font-size: 0.88rem;
-  color: var(--text-muted);
+  color: var(--text-main);
   margin: 0;
 }
 
-.author-highlight {
-  color: #ffffff;
-  font-weight: 500;
+.saas-item-category {
+  font-size: 0.8rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  color: var(--color-accent);
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-/* Right Metrics block panel split layout */
-.saas-item-pricing-actions-block {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 16px;
-  flex-shrink: 0;
-  min-width: 130px;
-}
-
-.saas-item-price-label {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.saas-item-price-label .currency {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.saas-item-price-label .amount {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #ffffff;
-}
-
-/* Modern low-contrast flat delete buttons layout */
-.saas-item-delete-action {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 0.82rem;
-  font-weight: 500;
+.saas-item-ratings {
   display: flex;
   align-items: center;
   gap: 6px;
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  transition: all 0.15s ease;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-.saas-item-delete-action:hover {
-  color: var(--alert-red);
-  background-color: rgba(239, 68, 68, 0.08);
-  border-color: rgba(239, 68, 68, 0.15);
+.rating-stars-gold {
+  color: #f59e0b;
 }
 
-.trash-icon {
-  font-size: 0.78rem;
-}
-
-/* RIGHT AXIS: Order Summary side panel box dashboard card styles */
-.saas-checkout-summary-pane {
-  position: relative;
-}
-
-.saas-summary-sticky-card {
-  background-color: var(--surface-card);
-  border: 1px solid var(--border-line);
-  border-radius: var(--radius-panel);
-  padding: 28px;
-  position: sticky;
-  top: 32px;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-}
-
-.saas-summary-card-heading {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 24px 0;
-}
-
-/* Ledger Balance line blocks styling layout */
-.saas-summary-billing-ledger {
+.saas-item-actions {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 24px;
+  align-items: flex-end;
+  gap: 12px;
 }
 
-.ledger-row {
+.saas-item-price {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.saas-remove-button {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  padding: 8px 14px;
+  border-radius: var(--radius-inner);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.saas-remove-button:hover {
+  background: rgba(239, 68, 68, 0.16);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* Order Summary Side Panel */
+.saas-summary-box {
+  background-color: var(--surface-glass, rgba(255, 255, 255, 0.85));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-panel);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 100px;
+  box-shadow: var(--shadow-md, 0 12px 32px rgba(0, 0, 0, 0.08));
+}
+
+.saas-summary-title {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-line);
+}
+
+.saas-summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.92rem;
-  color: var(--text-muted);
-}
-
-.ledger-row .ledger-value {
-  color: #ffffff;
-  font-weight: 500;
-}
-
-.ledger-row .value-free {
-  color: #10b981;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
-}
-
-.ledger-divider {
-  border: 0;
-  height: 1px;
-  background-color: var(--border-line);
-  margin: 6px 0;
-}
-
-/* Grand Total Row display context style definitions */
-.ledger-row.total-row {
-  margin-top: 4px;
-}
-
-.ledger-label-total {
   font-size: 0.95rem;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.ledger-total-price-box {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.ledger-total-price-box .total-currency {
-  font-size: 1rem;
-  color: var(--color-accent);
-  font-weight: 600;
-}
-
-.ledger-total-price-box .total-amount {
-  font-size: 1.85rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.01em;
-}
-
-/* Redesigned Checkout Main execution button tag */
-.saas-summary-checkout-cta-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  color: #ffffff;
-  border: none;
-  padding: 14px;
-  border-radius: 10px;
-  font-size: 0.98rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
-  transition: transform 0.15s ease, opacity 0.15s ease;
-}
-
-.saas-summary-checkout-cta-btn:hover {
-  opacity: 0.95;
-  transform: translateY(-1px);
-}
-
-.saas-summary-checkout-cta-btn:active {
-  transform: translateY(0);
-}
-
-.saas-summary-trust-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 20px;
-  font-size: 0.78rem;
   color: var(--text-muted);
 }
 
-/* Empty State Styling fallback containers layout block definition */
-.saas-empty-cart-container {
-  max-width: 480px;
-  margin: 80px auto;
+.saas-summary-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-line);
+}
+
+.saas-summary-total-label {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 1.05rem;
+}
+
+.saas-summary-total-price {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-main);
+  background: var(--gradient-brand-text, linear-gradient(135deg, #6366f1, #38bdf8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.saas-checkout-submit-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-inner);
+  background: var(--gradient-primary, linear-gradient(135deg, #6366f1, #38bdf8));
+  border: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(99, 102, 241, 0.35);
+  transition: all 0.22s ease;
   text-align: center;
+}
+
+.saas-checkout-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(99, 102, 241, 0.45);
+}
+
+/* Empty Cart View */
+.saas-cart-empty-panel {
+  max-width: 500px;
+  margin: 60px auto;
   background-color: var(--surface-card);
   border: 1px solid var(--border-line);
   border-radius: var(--radius-panel);
-  padding: 48px 32px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 48px 36px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
-.saas-empty-cart-icon {
-  font-size: 3.5rem;
-  margin-bottom: 20px;
+.saas-cart-empty-title {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
 }
 
-.saas-empty-cart-title {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 10px 0;
-}
-
-.saas-empty-cart-desc {
+.saas-cart-empty-desc {
   font-size: 0.92rem;
   color: var(--text-muted);
-  line-height: 1.5;
-  margin: 0 0 28px 0;
+  line-height: 1.6;
+  margin: 0;
 }
 
-.saas-empty-cart-btn {
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-line);
-  color: #ffffff;
-  text-decoration: none;
-  padding: 12px 28px;
-  font-size: 0.92rem;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: background-color 0.2s, border-color 0.2s;
+/* Light Theme Overrides */
+html.light .saas-checkout-workspace,
+.light .saas-checkout-workspace {
+  background-color: var(--background, #f8fafc);
+  color: var(--text-primary, #0f172a);
 }
 
-.saas-empty-cart-btn:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+html.light .saas-checkout-header,
+.light .saas-checkout-header {
+  background: var(--surface, #ffffff);
 }
 
-/* Responsive Structural Screen Adaptive Media Queries splits layout */
-@media (max-width: 1024px) {
+html.light .saas-checkout-main-title,
+.light .saas-checkout-main-title,
+html.light .saas-item-title,
+.light .saas-item-title,
+html.light .saas-summary-title,
+.light .saas-summary-title,
+html.light .saas-cart-empty-title,
+.light .saas-cart-empty-title,
+html.light .saas-item-price,
+.light .saas-item-price {
+  color: var(--text-primary, #0f172a);
+}
+
+html.light .saas-item-card,
+.light .saas-item-card,
+html.light .saas-summary-box,
+.light .saas-summary-box,
+html.light .saas-cart-empty-panel,
+.light .saas-cart-empty-panel {
+  background-color: var(--surface, #ffffff);
+  border-color: var(--border, rgba(15, 23, 42, 0.08));
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 900px) {
   .saas-checkout-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
   }
-  .saas-checkout-summary-pane {
-    width: 100%;
+  .saas-item-card {
+    grid-template-columns: 100px 1fr;
   }
-}
-
-@media (max-width: 768px) {
-  .saas-checkout-main-title {
-    font-size: 1.85rem;
-  }
-  .saas-checkout-header {
-    padding: 32px 16px;
-  }
-  .saas-checkout-body {
-    padding: 24px 16px;
-  }
-  .saas-item-row-strip {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 16px;
-  }
-  .saas-item-media-box {
-    width: 100%;
-    height: 140px;
-  }
-  .saas-item-pricing-actions-block {
-    flex-direction: row-reverse;
+  .saas-item-actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
-    border-top: 1px solid var(--border-line);
-    padding-top: 14px;
-    margin-top: 4px;
-  }
-  .saas-item-title {
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    margin-top: 12px;
   }
 }

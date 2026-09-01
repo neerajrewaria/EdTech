@@ -1,117 +1,139 @@
-.check-email-wrapper{
-    min-height:100vh;
-    background:#0f172a;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position:relative;
-    overflow:hidden;
+/* =========================================================
+   NCODEX — CheckEmail.css (Aligned with Home.css Tokens)
+   ========================================================= */
+
+.check-email-wrapper {
+  min-height: 100vh;
+  background: var(--background, #090a10);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  padding: 20px;
+  transition: background 0.3s ease;
 }
 
-.check-email-card{
-    width:450px;
-    background:#1e293b;
-    padding:45px;
-    border-radius:25px;
-    box-shadow:0 20px 50px rgba(0,0,0,.4);
-    z-index:10;
+.check-email-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--surface, #11131f);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  padding: 42px 36px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-md, 0 12px 32px rgba(0, 0, 0, 0.45));
+  z-index: 10;
+  transition: all 0.3s ease;
 }
 
-.mail-icon{
-    width:80px;
-    height:80px;
-    background:#334155;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:36px;
-    margin:auto;
+.mail-icon {
+  width: 76px;
+  height: 76px;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  color: var(--primary, #6366f1);
+  margin: 0 auto 20px;
 }
 
-.check-email-title{
-    color:white;
-    text-align:center;
-    margin-top:25px;
-    font-size:34px;
+.check-email-title {
+  color: var(--text-primary, #f8fafc);
+  text-align: center;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
 }
 
-.check-email-subtitle{
-    color:#94a3b8;
-    text-align:center;
-    line-height:1.8;
-    margin-top:15px;
+.check-email-subtitle {
+  color: var(--text-secondary, #94a3b8);
+  text-align: center;
+  line-height: 1.6;
+  font-size: 0.92rem;
+  margin: 0 0 24px;
 }
 
-.email-info-box{
-    background:#0f172a;
-    padding:20px;
-    border-radius:15px;
-    margin-top:30px;
+.email-info-box {
+  background: var(--surface-elevated, #181b2c);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 24px;
 }
 
-.email-info-box p{
-    color:white;
-    margin-bottom:10px;
+.email-info-box p {
+  color: var(--text-primary, #f8fafc);
+  margin: 0 0 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
-.email-info-box li{
-    color:#94a3b8;
-    margin-top:10px;
+.email-info-box li {
+  color: var(--text-secondary, #94a3b8);
+  margin-top: 8px;
+  font-size: 0.85rem;
 }
 
-.resend-button{
-    width:100%;
-    margin-top:30px;
-    height:55px;
-    border:none;
-    border-radius:14px;
-    background:#facc15;
-    color:black;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.2s;
+.check-email-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.resend-button:hover{
-    transform:translateY(-2px);
+.check-email-btn-primary {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  background: var(--gradient-primary, linear-gradient(135deg, #6366f1 0%, #38bdf8 100%));
+  border: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(99, 102, 241, 0.35);
+  transition: all 0.22s ease;
+  text-align: center;
+  text-decoration: none;
+  display: block;
 }
 
-.back-login-button{
-    width:100%;
-    margin-top:15px;
-    height:55px;
-    background:transparent;
-    border:1px solid #334155;
-    color:white;
-    border-radius:14px;
-    cursor:pointer;
-    transition:.2s;
+.check-email-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(99, 102, 241, 0.45);
 }
 
-.back-login-button:hover{
-    background:#334155;
+/* Light Theme Overrides */
+html.light .check-email-wrapper,
+.light .check-email-wrapper {
+  background: var(--background, #f8fafc);
 }
 
-.email-glow{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(100px);
+html.light .check-email-card,
+.light .check-email-card {
+  background: var(--surface, #ffffff);
+  border-color: var(--border, rgba(15, 23, 42, 0.08));
+  box-shadow: var(--shadow-md, 0 12px 32px rgba(0, 0, 0, 0.08));
 }
 
-.email-glow-1{
-    width:250px;
-    height:250px;
-    background:#facc1520;
-    top:-100px;
-    left:-100px;
+html.light .check-email-title,
+.light .check-email-title {
+  color: var(--text-primary, #0f172a);
 }
 
-.email-glow-2{
-    width:300px;
-    height:300px;
-    background:#3b82f620;
-    bottom:-100px;
-    right:-100px;
+html.light .email-info-box,
+.light .email-info-box {
+  background: var(--surface-elevated, #f1f5f9);
+  border-color: var(--border, rgba(15, 23, 42, 0.08));
+}
+
+html.light .email-info-box p,
+.light .email-info-box p {
+  color: var(--text-primary, #0f172a);
 }

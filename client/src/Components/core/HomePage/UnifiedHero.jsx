@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaPlay, FaReact, FaNodeJs, FaPython, FaJs, FaDocker, FaLaptopCode, FaChalkboardUser } from 'react-icons/fa6';
 import { FiBookOpen, FiZap, FiCheckCircle, FiArrowUpRight, FiClock, FiVideo, FiLayers } from 'react-icons/fi';
@@ -45,6 +45,13 @@ const UnifiedHero = () => {
   const heroY = useTransform(scrollY, [0, 500], [0, 70]);
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0.9]);
 
+  // 3D Parallax Tilt Motion Values
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [6, -6]), { stiffness: 200, damping: 25 });
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-6, 6]), { stiffness: 200, damping: 25 });
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -67,6 +74,9 @@ const UnifiedHero = () => {
     const y = e.clientY - rect.top;
     heroElem.style.setProperty('--mouse-x', `${x}px`);
     heroElem.style.setProperty('--mouse-y', `${y}px`);
+
+    mouseX.set(x / rect.width);
+    mouseY.set(y / rect.height);
   };
 
   return (
@@ -179,6 +189,7 @@ const UnifiedHero = () => {
         {/* Right Column: Interactive Animated Workspace Simulation */}
         <motion.div 
           className="hero-layered-stage"
+          style={{ rotateX, rotateY, transformStyle: 'preserve-3d', perspective: 1000 }}
           initial={{ opacity: 0, scale: 0.92, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.25, ease: obysEase }}

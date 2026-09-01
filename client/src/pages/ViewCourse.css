@@ -3,24 +3,24 @@
    ========================================================= */
 
 :root {
-  --vc-bg: #050816;
-  --vc-surface: #0b1020;
-  --vc-card: #111827;
-  --vc-card-2: #0f1525;
-  --vc-primary: #6366f1;
-  --vc-accent: #8b5cf6;
+  --vc-bg: var(--background, #090a10);
+  --vc-surface: var(--surface, #11131f);
+  --vc-card: var(--surface-elevated, #181b2c);
+  --vc-card-2: var(--surface, #11131f);
+  --vc-primary: var(--primary, #6366f1);
+  --vc-accent: var(--accent, #38bdf8);
   --vc-success: #10b981;
-  --vc-text: #ffffff;
-  --vc-text-secondary: #94a3b8;
-  --vc-text-muted: #64748b;
-  --vc-border: rgba(255, 255, 255, 0.07);
-  --vc-border-strong: rgba(255, 255, 255, 0.13);
-  --vc-radius-lg: 16px;
+  --vc-text: var(--text-primary, #f8fafc);
+  --vc-text-secondary: var(--text-secondary, #94a3b8);
+  --vc-text-muted: var(--text-muted, #64748b);
+  --vc-border: var(--border, rgba(255, 255, 255, 0.08));
+  --vc-border-strong: var(--border-hover, rgba(99, 102, 241, 0.35));
+  --vc-radius-lg: 18px;
   --vc-radius-md: 12px;
-  --vc-radius-sm: 9px;
-  --vc-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.55);
-  --vc-shadow-sm: 0 8px 22px -10px rgba(0, 0, 0, 0.5);
-  --vc-grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --vc-radius-sm: 8px;
+  --vc-shadow: var(--shadow-md, 0 12px 32px rgba(0, 0, 0, 0.45));
+  --vc-shadow-sm: var(--shadow-sm, 0 4px 16px rgba(0, 0, 0, 0.3));
+  --vc-grad-primary: var(--gradient-primary, linear-gradient(135deg, #6366f1 0%, #38bdf8 100%));
 }
 
 * { box-sizing: border-box; }
@@ -35,10 +35,18 @@
   width: 100%;
   background: var(--vc-bg);
   color: var(--vc-text);
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
   display: flex;
   flex-direction: column;
   font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+/* Light Theme Overrides */
+html.light .vc-wrapper,
+.light .vc-wrapper {
+  background: var(--background, #f8fafc);
+  color: var(--text-primary, #0f172a);
 }
 
 .vc-loader, .vc-empty {

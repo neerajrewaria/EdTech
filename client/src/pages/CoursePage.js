@@ -1,11 +1,14 @@
-import React, { useEffect, useState, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
-import Footer from '../Components/Common/Footer'
-import { apiConnector } from '../services/apiconnector'
-import { courseEndpoints } from '../services/apis'
-import toast from 'react-hot-toast'
-import CourseBuyCard from './CourseBuyCard'
-import './CoursePage.css'; // Make sure to import the CSS file below
+import React, { useEffect, useState, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import Footer from '../Components/Common/Footer';
+import { apiConnector } from '../services/apiconnector';
+import { courseEndpoints } from '../services/apis';
+import toast from 'react-hot-toast';
+import CourseBuyCard from './CourseBuyCard';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiChevronDown, FiUser, FiCalendar, FiBookOpen, FiPlayCircle, FiCheckCircle } from 'react-icons/fi';
+import HighlightText from '../Components/core/HomePage/HighlightText';
+import './CoursePage.css';
 
 const CoursePage = () => {
     const { courseId } = useParams();
@@ -56,10 +59,6 @@ const CoursePage = () => {
         }
     }, [courseId]);
 
-    // NOTE: "premium-course-workspace" is added here too (not just on the
-    // main return) because every CSS variable — colors, fonts, spacing — is
-    // scoped to that class. Without it, these two states would silently
-    // fall back to unstyled browser defaults regardless of theme.
     if (loading) {
         return (
             <div className="premium-page-loading premium-course-workspace">
@@ -77,25 +76,38 @@ const CoursePage = () => {
         <div className="premium-course-workspace">
             {/* SaaS-Inspired Hero Workspace Banner */}
             <header className="premium-course-hero">
-                <div className="premium-hero-container">
+                <motion.div 
+                    className="premium-hero-container"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
                     <nav className="premium-hero-breadcrumb">
                         Home <span className="slash">/</span> Catalog <span className="slash">/</span> <span className="active-path">{courseData?.category?.name}</span>
                     </nav>
 
-                    <h1 className="premium-hero-title">{courseData?.courseName}</h1>
+                    <h1 className="premium-hero-title">
+                        {courseData?.courseName?.split(" ").length > 1 
+                            ? <>
+                                {courseData?.courseName?.split(" ").slice(0, -1).join(" ")}
+                                <HighlightText text={courseData?.courseName?.split(" ").slice(-1)[0]} />
+                              </>
+                            : courseData?.courseName
+                        }
+                    </h1>
                     <p className="premium-hero-description">{courseData?.courseDescription || "Master these premium skillsets with guided exercises, industry milestones, and verifiable certification portfolios."}</p>
 
                     <div className="premium-hero-meta-row">
                         <div className="meta-badge-pill">
-                            <span className="meta-icon">👤</span>
+                            <FiUser className="meta-icon" />
                             <span>Created by <strong>{courseData?.instructor?.firstname} {courseData?.instructor?.lastname}</strong></span>
                         </div>
                         <div className="meta-badge-pill">
-                            <span className="meta-icon">📅</span>
+                            <FiCalendar className="meta-icon" />
                             <span>Updated {new Date(courseData?.createdAt).toLocaleDateString()}</span>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </header>
 
             {/* Split Screen Master Layout Grid */}
@@ -103,12 +115,16 @@ const CoursePage = () => {
                 <div className="premium-layout-container">
 
                     {/* LEFT PANEL: Core Educational Curriculum Sections */}
-                    <section className="premium-course-main-column">
-
+                    <motion.section 
+                        className="premium-course-main-column"
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
                         {/* What You'll Learn Segment */}
-                        <div className="premium-learning-card">
+                        <div className="premium-learning-card glassmorphic-card">
                             <h2 className="premium-column-heading">
-                                <span className="heading-marker"></span>
+                                <FiCheckCircle className="heading-icon" />
                                 Objectives & Learning Outcomes
                             </h2>
                             <div className="premium-learning-grid-content">
@@ -119,10 +135,10 @@ const CoursePage = () => {
                         </div>
 
                         {/* Syllabus & Structural Component Section */}
-                        <div className="premium-syllabus-card">
+                        <div className="premium-syllabus-card glassmorphic-card">
                             <div className="premium-syllabus-header-strip">
                                 <div className="header-left-title-block">
-                                    <h2 className="premium-column-heading">Course Curriculum</h2>
+                                    <h2 className="premium-column-heading"><FiBookOpen className="heading-icon" /> Course Curriculum</h2>
                                     <div className="premium-syllabus-stats-row">
                                         <span className="stat-item">{courseData?.courseContent?.length || 0} Modules</span>
                                         <span className="stat-dot">•</span>
@@ -144,11 +160,12 @@ const CoursePage = () => {
                                                 aria-expanded={isSectionOpen}
                                             >
                                                 <div className="node-header-left">
-                                                    <div className="node-toggle-chevron">
-                                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                    </div>
+                                                    <motion.div 
+                                                        className="node-toggle-chevron"
+                                                        animate={{ rotate: isSectionOpen ? 180 : 0 }}
+                                                    >
+                                                        <FiChevronDown />
+                                                    </motion.div>
                                                     <span className="node-section-title">{section.sectionName}</span>
                                                 </div>
                                                 <div className="node-header-right">
@@ -158,32 +175,40 @@ const CoursePage = () => {
                                                 </div>
                                             </div>
 
-                                            {/* Nested Subsection Lists */}
-                                            <div className="premium-node-drawer">
-                                                <div className="drawer-inner-padding">
-                                                    {section.subSection?.map((sub) => (
-                                                        <div key={sub._id} className="premium-subsection-row">
-                                                            <div className="sub-row-left">
-                                                                <div className="sub-video-icon-box">
-                                                                    <svg width="10" height="12" viewBox="0 0 24 28" fill="currentColor">
-                                                                        <path d="M23 12L1.5 24.5V-.5L23 12z" />
-                                                                    </svg>
+                                            {/* Nested Subsection Lists with AnimatePresence */}
+                                            <AnimatePresence>
+                                                {isSectionOpen && (
+                                                    <motion.div 
+                                                        className="premium-node-drawer"
+                                                        initial={{ height: 0, opacity: 0 }}
+                                                        animate={{ height: "auto", opacity: 1 }}
+                                                        exit={{ height: 0, opacity: 0 }}
+                                                        transition={{ duration: 0.3 }}
+                                                    >
+                                                        <div className="drawer-inner-padding">
+                                                            {section.subSection?.map((sub) => (
+                                                                <div key={sub._id} className="premium-subsection-row">
+                                                                    <div className="sub-row-left">
+                                                                        <div className="sub-video-icon-box">
+                                                                            <FiPlayCircle />
+                                                                        </div>
+                                                                        <span className="sub-row-title">{sub.title}</span>
+                                                                    </div>
+                                                                    <div className="sub-row-right">
+                                                                        <span className="sub-row-status-tag">Premium Module</span>
+                                                                    </div>
                                                                 </div>
-                                                                <span className="sub-row-title">{sub.title}</span>
-                                                            </div>
-                                                            <div className="sub-row-right">
-                                                                <span className="sub-row-status-tag">Premium Module</span>
-                                                            </div>
+                                                            ))}
                                                         </div>
-                                                    ))}
-                                                </div>
-                                            </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
                                         </div>
                                     );
                                 })}
                             </div>
                         </div>
-                    </section>
+                    </motion.section>
 
                     {/* RIGHT PANEL: Sticky Course Checkout Card Space */}
                     <aside className="premium-course-sidebar-column">

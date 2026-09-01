@@ -10,8 +10,8 @@ body {
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  /* Use hero-section dark background across the homepage */
-  background-color: #1b1b1df5;
+  /* Use unified dark background across the application */
+  background-color: var(--background, #06080f);
   /* approximate richblack-900 */
   display: flex;
   flex-direction: column;
@@ -751,12 +751,20 @@ signup-form {
 .dashboard-container {
   display: flex;
   min-height: 100vh;
-  margin-top: 1rem;
+  background-color: #080a14;
+  transition: background-color 0.35s ease;
+}
 
+html.light .dashboard-container,
+.light .dashboard-container {
+  background-color: #f8fafc !important;
 }
 
 .dashboard-content {
   flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -944,10 +952,11 @@ signup-form {
 
 .my-courses-page {
   min-height: 100vh;
-  padding: 36px 44px;
-  background-color: #000814;
-  color: #f1f2ff;
+  padding: 36px 40px;
+  background-color: transparent;
+  color: var(--text-primary, #f8fafc);
   box-sizing: border-box;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
 }
 
 .my-courses-header {
@@ -960,74 +969,116 @@ signup-form {
 
 .my-courses-header h2 {
   margin: 0;
-  color: #f1f2ff;
-  font-size: 30px;
-  font-weight: 700;
+  color: var(--text-primary, #f8fafc);
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 2rem;
+  font-weight: 800;
 }
 
 .my-courses-header button {
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 12px 18px;
-  background-color: #ffd60a;
-  color: #000814;
-  font-weight: 700;
+  background: var(--surface-raised, #181b2c);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  color: var(--text-primary, #f8fafc);
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: all 0.22s ease;
 }
 
 .my-courses-header button:hover {
-  transform: translateY(-1px);
-  opacity: 0.92;
+  transform: translateY(-2px);
+  border-color: var(--primary, #6366f1);
+  color: var(--primary, #6366f1);
+}
+
+/* Light Theme Overrides */
+html.light .my-courses-page,
+.light .my-courses-page {
+  color: var(--text-primary, #0f172a);
+}
+
+html.light .my-courses-header h2,
+.light .my-courses-header h2 {
+  color: var(--text-primary, #0f172a);
+}
+
+html.light .my-courses-header button,
+.light .my-courses-header button {
+  background: var(--surface, #ffffff);
+  border-color: var(--border, rgba(15, 23, 42, 0.08));
+  color: var(--text-primary, #0f172a);
 }
 
 /* REWRITTEN INSTRUCTOR DASHBOARD STYLES */
+/* REWRITTEN INSTRUCTOR DASHBOARD STYLES (Aligned with NCodeX Tokens) */
 .inst-dashboard-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 0 2rem;
+  padding: 36px 40px;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
 }
 
 .inst-dashboard-top-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 24px;
+}
+
+.inst-dashboard-top-section h2 {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-weight: 800;
 }
 
 .inst-add-course-btn {
-  background-color: #ffd60a;
-  color: #000814;
+  background: var(--gradient-primary, linear-gradient(135deg, #6366f1 0%, #38bdf8 100%));
+  color: #ffffff;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
   font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.35);
+  transition: all 0.22s ease;
+}
+
+.inst-add-course-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.45);
 }
 
 .inst-courses-table {
-  border: 1px solid #2c333f;
-  border-radius: 8px;
-  background-color: #000814;
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 20px;
+  background-color: var(--surface, #11131f);
   width: 100%;
+  overflow: hidden;
+  box-shadow: var(--shadow-md, 0 12px 32px rgba(0, 0, 0, 0.25));
 }
 
 .inst-table-header {
   display: grid;
   grid-template-columns: 1fr 131px 116px 99px;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #2c333f;
-  color: #838894;
-  font-size: 0.85rem;
-  font-weight: 600;
+  padding: 1.1rem 1.75rem;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  color: var(--text-muted, #64748b);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: var(--surface-elevated, #181b2c);
 }
 
 .inst-course-row-card {
   display: grid;
   grid-template-columns: 1fr 131px 116px 99px;
-  padding: 1.5rem;
+  padding: 1.5rem 1.75rem;
   align-items: center;
-  border-bottom: 1px solid #2c333f;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.06));
   transition: background 0.2s ease;
 }
 
@@ -1036,7 +1087,7 @@ signup-form {
 }
 
 .inst-course-row-card:hover {
-  background-color: #161d29;
+  background-color: rgba(99, 102, 241, 0.04);
 }
 
 .inst-course-info-col {
@@ -1046,10 +1097,11 @@ signup-form {
 }
 
 .inst-course-thumbnail {
-  width: 216px;
-  height: 140px;
-  border-radius: 8px;
+  width: 180px;
+  height: 110px;
+  border-radius: 14px;
   object-fit: cover;
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
 }
 
 .inst-course-details {
@@ -1059,15 +1111,16 @@ signup-form {
 }
 
 .inst-course-title {
-  color: #f1f2ff;
+  color: var(--text-primary, #f8fafc);
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0;
 }
 
 .inst-course-desc {
-  color: #838894;
-  font-size: 0.9rem;
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.88rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -1075,33 +1128,39 @@ signup-form {
 }
 
 .inst-course-meta {
-  color: #f1f2ff;
+  color: var(--text-muted, #64748b);
   font-size: 0.75rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
 }
 
 .inst-status-badge {
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.7rem;
   border-radius: 50px;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-weight: 700;
   width: fit-content;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .inst-status-badge.published {
-  color: #ffd60a;
-  background: rgba(255, 214, 10, 0.1);
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.28);
 }
 
 .inst-status-badge.drafted {
-  color: #ef4444;
-  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.28);
 }
 
 .inst-course-duration,
 .inst-course-price {
-  color: #cbd5e1;
+  color: var(--text-secondary, #94a3b8);
   font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .inst-course-actions {
@@ -1111,7 +1170,7 @@ signup-form {
 
 .inst-action-btn {
   font-size: 1.25rem;
-  color: #838894;
+  color: var(--text-muted, #64748b);
   background: none;
   border: none;
   cursor: pointer;
@@ -1119,7 +1178,7 @@ signup-form {
 }
 
 .inst-action-btn.edit:hover {
-  color: #ffd60a;
+  color: var(--primary, #6366f1);
 }
 
 .inst-action-btn.delete:hover {
@@ -1128,21 +1187,43 @@ signup-form {
 
 .empty-courses-box {
   padding: 44px 20px;
-  color: #f1f2ff;
+  color: var(--text-primary, #f8fafc);
+  text-align: center;
 }
 
 .empty-courses-box h3 {
   margin: 0 0 10px;
-  color: #f1f2ff;
-  font-size: 20px;
-  font-weight: 700;
+  color: var(--text-primary, #f8fafc);
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 800;
 }
 
 .empty-courses-box p {
   margin: 0;
-  color: #afb2bf;
-  font-size: 14px;
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.9rem;
   line-height: 1.6;
+}
+
+/* Light Theme Overrides */
+html.light .inst-courses-table,
+.light .inst-courses-table {
+  background-color: var(--surface, #ffffff);
+  border-color: var(--border, rgba(15, 23, 42, 0.08));
+  box-shadow: var(--shadow-sm);
+}
+
+html.light .inst-table-header,
+.light .inst-table-header {
+  background-color: var(--surface-elevated, #f1f5f9);
+}
+
+html.light .inst-course-title,
+.light .inst-course-title,
+html.light .empty-courses-box h3,
+.light .empty-courses-box h3 {
+  color: var(--text-primary, #0f172a);
 }
 
 
@@ -2068,88 +2149,80 @@ signup-form {
 
 /*   ENROLLED COURSES STYLES (ENHANCED) */
 /* ============================================================ */
+/*   ENROLLED COURSES STYLES (Aligned with NCodeX Tokens) */
+/* ============================================================ */
 .enrolled-courses-container {
   flex: 1;
-  padding: 50px 40px;
+  padding: 40px 44px;
   min-height: 100vh;
-  background-color: #081221;
-  color: #f1f2ff;
+  background-color: var(--background, #070914);
+  color: var(--text-primary, #f8fafc);
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  transition: background 0.3s ease;
 }
 
 .enrolled-courses-title {
-
-  font-size: 36px;
-  font-weight: 600;
-  color: #F1F2FF;
-  margin-bottom: 40px;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary, #f8fafc);
+  margin-bottom: 30px;
   letter-spacing: -0.02em;
 }
 
-
 .enrolled-courses-list {
-  border: 1px solid #2C333F;
-  border-radius: 12px;
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 20px;
   overflow: hidden;
-  background-color: #161D29;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background-color: var(--surface, #11131f);
+  box-shadow: var(--shadow-md, 0 12px 32px rgba(0, 0, 0, 0.25));
 }
 
 .list-header {
   display: flex;
-  background-color: #2C333F;
-  padding: 1.25rem 2rem;
-  color: #AFB2BF;
-  font-weight: 600;
-  font-size: 0.9rem;
+  background-color: var(--surface-elevated, #181b2c);
+  padding: 1.1rem 1.75rem;
+  color: var(--text-muted, #64748b);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-weight: 700;
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
-.header-col-name {
-  width: 45%;
-}
-
-.header-col-duration {
-  width: 25%;
-}
-
-.header-col-progress {
-  width: 30%;
-}
+.header-col-name { width: 45%; }
+.header-col-duration { width: 25%; }
+.header-col-progress { width: 30%; }
 
 .course-row {
   display: flex;
-  padding: 1.75rem 2rem;
+  padding: 1.5rem 1.75rem;
   align-items: center;
-  border-bottom: 1px solid #2C333F;
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.06));
   cursor: pointer;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.2s ease;
 }
 
 .course-row:hover {
-  background-color: #1e2531;
+  background-color: rgba(99, 102, 241, 0.04);
 }
 
-
-.course-row.last-row {
-  border-bottom: none;
-}
+.course-row.last-row { border-bottom: none; }
 
 .course-name-section {
   width: 45%;
   display: flex;
-  gap: 1.75rem;
+  gap: 1.25rem;
   align-items: center;
 }
 
 .course-thumbnail-small {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
   object-fit: cover;
-  border: 1px solid #424854;
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
 }
-
 
 .course-text {
   display: flex;
@@ -2158,51 +2231,52 @@ signup-form {
 }
 
 .course-name-text {
-  color: #F1F2FF;
-  font-weight: 500;
-  font-size: 1.1rem;
+  color: var(--text-primary, #f8fafc);
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-weight: 700;
+  font-size: 1.05rem;
   margin: 0;
 }
 
 .course-desc-text {
-  color: #838894;
-  font-size: 0.88rem;
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.85rem;
   margin: 0;
 }
 
 .course-duration-section {
   width: 25%;
-  color: #cbd5e1;
-  font-weight: 400;
+  color: var(--text-secondary, #94a3b8);
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
 .course-progress-section {
   width: 30%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
-
 .progress-status-text {
-  color: #AFB2BF;
-  font-size: 0.85rem;
+  color: var(--text-muted, #64748b);
+  font-size: 0.82rem;
   margin: 0;
 }
 
 .progress-track {
   width: 100%;
-  height: 10px;
-  background-color: #2C333F;
+  height: 8px;
+  background-color: var(--surface-elevated, #181b2c);
   border-radius: 9999px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ffd60a, #ffca2d);
+  background: var(--gradient-primary, linear-gradient(90deg, #6366f1, #38bdf8));
   border-radius: 9999px;
-  box-shadow: 0 0 10px rgba(255, 214, 10, 0.3);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
 }
 
 .enrolled-courses-empty {
@@ -2210,14 +2284,46 @@ signup-form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 50vh;
+  min-height: 45vh;
   gap: 1.5rem;
+  background: var(--surface, #11131f);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: 24px;
+  padding: 40px;
 }
 
 .enrolled-courses-empty p {
-  font-size: 1.25rem;
-  color: #838894;
+  font-size: 1.15rem;
+  color: var(--text-secondary, #94a3b8);
   font-weight: 500;
+}
+
+/* Light Theme Overrides */
+html.light .enrolled-courses-container,
+.light .enrolled-courses-container {
+  background-color: var(--background, #f8fafc);
+  color: var(--text-primary, #0f172a);
+}
+
+html.light .enrolled-courses-title,
+.light .enrolled-courses-title,
+html.light .course-name-text,
+.light .course-name-text {
+  color: var(--text-primary, #0f172a);
+}
+
+html.light .enrolled-courses-list,
+.light .enrolled-courses-list,
+html.light .enrolled-courses-empty,
+.light .enrolled-courses-empty {
+  background-color: var(--surface, #ffffff);
+  border-color: var(--border, rgba(15, 23, 42, 0.08));
+  box-shadow: var(--shadow-sm);
+}
+
+html.light .list-header,
+.light .list-header {
+  background-color: var(--surface-elevated, #f1f5f9);
 }
 
 /* Spinner styles (if not already defined) */

@@ -50,6 +50,7 @@ const PlatformCapabilities = () => {
           <motion.div
             key={idx}
             className="capability-stack-card capability-depth-card"
+            style={{ top: `${130 + idx * 16}px` }}
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}

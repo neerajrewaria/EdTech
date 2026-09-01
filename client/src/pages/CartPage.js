@@ -5,6 +5,7 @@ import { removeFromCart } from '../slices/cartSlice';
 import { FaTrash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { buyCourse } from '../services/operations/studentFeaturesAPI';
+import HighlightText from '../Components/core/HomePage/HighlightText';
 import './CartPage.css'; // Importing your newly curated design sheet
 
 const CartPage = () => {
@@ -41,7 +42,9 @@ const CartPage = () => {
                 {/* Clean Top Context Title Banner */}
                 <header className="saas-checkout-header">
                     <div className="saas-checkout-header-inner">
-                        <h1 className="saas-checkout-main-title">Shopping Cart</h1>
+                        <h1 className="saas-checkout-main-title">
+                            Shopping <HighlightText text="Cart" />
+                        </h1>
                         <p className="saas-checkout-counter-text">
                             You have <span className="highlight-pill">{totalItems}</span> {totalItems === 1 ? 'item' : 'items'} queued for review
                         </p>
@@ -64,33 +67,30 @@ const CartPage = () => {
                             {/* LEFT AXIS: Curated List Rows */}
                             <section className="saas-checkout-items-stack">
                                 {cart.map((course) => (
-                                    <div key={course._id} className="saas-item-row-strip">
+                                    <div key={course._id} className="saas-item-card">
                                         
                                         {/* Aspect locked image box */}
-                                        <div className="saas-item-media-box">
-                                            <img src={course?.thumbnail} alt={course?.courseName} className="saas-item-img" />
-                                        </div>
+                                        <img src={course?.thumbnail} alt={course?.courseName} className="saas-item-thumb" />
 
                                         {/* Center text breakdown block */}
-                                        <div className="saas-item-description-block">
+                                        <div className="saas-item-info">
                                             <div className="saas-item-meta-top">
-                                                <span className="saas-item-category-tag">{course?.category?.name || "Professional Track"}</span>
+                                                <span className="saas-item-category">{course?.category?.name || "Professional Track"}</span>
                                             </div>
                                             <h3 className="saas-item-title">{course?.courseName}</h3>
-                                            <p className="saas-item-author">
+                                            <p className="saas-item-author" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                                                 By <span className="author-highlight">{course?.instructor?.firstname} {course?.instructor?.lastname}</span>
                                             </p>
                                         </div>
 
                                         {/* Right actions and calculation metrics panels */}
-                                        <div className="saas-item-pricing-actions-block">
-                                            <div className="saas-item-price-label">
-                                                <span className="currency">Rs.</span>
-                                                <span className="amount">{course?.price}</span>
+                                        <div className="saas-item-actions">
+                                            <div className="saas-item-price">
+                                                Rs. {course?.price}
                                             </div>
                                             <button
                                                 onClick={() => handleRemoveFromCart(course?._id)}
-                                                className="saas-item-delete-action"
+                                                className="saas-remove-button"
                                                 type="button"
                                                 title="Remove item from order"
                                             >
@@ -105,26 +105,27 @@ const CartPage = () => {
 
                             {/* RIGHT AXIS: Order Summary Billing Dashboard Panel */}
                             <aside className="saas-checkout-summary-pane">
-                                <div className="saas-summary-sticky-card">
-                                    <h2 className="saas-summary-card-heading">Order Summary</h2>
+                                <div className="saas-summary-box">
+                                    <h2 className="saas-summary-title">
+                                        Order <HighlightText text="Summary" />
+                                    </h2>
                                     
                                     <div className="saas-summary-billing-ledger">
-                                        <div className="ledger-row">
+                                        <div className="saas-summary-row">
                                             <span className="ledger-label">Subtotal ({totalItems} {totalItems === 1 ? 'Course' : 'Courses'})</span>
                                             <span className="ledger-value">Rs. {total}</span>
                                         </div>
-                                        <div className="ledger-row">
+                                        <div className="saas-summary-row">
                                             <span className="ledger-label">Platform Fee</span>
                                             <span className="ledger-value value-free">FREE</span>
                                         </div>
                                         
-                                        <hr className="ledger-divider" />
+                                        <hr style={{ border: 'none', borderTop: '1px solid var(--border-line)', margin: '16px 0' }} />
                                         
-                                        <div className="ledger-row total-row">
-                                            <span className="ledger-label-total">Total Investment</span>
-                                            <div className="ledger-total-price-box">
-                                                <span className="total-currency">Rs.</span>
-                                                <span className="total-amount">{total}</span>
+                                        <div className="saas-summary-total-row">
+                                            <span className="saas-summary-total-label">Total Investment</span>
+                                            <div className="saas-summary-total-price">
+                                                Rs. {total}
                                             </div>
                                         </div>
                                     </div>
@@ -132,13 +133,13 @@ const CartPage = () => {
                                     {/* Action execution call */}
                                     <button 
                                         onClick={handleBuyNow} 
-                                        className="saas-summary-checkout-cta-btn"
+                                        className="saas-checkout-submit-btn glow-effect"
                                         type="button"
                                     >
                                         Proceed to Checkout
                                     </button>
 
-                                    <div className="saas-summary-trust-footer">
+                                    <div className="saas-summary-trust-footer" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'var(--text-muted)', justifyContent: 'center' }}>
                                         <span className="lock-icon">🔒</span>
                                         <span>Encrypted 256-bit Secure Gateway Connection</span>
                                     </div>

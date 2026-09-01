@@ -1,134 +1,212 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from "../../../services/operations/authAPI";
-import { TbLogout } from "react-icons/tb";
-import { VscAccount, VscMortarBoard, VscArchive, VscHistory, VscVm, VscSettingsGear } from "react-icons/vsc";
-import './Sidebar.css'; // Importing your premium workspace design sheet
+import {
+  HiOutlineUser,
+  HiOutlineAcademicCap,
+  HiOutlineHeart,
+  HiOutlineClock,
+  HiOutlineViewGrid,
+  HiOutlineCog,
+  HiOutlineQuestionMarkCircle,
+  HiOutlineLogout,
+  HiOutlineSun,
+  HiOutlineMoon,
+  HiOutlineBookOpen,
+  HiOutlinePlusCircle,
+} from "react-icons/hi";
+import { FiCode } from "react-icons/fi";
+import './Sidebar.css';
 
 function Sidebar({ activePage, setActivePage }) {
-  const { user } = useSelector((state) => state.profile);
-  const accountType = user?.accountType;
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch  = useDispatch();
+  const navigate  = useNavigate();
+  const { user }  = useSelector((state) => state.profile);
+  const [isLight, setIsLight] = useState(false);
 
-  const handleClick = (page) => {
+  const isInstructor = user?.accountType === "Instructor";
+
+  // Synchronize theme with DOM & Navbar
+  useEffect(() => {
+    const syncTheme = () => {
+      try {
+        const saved = localStorage.getItem('theme_home');
+        const isLightActive = saved === 'light' || document.documentElement.classList.contains('light');
+        setIsLight(isLightActive);
+      } catch (e) {}
+    };
+
+    syncTheme();
+
+    const handleCustomEvent = (e) => {
+      if (e?.detail !== undefined) {
+        setIsLight(Boolean(e.detail));
+      } else {
+        syncTheme();
+      }
+    };
+
+    window.addEventListener('ncodex_theme_change', handleCustomEvent);
+    window.addEventListener('storage', syncTheme);
+    return () => {
+      window.removeEventListener('ncodex_theme_change', handleCustomEvent);
+      window.removeEventListener('storage', syncTheme);
+    };
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !isLight;
+    setIsLight(next);
+    try {
+      if (next) {
+        document.documentElement.classList.add('light');
+        document.body.classList.add('light');
+        localStorage.setItem('theme_home', 'light');
+      } else {
+        document.documentElement.classList.remove('light');
+        document.body.classList.remove('light');
+        localStorage.setItem('theme_home', 'dark');
+      }
+      window.dispatchEvent(new CustomEvent('ncodex_theme_change', { detail: next }));
+    } catch (e) {}
+  };
+
+  const handleNav = (page) => {
     if (page === "logout") {
       dispatch(logout());
       navigate("/login");
       return;
     }
+    if (page === "courses") {
+      navigate("/");
+      return;
+    }
     setActivePage(page);
   };
 
-  // Extract initialization initials safely for the mini-profile circle avatar
-  const userInitials = user?.firstname && user?.lastname 
-    ? `${user.firstname[0]}${user.lastname[0]}`.toUpperCase()
-    : user?.firstname 
-      ? user.firstname[0].toUpperCase() 
-      : "NR";
+  const studentNav = [
+    { id: "enrolledCourses", icon: HiOutlineAcademicCap, label: "Enrolled Courses" },
+    { id: "wishlist",        icon: HiOutlineHeart,       label: "Wishlist"         },
+    { id: "purchaseHistory", icon: HiOutlineClock,       label: "Purchase History" },
+    { id: "courses",         icon: HiOutlineViewGrid,    label: "Explore Modules"  },
+  ];
+
+  const instructorNav = [
+    { id: "myCourses", icon: HiOutlineBookOpen,   label: "My Courses" },
+    { id: "addCourse", icon: HiOutlinePlusCircle, label: "Add Course" },
+  ];
+
+  const currentNav = isInstructor ? instructorNav : studentNav;
 
   return (
-    <aside className="saas-sidebar-container">
-      {/* Dynamic Embedded Workspace Identity Module */}
-      <div className="saas-sidebar-profile-header">
-        <div className="saas-avatar-circle">
-          <span>{userInitials}</span>
-          <div className="saas-active-pulse"></div>
+    <aside className="nx-sidebar">
+      {/* ── Brand Logo Header Capsule ── */}
+      <div className="nx-sidebar-brand">
+        <div className="nx-brand-gem">
+          <FiCode />
         </div>
-        <div className="saas-profile-details">
-          <h4 className="saas-profile-name">{user?.firstname ? `${user.firstname} ${user.lastname || ''}` : "Neeraj Rewaria"}</h4>
-          <span className="saas-profile-role-tag">{accountType || "Student Portal"}</span>
+        <div className="nx-brand-text">
+          <span className="nx-brand-title">NCodeX</span>
+          <span className="nx-brand-sub">{isInstructor ? "INSTRUCTOR STUDIO" : "STUDENT WORKSPACE"}</span>
         </div>
       </div>
 
-      {/* Main Context List Scroller */}
-      <div className="saas-sidebar-scroll-wrapper">
-        <div className="saas-menu-section">
-          <span className="saas-section-caption">Core Workspace</span>
-          <ul className="saas-menu-group">
-            <li 
-              className={`saas-menu-item ${activePage === "profile" ? "item-active" : ""}`}
-              onClick={() => handleClick("profile")}
-            >
-              <VscAccount className="saas-menu-icon" />
-              <span className="saas-menu-text">My Profile</span>
-            </li>
-          </ul>
-        </div>
+      {/* ── Nav Links Core ── */}
+      <nav className="nx-nav-core">
+        {/* Overview / Profile */}
+        <button
+          type="button"
+          className={`nx-nav-item ${activePage === "profile" ? "nx-active" : ""}`}
+          onClick={() => handleNav("profile")}
+        >
+          <HiOutlineUser className="nx-nav-icon" />
+          <span className="nx-nav-label">Overview</span>
+        </button>
 
-        {accountType === "Student" ? (
-          <div className="saas-menu-section">
-            <span className="saas-section-caption">Academic Tracks</span>
-            <ul className="saas-menu-group">
-              <li 
-                className={`saas-menu-item ${activePage === "enrolledCourses" ? "item-active" : ""}`}
-                onClick={() => handleClick("enrolledCourses")}
-              >
-                <VscMortarBoard className="saas-menu-icon" />
-                <span className="saas-menu-text">Enrolled Courses</span>
-              </li>
+        {/* Section: Dynamic by Role */}
+        <span className="nx-nav-section-label">{isInstructor ? "STUDIO" : "LEARN"}</span>
+        {currentNav.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            className={`nx-nav-item ${activePage === item.id ? "nx-active" : ""}`}
+            onClick={() => handleNav(item.id)}
+          >
+            <item.icon className="nx-nav-icon" />
+            <span className="nx-nav-label">{item.label}</span>
+          </button>
+        ))}
 
-              <li 
-                className={`saas-menu-item ${activePage === "wishlist" ? "item-active" : ""}`}
-                onClick={() => handleClick("wishlist")}
-              >
-                <VscArchive className="saas-menu-icon" />
-                <span className="saas-menu-text">Wishlist</span>
-              </li>
+        {/* Section: PREFERENCES */}
+        <span className="nx-nav-section-label">PREFERENCES</span>
 
-              <li 
-                className={`saas-menu-item ${activePage === "purchaseHistory" ? "item-active" : ""}`}
-                onClick={() => handleClick("purchaseHistory")}
-              >
-                <VscHistory className="saas-menu-icon" />
-                <span className="saas-menu-text">Purchase History</span>
-              </li>
+        <button
+          type="button"
+          className={`nx-nav-item ${activePage === "settings" ? "nx-active" : ""}`}
+          onClick={() => handleNav("settings")}
+        >
+          <HiOutlineCog className="nx-nav-icon" />
+          <span className="nx-nav-label">Settings</span>
+        </button>
 
-              <li 
-                className={`saas-menu-item ${activePage === "courses" ? "item-active" : ""}`}
-                onClick={() => handleClick("courses")}
-              >
-                <VscVm className="saas-menu-icon" />
-                <span className="saas-menu-text">Explore Modules</span>
-              </li>
-            </ul>
+        <button
+          type="button"
+          className="nx-nav-item"
+          onClick={() => navigate("/contact")}
+        >
+          <HiOutlineQuestionMarkCircle className="nx-nav-icon" />
+          <span className="nx-nav-label">Help & Support</span>
+        </button>
+
+        <button
+          type="button"
+          className="nx-nav-item nx-logout"
+          onClick={() => handleNav("logout")}
+        >
+          <HiOutlineLogout className="nx-nav-icon" />
+          <span className="nx-nav-label">Sign Out</span>
+        </button>
+      </nav>
+
+      {/* ── Ambient Graphic SVG ── */}
+      <svg className="nx-sidebar-bg-vector" viewBox="0 0 200 200" fill="none">
+        <path
+          d="M-20 180 C40 120, 80 190, 160 110 C200 70, 180 20, 220 0"
+          stroke="url(#sidebarGrad)"
+          strokeWidth="2.5"
+        />
+        <defs>
+          <linearGradient id="sidebarGrad" x1="0" y1="0" x2="200" y2="200">
+            <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.2" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      {/* ── Theme Switcher Card ── */}
+      <div className="nx-sidebar-dock">
+        <div className="nx-theme-card">
+          <div className="nx-theme-info">
+            {isLight ? (
+              <HiOutlineSun className="nx-theme-icon" style={{ color: '#f59e0b' }} />
+            ) : (
+              <HiOutlineMoon className="nx-theme-icon" style={{ color: '#818cf8' }} />
+            )}
+            <div className="nx-theme-text-group">
+              <span className="nx-theme-label">Theme</span>
+              <span className="nx-theme-val">{isLight ? "Light Mode" : "Dark Mode"}</span>
+            </div>
           </div>
-        ) : (
-          <div className="saas-menu-section">
-            <span className="saas-section-caption instructor-caption">Management Dashboard</span>
-            <ul className="saas-menu-group">
-              <li 
-                className={`saas-menu-item ${activePage === "myCourses" ? "item-active" : ""}`}
-                onClick={() => handleClick("myCourses")}
-              >
-                <VscVm className="saas-menu-icon instructor-icon" />
-                <span className="saas-menu-text">My Courses</span>
-              </li>
-            </ul>
-          </div>
-        )}
 
-        {/* Global Configuration Sections */}
-        <div className="saas-menu-section system-footer-section">
-          <span className="saas-section-caption">Preferences</span>
-          <ul className="saas-menu-group">
-            <li 
-              className={`saas-menu-item ${activePage === "settings" ? "item-active" : ""}`}
-              onClick={() => handleClick("settings")}
-            >
-              <VscSettingsGear className="saas-menu-icon" />
-              <span className="saas-menu-text">Settings</span>
-            </li>
-
-            <li 
-              className="saas-menu-item saas-logout-trigger"
-              onClick={() => handleClick("logout")}
-            >
-              <TbLogout className="saas-menu-icon" />
-              <span className="saas-menu-text">Sign Out</span>
-            </li>
-          </ul>
+          <button
+            type="button"
+            className={`nx-toggle-switch ${isLight ? "" : "is-active"}`}
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            <span className="nx-toggle-knob" />
+          </button>
         </div>
       </div>
     </aside>

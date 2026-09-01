@@ -6,7 +6,10 @@ import toast from 'react-hot-toast';
 import CourseCard from './CourseCard';
 import Footer from '../../Common/Footer';
 import { categories } from '../../../services/apis';
-import './CategoryPage.css'; // Make sure to import the CSS file below
+import { motion } from 'framer-motion';
+import { FiGrid, FiStar, FiClock, FiChevronRight, FiFilter } from 'react-icons/fi';
+import HighlightText from '../HomePage/HighlightText';
+import './CategoryPage.css';
 
 const CategoryPage = () => {
   const { categoryId } = useParams();
@@ -45,12 +48,23 @@ const CategoryPage = () => {
     return (
       <div className="modern-loading-screen">
         <div className="modern-spinner"></div>
-        <p>Curating the best paths in {categoryData?.name || "Data Science"}...</p>
+        <p>Curating the best paths in {categoryData?.name || "Tech"}...</p>
       </div>
     );
   }
 
   const courseCount = categoryData?.course?.length || 0;
+
+  // Stagger variants for the course grid
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
 
   return (
     <>
@@ -58,38 +72,51 @@ const CategoryPage = () => {
 
         {/* Modern SaaS / Coursera-inspired Hero Header */}
         <header className="modern-hero-header">
-          <div className="modern-hero-inner">
+          <motion.div 
+            className="modern-hero-inner"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
             <nav className="modern-breadcrumb">
-              Home <span className="separator">/</span> Catalog <span className="separator">/</span> <span className="current">{categoryData?.name}</span>
+              Home <FiChevronRight className="breadcrumb-separator" /> Catalog <FiChevronRight className="breadcrumb-separator" /> <span className="breadcrumb-current">{categoryData?.name}</span>
             </nav>
 
-            <h1 className="modern-main-title">{categoryData?.name}</h1>
-            <p className="modern-subtitle">{categoryData?.description || "Master highly-sought-after practical methodologies, learn with industry experts, and advance your technical career path step-by-step."}</p>
+            <h1 className="modern-category-heading">
+              {categoryData?.name?.split(" ").length > 1 
+                ? <>
+                    {categoryData?.name?.split(" ").slice(0, -1).join(" ")}
+                    <HighlightText text={categoryData?.name?.split(" ").slice(-1)[0]} />
+                  </>
+                : categoryData?.name
+              }
+            </h1>
+            <p className="modern-category-description">{categoryData?.description || "Master highly-sought-after practical methodologies, learn with industry experts, and advance your technical career path step-by-step."}</p>
 
             {/* Contextual Platform Badges & Metrics */}
             <div className="modern-hero-stats">
               <div className="stat-pill">
-                <span className="stat-dot"></span>
+                <FiGrid className="stat-icon" />
                 <strong>{courseCount}</strong> Programs Available
               </div>
               <div className="stat-pill">
-                <span className="stat-icon">★</span> Top Rated Tracks
+                <FiStar className="stat-icon highlight" /> Top Rated Tracks
               </div>
               <div className="stat-pill">
-                Self-Paced Learning
+                <FiClock className="stat-icon" /> Self-Paced Learning
               </div>
             </div>
-          </div>
+          </motion.div>
         </header>
 
         {/* Content Section utilizing a dual-column layout */}
-        <main className="modern-catalog-body">
-          <div className="modern-catalog-container">
+        <main className="modern-category-container">
+          <div className="category-layout-grid">
 
             {/* Functional Left Sidebar Panel */}
             <aside className="modern-filter-sidebar">
               <div className="sidebar-widget">
-                <h3 className="widget-title">Explore Catalog</h3>
+                <h3 className="widget-title"><FiFilter /> Explore Catalog</h3>
                 <ul className="sidebar-links">
                   <li className="active-link">All {categoryData?.name} Courses</li>
                   <li>New Releases</li>
@@ -111,27 +138,29 @@ const CategoryPage = () => {
                 <div className="results-counter">
                   Showing <span>{courseCount}</span> comprehensive modules
                 </div>
-                <div className="dummy-sort-dropdown">
-                  <label>Sort By:</label>
-                  <select disabled style={{ cursor: 'not-allowed' }}>
-                    <option>Most Popular</option>
-                  </select>
+                <div className="modern-pills-row">
+                    <button className="modern-pill-btn active">Most Popular</button>
+                    <button className="modern-pill-btn">Newest</button>
+                    <button className="modern-pill-btn">Beginner</button>
                 </div>
               </div>
 
               {courseCount > 0 ? (
-                <div className="modern-course-grid">
-                  {categoryData.course.map((course) => (
-                    <div className="modern-grid-card-wrapper" key={course._id}>
-                      <CourseCard course={course} />
-                    </div>
+                <motion.div 
+                  className="modern-course-grid"
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="show"
+                >
+                  {categoryData.course.map((course, index) => (
+                    <CourseCard key={course._id} course={course} index={index} />
                   ))}
-                </div>
+                </motion.div>
               ) : (
-                <div className="modern-empty-state">
+                <div className="modern-empty-box">
                   <div className="empty-state-graphic">📂</div>
-                  <h3>No programs active right now</h3>
-                  <p>We are currently updating our syllabus for {categoryData?.name}. Check back shortly for brand new, industry-aligned releases.</p>
+                  <h3 className="modern-section-title">No programs active right now</h3>
+                  <p className="modern-section-subtitle">We are currently updating our syllabus for {categoryData?.name}. Check back shortly for brand new, industry-aligned releases.</p>
                 </div>
               )}
             </section>

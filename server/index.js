@@ -24,10 +24,32 @@ app.use(fileUpload({
   tempFileDir: '/tmp/'
 }));
 
-// Enable CORS for all origins (development only)
+// Configure CORS to support both Local Development (localhost:3000) and Production (FRONTEND_URL)
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "http://127.0.0.1:3000",
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. mobile apps, curl, Postman)
+      if (!origin) return callback(null, true);
+
+      const normalizedOrigin = origin.replace(/\/$/, "");
+      const isAllowed = allowedOrigins.some((allowed) => {
+        if (!allowed) return false;
+        return allowed.replace(/\/$/, "") === normalizedOrigin;
+      });
+
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS policy violation: Origin not allowed"));
+      }
+    },
     credentials: true,
   })
 );

@@ -1,15 +1,21 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import './CourseCard.css'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { FiArrowUpRight, FiStar, FiUser } from 'react-icons/fi';
+import './CourseCard.css';
 
-const CourseCard = ({ course }) => { 
-    const navigate = useNavigate()
+const CourseCard = ({ course, index = 0 }) => { 
+    const navigate = useNavigate();
 
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="saas-grid-card"
             onClick={() => {
-                if (course?._id) navigate(`/courses/${course._id}`)
+                if (course?._id) navigate(`/courses/${course._id}`);
             }}
         >
             {/* Visual Top Panel */}
@@ -18,54 +24,52 @@ const CourseCard = ({ course }) => {
                     src={course?.thumbnail}
                     alt={course?.courseName}
                     className="saas-card-img"
+                    loading="lazy"
                 />
+                <div className="saas-card-overlay"></div>
                 <div className="saas-card-badge-floating">Bestseller</div>
             </div>
 
             {/* Structured Details Body */}
-            <div className="saas-card-details-pane">
-                <div className="saas-card-meta-top">
-                    <span className="saas-badge-tag">Professional Track</span>
-                    <p className="saas-card-author">
-                        {course?.instructor?.firstname} {course?.instructor?.lastname}
-                    </p>
+            <div className="saas-card-body">
+                <div className="saas-card-header">
+                    <span className="saas-card-tag">Professional Track</span>
                 </div>
 
-                <h3 className="saas-card-main-title">
+                <h3 className="saas-card-title">
                     {course?.courseName}
                 </h3>
 
+                <p className="saas-card-instructor">
+                    <FiUser style={{ marginRight: '6px', opacity: 0.7 }} />
+                    {course?.instructor?.firstname} {course?.instructor?.lastname}
+                </p>
+
                 {/* Social Proof Star Grid Section */}
-                <div className="saas-card-rating-group">
-                    <div className="saas-rating-box-pill">
-                        <span>4.5</span>
-                        <span className="saas-star-mini">★</span>
+                <div className="saas-card-meta-row">
+                    <span className="rating-score">4.5</span>
+                    <div className="rating-stars">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                            <FiStar key={star} fill="currentColor" size={14} />
+                        ))}
                     </div>
-                    <span className="saas-stars-literal" aria-hidden="true">★★★★★</span>
-                    <span className="saas-rating-accumulator">
-                        ({course?.ratingAndReviews?.length || 0})
-                    </span>
+                    <span>({course?.ratingAndReviews?.length || 0} reviews)</span>
                 </div>
 
                 {/* Bottom Action Footer Panel */}
-                <div className="saas-card-pricing-footer">
-                    <div className="saas-card-price-block">
-                        <span className="saas-price-caption">Total Investment</span>
-                        <div className="saas-price-value-row">
-                            <span className="saas-currency">Rs.</span>
-                            <span className="saas-amount">{course?.price}</span>
-                        </div>
+                <div className="saas-card-footer">
+                    <div className="saas-price-value-row">
+                        <span className="saas-price-currency">Rs.</span>
+                        <span className="saas-card-price">{course?.price}</span>
                     </div>
                     
                     <div className="saas-card-cta-circle" aria-label="View course details">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
+                        <FiArrowUpRight size={18} />
                     </div>
                 </div>
             </div>
-        </div>
-    )
-}
+        </motion.div>
+    );
+};
 
 export default CourseCard;

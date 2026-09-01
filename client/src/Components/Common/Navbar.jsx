@@ -19,27 +19,72 @@ const Navbar = () => {
   const [isCourseListOpen, setIsCourseListOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
   // Purely cosmetic — does not touch app theme/state, matches the
   // sun/moon icon toggle shown in the reference design.
   const [isLightIcon, setIsLightIcon] = useState(false);
 
-  // initialize theme from localStorage (or default to dark)
+  // Initialize and synchronize global theme
   useEffect(() => {
+    const syncTheme = () => {
+      try {
+        const saved = localStorage.getItem('theme_home');
+        const isLight = saved === 'light' || document.documentElement.classList.contains('light');
+        const homeRoot = document.querySelector('.home-page');
+        if (homeRoot) {
+          if (isLight) homeRoot.classList.add('light');
+          else homeRoot.classList.remove('light');
+        }
+        if (isLight) {
+          document.documentElement.classList.add('light');
+          document.body.classList.add('light');
+        } else {
+          document.documentElement.classList.remove('light');
+          document.body.classList.remove('light');
+        }
+        setIsLightIcon(isLight);
+      } catch (e) {}
+    };
+
+    syncTheme();
+
+    const handleCustomEvent = (e) => {
+      if (e?.detail !== undefined) {
+        setIsLightIcon(Boolean(e.detail));
+      } else {
+        syncTheme();
+      }
+    };
+
+    window.addEventListener('ncodex_theme_change', handleCustomEvent);
+    window.addEventListener('storage', syncTheme);
+    return () => {
+      window.removeEventListener('ncodex_theme_change', handleCustomEvent);
+      window.removeEventListener('storage', syncTheme);
+    };
+  }, []);
+
+  const toggleGlobalTheme = () => {
+    const next = !isLightIcon;
+    setIsLightIcon(next);
     try {
-      const saved = localStorage.getItem('theme_home');
-      const isLight = saved === 'light';
       const homeRoot = document.querySelector('.home-page');
       if (homeRoot) {
-        if (isLight) homeRoot.classList.add('light');
+        if (next) homeRoot.classList.add('light');
         else homeRoot.classList.remove('light');
       }
-      if (isLight) document.documentElement.classList.add('light');
-      else document.documentElement.classList.remove('light');
-      setIsLightIcon(isLight);
-    } catch (e) {
-      // ignore
-    }
-  }, []);
+      if (next) {
+        document.documentElement.classList.add('light');
+        document.body.classList.add('light');
+        localStorage.setItem('theme_home', 'light');
+      } else {
+        document.documentElement.classList.remove('light');
+        document.body.classList.remove('light');
+        localStorage.setItem('theme_home', 'dark');
+      }
+      window.dispatchEvent(new CustomEvent('ncodex_theme_change', { detail: next }));
+    } catch (e) {}
+  };
 
   const fetchSubLinks = async () => {
     try {
@@ -79,6 +124,10 @@ const Navbar = () => {
       document.body.style.overflow = '';
     };
   }, [isMenuOpen]);
+
+  if (location.pathname.startsWith('/dashboard')) {
+    return null;
+  }
 
   return (
     <nav className={`navbar${isScrolled ? ' is-scrolled' : ''}`}>
@@ -158,27 +207,7 @@ const Navbar = () => {
           className="navbar-icon-btn"
           aria-label="Toggle theme"
           title="Toggle theme"
-          onClick={() => {
-            const next = !isLightIcon;
-            setIsLightIcon(next);
-            try {
-              const homeRoot = document.querySelector('.home-page');
-              if (homeRoot) {
-                if (next) {
-                  homeRoot.classList.add('light');
-                } else {
-                  homeRoot.classList.remove('light');
-                }
-              }
-              if (next) {
-                document.documentElement.classList.add('light');
-                localStorage.setItem('theme_home', 'light');
-              } else {
-                document.documentElement.classList.remove('light');
-                localStorage.setItem('theme_home', 'dark');
-              }
-            } catch (e) { }
-          }}
+          onClick={toggleGlobalTheme}
         >
           {isLightIcon ? <FiSun /> : <FiMoon />}
         </button>
@@ -249,27 +278,7 @@ const Navbar = () => {
             className="navbar-icon-btn"
             aria-label="Toggle theme"
             title="Toggle theme"
-            onClick={() => {
-              const next = !isLightIcon;
-              setIsLightIcon(next);
-              try {
-                const homeRoot = document.querySelector('.home-page');
-                if (homeRoot) {
-                  if (next) {
-                    homeRoot.classList.add('light');
-                  } else {
-                    homeRoot.classList.remove('light');
-                  }
-                }
-                if (next) {
-                  document.documentElement.classList.add('light');
-                  localStorage.setItem('theme_home', 'light');
-                } else {
-                  document.documentElement.classList.remove('light');
-                  localStorage.setItem('theme_home', 'dark');
-                }
-              } catch (e) { }
-            }}
+            onClick={toggleGlobalTheme}
           >
             {isLightIcon ? <FiSun /> : <FiMoon />}
           </button>

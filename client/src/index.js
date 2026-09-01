@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducers/reducer';
 import { Toaster } from 'react-hot-toast';
+import { ReactLenis } from 'lenis/react';
 
 
 const store = configureStore({
@@ -18,10 +19,10 @@ const store = configureStore({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
+      <ReactLenis root options={{ lerp: 0.05, duration: 1.5, smoothWheel: true }}>
+        <BrowserRouter>
+          <App />
         <Toaster
           toastOptions={{
             duration: 3000,
@@ -57,7 +58,8 @@ root.render(
             },
           }}
         />
-      </BrowserRouter>
+        </BrowserRouter>
+      </ReactLenis>
     </Provider>
   </React.StrictMode>
 );

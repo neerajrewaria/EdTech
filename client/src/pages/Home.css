@@ -42,7 +42,11 @@
   --mouse-y: 50%;
 }
 
-/* Light Theme Overrides */
+/* Light Theme Overrides (Applies Globally across all pages & dashboard) */
+html.light,
+:root.light,
+body.light,
+.light,
 .light .home-page,
 .home-page.light {
   --background: #f8fafc;
@@ -56,6 +60,8 @@
   --text-primary: #0f172a;
   --text-secondary: #334155;
   --text-muted: #64748b;
+
+  --gradient-text: linear-gradient(135deg, #0f172a 0%, #475569 100%);
 
   --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.08);
@@ -71,6 +77,19 @@
   position: relative;
   min-height: 100vh;
   line-height: 1.6;
+}
+
+/* Viewport Scroll Progress Bar */
+.home-scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-brand-text);
+  transform-origin: 0%;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
 }
 
 /* Ambient Radial Glow & Mouse Follower */
